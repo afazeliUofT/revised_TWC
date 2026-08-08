@@ -1,1 +1,1 @@
-Awaiting Gate-0 v2 Rorqual evidence.
+Compact BayesRoute-Rx Gate-0 evidence. Heavy checkpoints and study.db are excluded.
