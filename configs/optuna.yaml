@@ -1,3 +1,4 @@
+package_revision: gate0_v2_20260808
 seed: 2026
 device: auto
 system:
@@ -9,20 +10,28 @@ system:
   bits_per_symbol: 4
   snr_db_min: 4.0
   snr_db_max: 16.0
-  channel_true_rank: 18
+  channel_true_rank: 20
   channel_length_f: 6.0
   channel_length_t: 2.0
+  layer_power_spread_db: 0.0
+  channel_seed: 27001
 model:
   rank: 16
   detector_iterations: 3
   edge_mass: 0.92
   use_uncertainty: true
+  operator_seed: 28001
 training:
   batch_size: 48
   steps: 300
   lr: 0.002
   log_every: 25
-  save_every: 100
+  save_every: 40
+  validation_every: 40
+  validation_batches: 2
+  validation_batch_size: 48
+  validation_snr_db: 10.0
+  validation_seed: 702026
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
@@ -31,8 +40,9 @@ evaluation:
   batch_size: 96
   baselines: [ls, bayesroute_mean, bayesroute_uncertainty]
 optuna:
-  study_name: bayesroute_short_tuning
+  study_name: bayesroute_gate0_v2_short_tuning
   n_trials: 12
   timeout_minutes: 110
   train_steps_per_trial: 160
   eval_batches_per_snr: 3
+  validation_seed: 92026

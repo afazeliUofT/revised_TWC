@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bayesroute-rx-twc"
-version = "0.1.0"
-description = "BayesRoute-Rx research implementation for revised TWC receiver study"
+version = "0.2.0"
+description = "BayesRoute-Rx Gate-0 v2 principle-validation implementation"
 requires-python = ">=3.11"
 dependencies = [
   "numpy>=1.26",

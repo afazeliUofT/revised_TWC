@@ -1,3 +1,4 @@
+package_revision: gate0_v2_20260808
 seed: 1234
 device: auto
 system:
@@ -12,21 +13,29 @@ system:
   channel_true_rank: 10
   channel_length_f: 4.0
   channel_length_t: 1.8
+  layer_power_spread_db: 0.0
+  channel_seed: 7001
 model:
   rank: 8
   detector_iterations: 2
-  edge_mass: 0.90
+  edge_mass: 0.50
   use_uncertainty: true
+  operator_seed: 8001
 training:
   batch_size: 8
   steps: 4
   lr: 0.003
   log_every: 1
   save_every: 2
+  validation_every: 2
+  validation_batches: 2
+  validation_batch_size: 8
+  validation_snr_db: 10.0
+  validation_seed: 701234
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
   snr_grid_db: [6.0, 10.0]
   batches_per_snr: 2
   batch_size: 16
-  baselines: [ls, bayesroute_mean, bayesroute_uncertainty, oracle]
+  baselines: [ls, bayesroute_mean, bayesroute_graph_off, bayesroute_uncertainty, bayesroute_full_graph, oracle]

@@ -1,5 +1,7 @@
+package_revision: gate0_v2_20260808
 seed: 20260808
 device: auto
+optuna_best_path: outputs/optuna/best_params.json
 system:
   n_rx: 16
   n_layers: 8
@@ -12,21 +14,29 @@ system:
   channel_true_rank: 32
   channel_length_f: 8.0
   channel_length_t: 2.5
+  layer_power_spread_db: 3.0
+  channel_seed: 37001
 model:
   rank: 24
   detector_iterations: 4
   edge_mass: 0.95
   use_uncertainty: true
+  operator_seed: 38001
 training:
   batch_size: 96
   steps: 12000
   lr: 0.0015
   log_every: 50
   save_every: 250
+  validation_every: 250
+  validation_batches: 5
+  validation_batch_size: 192
+  validation_snr_db: 10.0
+  validation_seed: 20261508
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
   snr_grid_db: [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0]
   batches_per_snr: 120
   batch_size: 192
-  baselines: [ls, bayesroute_mean, bayesroute_uncertainty, oracle]
+  baselines: [ls, bayesroute_mean, bayesroute_graph_off, bayesroute_uncertainty, bayesroute_full_graph, oracle]

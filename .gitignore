@@ -8,20 +8,17 @@ __pycache__/
 .venv/
 venv/
 
-# Heavy runtime outputs
-outputs/checkpoints/
-outputs/raw/
-outputs/tmp/
-outputs/optuna/*.db
-outputs/optuna/*.db-*
+# Runtime outputs stay on Rorqual. Compact evidence is copied to results/.
+outputs/*
+!outputs/.keep
+
+# Model/checkpoint files
 *.pt
 *.pth
 *.ckpt
 
-# Keep compact output folders possible
-!outputs/.keep
-
 # Local transfer products
+_gate0_v2_stage/
 _package_stage/
 *.zip
 *.tar
