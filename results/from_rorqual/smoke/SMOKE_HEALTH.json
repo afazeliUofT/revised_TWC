@@ -1,0 +1,123 @@
+{
+  "checks": {
+    "coupling_finite": true,
+    "gradient_nonzero_finite": true,
+    "loss_finite": true,
+    "pilot_orthogonality": true,
+    "sionna_import_and_mapping_api": true,
+    "tensor_shapes_nonempty": true
+  },
+  "coupling": {
+    "finite": true,
+    "max": 2190.15625,
+    "mean": 342.472412109375,
+    "shape": [
+      8,
+      60,
+      3,
+      3
+    ]
+  },
+  "device": "cuda",
+  "gradient_flow": {
+    "all_finite": true,
+    "grad_norm": 0.054547235903444756,
+    "loss": 0.6550087928771973
+  },
+  "ls_metrics": {
+    "ber": 0.3786458373069763,
+    "bit_nll": 1.6424295902252197,
+    "brier": 0.3083762228488922,
+    "tblER_proxy": 1.0
+  },
+  "oracle_metrics": {
+    "ber": 0.12864583730697632,
+    "bit_nll": 0.3151834011077881,
+    "brier": 0.09578841924667358,
+    "tblER_proxy": 1.0
+  },
+  "overall_pass": true,
+  "pilot_orthogonality": {
+    "max_abs_gram_error": 2.452678700137767e-06,
+    "n_layers": 3,
+    "n_pilots": 24,
+    "passed": true,
+    "relative_frobenius_error": 2.2415336313012327e-07
+  },
+  "port_metadata": [
+    {
+      "cdm_group": 0,
+      "comment": "Abstract orthogonal DMRS port assignment used by this simulator.",
+      "dmrs_port": 0,
+      "layer_index": 0,
+      "occ_index": 0
+    },
+    {
+      "cdm_group": 0,
+      "comment": "Abstract orthogonal DMRS port assignment used by this simulator.",
+      "dmrs_port": 1,
+      "layer_index": 1,
+      "occ_index": 1
+    },
+    {
+      "cdm_group": 1,
+      "comment": "Abstract orthogonal DMRS port assignment used by this simulator.",
+      "dmrs_port": 2,
+      "layer_index": 2,
+      "occ_index": 0
+    }
+  ],
+  "post_step_channel_nmse": 0.7223415970802307,
+  "post_step_metrics": {
+    "ber": 0.34427085518836975,
+    "bit_nll": 0.618523359298706,
+    "brier": 0.2156633585691452,
+    "tblER_proxy": 1.0
+  },
+  "shapes": {
+    "data_bits": [
+      8,
+      3,
+      60,
+      4
+    ],
+    "data_idx": [
+      60
+    ],
+    "h": [
+      8,
+      3,
+      4,
+      84
+    ],
+    "phi": [
+      3,
+      24
+    ],
+    "pilot_idx": [
+      24
+    ],
+    "x": [
+      8,
+      3,
+      84
+    ],
+    "y": [
+      8,
+      4,
+      84
+    ]
+  },
+  "sionna": {
+    "Constellation_available": true,
+    "Demapper_available": true,
+    "Mapper_available": true,
+    "error": null,
+    "passed": true,
+    "phy_mapping_api": true,
+    "sionna_import": true,
+    "version": "2.0.1"
+  },
+  "time": "2026-08-08 17:08:27",
+  "trainable_params": 9
+}

@@ -1,0 +1,7 @@
+sionna_import_and_mapping_api: PASS
+pilot_orthogonality: PASS
+tensor_shapes_nonempty: PASS
+gradient_nonzero_finite: PASS
+loss_finite: PASS
+coupling_finite: PASS
+OVERALL: PASS
