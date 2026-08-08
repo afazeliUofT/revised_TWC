@@ -79,11 +79,26 @@ def restore_rng_state(state: dict[str, Any] | None) -> None:
         torch.cuda.set_rng_state_all(state["cuda"])
 
 
+def canonical_torch_device(device: torch.device | str) -> torch.device:
+    """Return an explicit device accepted by both PyTorch and Sionna.
+
+    Sionna 2.0 enumerates CUDA devices as ``cuda:0``, ``cuda:1``, and so on.
+    PyTorch also accepts the shorthand ``cuda``. We normalize the shorthand so
+    every component receives the same unambiguous device.
+    """
+    dev = torch.device(device)
+    if dev.type == "cuda" and dev.index is None:
+        if not torch.cuda.is_available():
+            raise RuntimeError("CUDA was requested, but torch.cuda.is_available() is false.")
+        dev = torch.device(f"cuda:{torch.cuda.current_device()}")
+    return dev
+
+
 def get_device(cfg: AttrDict | None = None) -> torch.device:
     requested = "auto" if cfg is None else str(cfg.get("device", "auto"))
     if requested == "auto":
-        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    return torch.device(requested)
+        requested = "cuda:0" if torch.cuda.is_available() else "cpu"
+    return canonical_torch_device(requested)
 
 
 def count_parameters(module: torch.nn.Module) -> int:

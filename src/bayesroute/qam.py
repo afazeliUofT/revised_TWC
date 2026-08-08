@@ -1,12 +1,13 @@
 from __future__ import annotations
 from functools import lru_cache
 import torch
+from .config import canonical_torch_device
 
 
 def _device_string(device: torch.device | str | None) -> str:
     if device is None:
-        return "cuda" if torch.cuda.is_available() else "cpu"
-    return str(torch.device(device))
+        device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    return str(canonical_torch_device(device))
 
 
 @lru_cache(maxsize=16)

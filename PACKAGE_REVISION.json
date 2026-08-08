@@ -1,6 +1,7 @@
 {
   "package": "BayesRoute-Rx Gate-0",
-  "revision": "gate0_v2_20260808",
+  "publication_nr_ready": false,
   "purpose": "principle validation before Optuna",
-  "publication_nr_ready": false
+  "repair": "Normalize unindexed CUDA device names to Sionna-compatible cuda:<index>.",
+  "revision": "gate0_v2_1_20260808"
 }

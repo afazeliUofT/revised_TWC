@@ -1,5 +1,6 @@
 # BayesRoute-Rx Gate-0 v2
 
+**Gate-0 v2.1:** CUDA devices are normalized to explicit Sionna device names such as `cuda:0`.
 This package tests one receiver principle:
 
 > Learn a positive-semidefinite channel prior from pilot observations, propagate posterior channel uncertainty into detection, and route explicit soft interference cancellation through a posterior coupling graph.
