@@ -1,0 +1,32 @@
+seed: 43999
+device: auto
+system:
+  n_rx: 8
+  n_layers: 6
+  n_subcarriers: 24
+  n_symbols: 10
+  dmrs_symbols: [2, 7]
+  bits_per_symbol: 4
+  snr_db_min: 4.0
+  snr_db_max: 16.0
+  channel_true_rank: 20
+  channel_length_f: 6.0
+  channel_length_t: 2.0
+model:
+  rank: 16
+  detector_iterations: 3
+  edge_mass: 0.92
+  use_uncertainty: true
+training:
+  batch_size: 64
+  steps: 1200
+  lr: 0.002
+  log_every: 25
+  save_every: 100
+  channel_loss_weight: 0.05
+  grad_clip: 1.0
+evaluation:
+  snr_grid_db: [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0]
+  batches_per_snr: 20
+  batch_size: 128
+  baselines: [ls, bayesroute_mean, bayesroute_uncertainty, oracle]

@@ -1,0 +1,10 @@
+# Installed only if missing. The setup script first tries system-site packages.
+# Rorqual compute nodes may not have internet; run setup on the login node.
+numpy>=1.26
+pandas>=2.1
+matplotlib>=3.8
+pyyaml>=6.0
+tqdm>=4.66
+optuna>=3.6
+scikit-learn>=1.4
+sionna-no-rt==2.0.1

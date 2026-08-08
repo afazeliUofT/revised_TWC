@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Environments
+.venv/
+venv/
+
+# Heavy runtime outputs
+outputs/checkpoints/
+outputs/raw/
+outputs/tmp/
+outputs/optuna/*.db
+outputs/optuna/*.db-*
+*.pt
+*.pth
+*.ckpt
+
+# Keep compact output folders possible
+!outputs/.keep
+
+# Local transfer products
+_package_stage/
+*.zip
+*.tar
+*.tar.gz
+
+# OS/editor
+.DS_Store
+.vscode/
