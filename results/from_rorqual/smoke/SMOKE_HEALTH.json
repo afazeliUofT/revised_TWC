@@ -1,0 +1,402 @@
+{
+  "ablation_activation": {
+    "edge_density_default": 0.5,
+    "edge_density_mass_0": 0.0,
+    "edge_density_mass_1": 1.0,
+    "passed": true,
+    "routing_logit_mean_abs_delta": 0.45920509099960327,
+    "uncertainty_logit_mean_abs_delta": 3.272587776184082
+  },
+  "baseline_sanity": {
+    "oracle_ber_not_worse_than_ls": true,
+    "passed": true
+  },
+  "checkpoint_roundtrip": {
+    "max_abs_logit_difference": 0.0,
+    "passed": true
+  },
+  "checks": {
+    "baseline_sanity": true,
+    "checkpoint_roundtrip": true,
+    "coupling_closed_form_monte_carlo": true,
+    "coupling_valid": true,
+    "cuda_compute_node": true,
+    "detector_moment_formula": true,
+    "deterministic_repeat": true,
+    "gradient_nonzero_finite": true,
+    "loss_finite": true,
+    "optimizer_updates_parameters": true,
+    "optuna_exact_design_resume_workflow": true,
+    "package_manifest_valid": true,
+    "package_revision_v2_4": true,
+    "pilot_data_partition": true,
+    "pilot_noiseless_separation": true,
+    "pilot_orthogonality": true,
+    "pilot_scope_explicit": true,
+    "port_metadata_consistent": true,
+    "posterior_matched_calibration": true,
+    "posterior_projection_u_C_uH": true,
+    "posterior_psd_and_finite": true,
+    "rff_rank_bank_nested": true,
+    "simulator_operator_seed_separation": true,
+    "sionna_mapper_demapper_executed": true,
+    "tensor_dtypes": true,
+    "tensor_shapes_exact": true,
+    "uncertainty_and_routing_paths_active": true
+  },
+  "coupling": {
+    "finite": true,
+    "max": 2517.863525390625,
+    "max_abs_diagonal": 0.0,
+    "max_asymmetry": 0.0,
+    "mean": 379.5927429199219,
+    "nonnegative": true,
+    "passed": true,
+    "shape": [
+      8,
+      60,
+      3,
+      3
+    ]
+  },
+  "coupling_monte_carlo": {
+    "closed_form": 2.6565308570861816,
+    "draws": 32768,
+    "monte_carlo": 2.6585307121276855,
+    "passed": true,
+    "relative_error": 0.000752807006238749
+  },
+  "detector_moment_formula": {
+    "candidate_variance_error": 0.0,
+    "empirical_candidate_second_moment": 0.958056628704071,
+    "interference_mean_error": 0.0,
+    "monte_carlo_draws": 32768,
+    "monte_carlo_relative_error": 0.0019468540995796672,
+    "passed": true,
+    "predicted_candidate_second_moment": 0.956195056438446,
+    "target_cross_covariance_error": 3.8399412538581146e-09,
+    "target_variance_error": 0.0,
+    "variance_without_target_error": 0.0
+  },
+  "deterministic_repeat": {
+    "bit_mismatch_count": 0,
+    "max_h_difference": 0.0,
+    "max_y_difference": 0.0,
+    "passed": true
+  },
+  "device": "cuda:0",
+  "dtypes": {
+    "bits_real": true,
+    "h_complex": true,
+    "passed": true,
+    "x_complex": true,
+    "y_complex": true
+  },
+  "gate": "GATE0_PRINCIPLE_IMPLEMENTATION",
+  "gradient_flow": {
+    "all_finite": true,
+    "any_nonzero": true,
+    "bce": 0.6772753596305847,
+    "channel_marginal_nll_loss": 1.1889764070510864,
+    "global_norm": 0.0637400443627918,
+    "loss": 0.7367241978645325,
+    "per_parameter": {
+      "posterior.log_noise_scale": {
+        "finite": true,
+        "norm": 0.05770491436123848,
+        "present": true
+      },
+      "posterior.raw_weights": {
+        "finite": true,
+        "norm": 0.027072792872786522,
+        "present": true
+      }
+    }
+  },
+  "ls_metrics": {
+    "ber": 0.39722222089767456,
+    "bit_nll": 1.9824883937835693,
+    "brier": 0.32917320728302,
+    "tblER_proxy": 1.0
+  },
+  "manifest": {
+    "checked_files": 50,
+    "failures": [],
+    "passed": true
+  },
+  "optimizer_step": {
+    "max_change": 0.0029999990947544575,
+    "max_change_by_parameter": {
+      "posterior.log_noise_scale": 0.0029999990947544575,
+      "posterior.raw_weights": 0.0029999976977705956
+    },
+    "passed": true
+  },
+  "optuna_ready": true,
+  "optuna_scope": "short_hyperparameter_search_for_gate0_only",
+  "optuna_workflow": {
+    "actual_optuna_queue_integration_passed": true,
+    "actual_optuna_recovered_design_indices": [
+      1,
+      2
+    ],
+    "design_name": "space_filling_12",
+    "design_report": {
+      "claim_scope": "deterministic space-filling screening design; not a full factorial or orthogonal array",
+      "full_factorial_size": 192,
+      "name": "space_filling_12",
+      "pairwise_distinct_level_pairs": {
+        "detector_iterations__channel_loss_weight": 12,
+        "detector_iterations__lr": 12,
+        "lr__channel_loss_weight": 12,
+        "rank__channel_loss_weight": 12,
+        "rank__detector_iterations": 12,
+        "rank__lr": 12
+      },
+      "passed": true,
+      "rows": 12,
+      "signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+      "unique_rows": 12
+    },
+    "design_signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+    "passed": true,
+    "retry_limit_blocks_repeated_failure": true,
+    "search_space_version": "gate0_v2_4_search_v1",
+    "single_failure_requeued": true,
+    "stale_running_requeued": true,
+    "waiting_not_duplicated": true
+  },
+  "oracle_metrics": {
+    "ber": 0.10781250149011612,
+    "bit_nll": 0.25385838747024536,
+    "brier": 0.07792934030294418,
+    "tblER_proxy": 1.0
+  },
+  "overall_pass": true,
+  "package_revision": "gate0_v2_4_20260809",
+  "pilot_model_scope": "gate0_abstract_orthogonal_codebook_not_3gpp_pusch",
+  "pilot_orthogonality": {
+    "max_abs_gram_error": 2.452678700137767e-06,
+    "n_layers": 3,
+    "n_pilots": 24,
+    "passed": true,
+    "relative_frobenius_error": 1.2941500983472543e-07
+  },
+  "pilot_separation": {
+    "max_abs_recovery_error": 1.884864389012364e-07,
+    "passed": true
+  },
+  "port_metadata": [
+    {
+      "cdm_group": 0,
+      "dmrs_port": 0,
+      "layer_index": 0,
+      "occ_index": 0,
+      "pilot_model_scope": "gate0_abstract_orthogonal_codebook_not_3gpp_pusch",
+      "user_index": 0,
+      "within_user_layer_index": 0
+    },
+    {
+      "cdm_group": 0,
+      "dmrs_port": 1,
+      "layer_index": 1,
+      "occ_index": 1,
+      "pilot_model_scope": "gate0_abstract_orthogonal_codebook_not_3gpp_pusch",
+      "user_index": 1,
+      "within_user_layer_index": 0
+    },
+    {
+      "cdm_group": 1,
+      "dmrs_port": 2,
+      "layer_index": 2,
+      "occ_index": 0,
+      "pilot_model_scope": "gate0_abstract_orthogonal_codebook_not_3gpp_pusch",
+      "user_index": 2,
+      "within_user_layer_index": 0
+    }
+  ],
+  "port_metadata_check": {
+    "n_entries": 3,
+    "passed": true,
+    "scope": [
+      "gate0_abstract_orthogonal_codebook_not_3gpp_pusch"
+    ],
+    "unique_ports": 3
+  },
+  "post_step_channel_coverage95_mismatched": 0.7654514312744141,
+  "post_step_channel_nmse": 0.9517177939414978,
+  "post_step_metrics": {
+    "ber": 0.3592014014720917,
+    "bit_nll": 0.6770514845848083,
+    "brier": 0.2304002195596695,
+    "tblER_proxy": 1.0
+  },
+  "posterior_matched_calibration": {
+    "coverage95": 0.945889949798584,
+    "cross_layer_covariance_relative_error": 0.06034504249691963,
+    "cross_layer_covariance_test_re": 42,
+    "independent_channel_draws": 512,
+    "normalized_squared_error_mean": 1.0202727317810059,
+    "passed": true,
+    "receive_antennas_per_draw": 2
+  },
+  "posterior_projection": {
+    "local_cov_shape": [
+      3,
+      3,
+      84
+    ],
+    "max_diagonal_consistency_error": 0.0,
+    "max_explicit_u_C_uH_error": 1.1920928955078125e-07,
+    "max_layer_hermitian_error": 0.0,
+    "minimum_variance": 0.1881028264760971,
+    "passed": true
+  },
+  "posterior_validity": {
+    "all_finite": true,
+    "max_latent_cov_hermitian_error": 0.0,
+    "min_latent_cov_eigenvalue": 0.004462017677724361,
+    "minimum_variance": 0.1881028264760971,
+    "passed": true
+  },
+  "provenance": {
+    "cuda_available": true,
+    "cuda_version": "13.2",
+    "git_commit": null,
+    "git_status_porcelain": null,
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "hostname": "rg31903",
+    "platform": "Linux-5.14.0-687.29.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
+    "slurm_job_id": "18692147",
+    "torch": "2.13.0"
+  },
+  "publication_nr_ready": false,
+  "rank_bank_nesting": {
+    "active_rank": 8,
+    "bank_rank": 24,
+    "max_abs_common_mode_difference": 2.1490760104825313e-07,
+    "passed": true,
+    "small_rank": 8
+  },
+  "resource_partition": {
+    "covered_count": 84,
+    "data_count": 60,
+    "n_re": 84,
+    "overlap_count": 0,
+    "passed": true,
+    "pilot_count": 24
+  },
+  "seed_separation": {
+    "channel_seed": 7001,
+    "operator_seed": 8001,
+    "passed": true
+  },
+  "shapes": {
+    "actual": {
+      "data_bits": [
+        8,
+        3,
+        60,
+        4
+      ],
+      "data_idx": [
+        60
+      ],
+      "h": [
+        8,
+        3,
+        4,
+        84
+      ],
+      "phi": [
+        3,
+        24
+      ],
+      "pilot_idx": [
+        24
+      ],
+      "x": [
+        8,
+        3,
+        84
+      ],
+      "y": [
+        8,
+        4,
+        84
+      ]
+    },
+    "expected": {
+      "data_bits": [
+        8,
+        3,
+        60,
+        4
+      ],
+      "data_idx": [
+        60
+      ],
+      "h": [
+        8,
+        3,
+        4,
+        84
+      ],
+      "phi": [
+        3,
+        24
+      ],
+      "pilot_idx": [
+        24
+      ],
+      "x": [
+        8,
+        3,
+        84
+      ],
+      "y": [
+        8,
+        4,
+        84
+      ]
+    },
+    "passed": true
+  },
+  "sionna": {
+    "available_devices": [
+      "cpu",
+      "cuda:0"
+    ],
+    "constellation_power": 0.9999998807907104,
+    "demapper_constructed": true,
+    "device_available": true,
+    "device_match": true,
+    "enumerated_constellation_points": 16,
+    "error": null,
+    "gradient_device": "cuda:0",
+    "gradient_finite_nonzero": true,
+    "gradient_norm": 2846.0498046875,
+    "internal_mapper_matches_sionna": true,
+    "internal_mapper_max_abs_error": 0.0,
+    "llr_device": "cuda:0",
+    "llr_shape": [
+      4,
+      64
+    ],
+    "mapped_shape": [
+      4,
+      16
+    ],
+    "mapper_constructed": true,
+    "normalized_device": "cuda:0",
+    "passed": true,
+    "requested_device": "cuda:0",
+    "roundtrip_bit_errors": 0,
+    "sionna_import": true,
+    "symbols_device": "cuda:0",
+    "version": "2.0.1"
+  },
+  "time": "2026-08-09 01:02:02 EDT",
+  "trainable_params": 9
+}
