@@ -35,7 +35,7 @@ from bayesroute.losses import (
 from bayesroute.models import BayesRouteReceiver
 from bayesroute.simulator import UplinkToySimulator
 
-TRAINING_CONTRACT_VERSION = "gate0_v2_3_train_v1"
+TRAINING_CONTRACT_VERSION = "gate0_v2_4_train_v1"
 OPTIMIZER_WEIGHT_DECAY = 1e-4
 
 
@@ -192,7 +192,7 @@ def main() -> None:
         saved_contract = state.get("training_contract")
         if not isinstance(saved_contract, dict):
             raise RuntimeError(
-                "Checkpoint has no v2.3 training contract. Use a new run name."
+                "Checkpoint has no v2.4 training contract. Use a new run name."
             )
         if saved_contract != contract:
             raise RuntimeError(

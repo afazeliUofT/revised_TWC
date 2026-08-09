@@ -68,7 +68,7 @@ def main() -> None:
     copy_tree_files(
         root / "outputs/optuna",
         dest / "optuna",
-        ["best_params.json", "OPTUNA_STATUS.json", "trials.csv"],
+        ["OPTUNA_PREFLIGHT.json", "best_params.json", "OPTUNA_STATUS.json", "trials.csv"],
     )
     copy_tree_files(root / "outputs/reports", dest / "reports", ["*.json", "*.csv"])
     copy_tree_files(root / "outputs/eval", dest / "eval", ["*.json", "*.csv"])

@@ -2,16 +2,18 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import copy
 import hashlib
 import json
+from types import SimpleNamespace
 import sys
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 import optuna
-from optuna.samplers import GridSampler
+from optuna.samplers import RandomSampler
 from optuna.trial import TrialState
 import torch
 
@@ -31,7 +33,8 @@ from bayesroute.losses import bit_bce_loss, bit_metrics, channel_marginal_nll
 from bayesroute.models import BayesRouteReceiver
 from bayesroute.simulator import UplinkToySimulator
 
-SEARCH_SPACE_VERSION = "gate0_v2_3_search_v2"
+SEARCH_SPACE_VERSION = "gate0_v2_4_search_v1"
+DESIGN_NAME = "space_filling_12"
 RANK_CANDIDATES = [8, 12, 16, 24]
 SEARCH_GRID = {
     "rank": RANK_CANDIDATES,
@@ -39,30 +42,56 @@ SEARCH_GRID = {
     "lr": [5e-4, 1e-3, 2e-3, 4e-3],
     "channel_loss_weight": [0.0, 0.05, 0.10, 0.15],
 }
+PARAMETER_NAMES = tuple(SEARCH_GRID)
 
-# Twelve configurations forming a pairwise-balanced discrete design. Every pair
-# of hyperparameter columns appears in twelve distinct level combinations.
-_BALANCED_INDEX_DESIGN = [
+# A deterministic 12-point space-filling screening design. Every pair of
+# hyperparameter columns has twelve distinct level pairs. This is not claimed
+# to be a full factorial design or a statistically orthogonal array.
+_SPACE_FILLING_INDEX_DESIGN = [
     (0, 0, 2, 0), (1, 0, 0, 1), (2, 0, 1, 3), (3, 0, 3, 2),
     (0, 1, 1, 2), (1, 1, 3, 3), (2, 1, 2, 1), (3, 1, 0, 0),
     (0, 2, 0, 3), (1, 2, 2, 2), (2, 2, 3, 0), (3, 2, 1, 1),
 ]
-BALANCED_TRIALS = [
+SPACE_FILLING_TRIALS = [
     {
         "rank": SEARCH_GRID["rank"][rank_i],
         "detector_iterations": SEARCH_GRID["detector_iterations"][iter_i],
         "lr": SEARCH_GRID["lr"][lr_i],
         "channel_loss_weight": SEARCH_GRID["channel_loss_weight"][loss_i],
     }
-    for rank_i, iter_i, lr_i, loss_i in _BALANCED_INDEX_DESIGN
+    for rank_i, iter_i, lr_i, loss_i in _SPACE_FILLING_INDEX_DESIGN
 ]
 OPTIMIZER_WEIGHT_DECAY = 1e-4
 
 
-def _balanced_design_report() -> dict[str, Any]:
-    """Validate the fixed twelve-run screening design before any GPU work."""
-    names = ["rank", "detector_iterations", "lr", "channel_loss_weight"]
-    rows = [tuple(row[name] for name in names) for row in BALANCED_TRIALS]
+def _canonical_json(value: Any) -> str:
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _parameter_key(params: dict[str, Any]) -> str | None:
+    if set(params) != set(PARAMETER_NAMES):
+        return None
+    normalized = {name: params[name] for name in PARAMETER_NAMES}
+    return _canonical_json(normalized)
+
+
+DESIGN_KEY_TO_INDEX = {
+    _parameter_key(params): index
+    for index, params in enumerate(SPACE_FILLING_TRIALS)
+}
+DESIGN_SIGNATURE = hashlib.sha256(
+    _canonical_json(SPACE_FILLING_TRIALS).encode("utf-8")
+).hexdigest()
+
+
+def _design_index(params: dict[str, Any]) -> int | None:
+    key = _parameter_key(params)
+    return None if key is None else DESIGN_KEY_TO_INDEX.get(key)
+
+
+def _design_report() -> dict[str, Any]:
+    names = list(PARAMETER_NAMES)
+    rows = [tuple(row[name] for name in names) for row in SPACE_FILLING_TRIALS]
     pair_counts: dict[str, int] = {}
     for left in range(len(names)):
         for right in range(left + 1, len(names)):
@@ -71,33 +100,29 @@ def _balanced_design_report() -> dict[str, Any]:
             )
     levels_valid = all(
         row[name] in SEARCH_GRID[name]
-        for row in BALANCED_TRIALS
+        for row in SPACE_FILLING_TRIALS
         for name in names
     )
     passed = bool(
-        len(BALANCED_TRIALS) == 12
+        len(SPACE_FILLING_TRIALS) == 12
         and len(set(rows)) == 12
         and levels_valid
         and all(count == 12 for count in pair_counts.values())
+        and len(DESIGN_KEY_TO_INDEX) == 12
     )
-    signature = hashlib.sha256(
-        json.dumps(BALANCED_TRIALS, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
     return {
+        "name": DESIGN_NAME,
         "passed": passed,
-        "rows": len(BALANCED_TRIALS),
+        "rows": len(SPACE_FILLING_TRIALS),
         "unique_rows": len(set(rows)),
-        "pairwise_unique_counts": pair_counts,
-        "signature": signature,
+        "pairwise_distinct_level_pairs": pair_counts,
+        "signature": DESIGN_SIGNATURE,
+        "full_factorial_size": 4 * 3 * 4 * 4,
+        "claim_scope": "deterministic space-filling screening design; not a full factorial or orthogonal array",
     }
 
 
-def _canonical_json(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), default=str)
-
-
 def _search_contract(cfg: AttrDict) -> dict[str, Any]:
-    """Fields that determine trial training, validation, and cache validity."""
     opt_cfg = cfg.optuna
     return {
         "search_space_version": SEARCH_SPACE_VERSION,
@@ -110,8 +135,11 @@ def _search_contract(cfg: AttrDict) -> dict[str, Any]:
             "operator_seed": int(cfg.model.get("operator_seed", int(cfg.seed) + 1009)),
             "operator_bank_rank": int(cfg.model.get("operator_bank_rank", cfg.model.rank)),
         },
-        "search_space": {
-            key: list(values) for key, values in SEARCH_GRID.items()
+        "search_space": {key: list(values) for key, values in SEARCH_GRID.items()},
+        "design": {
+            "name": DESIGN_NAME,
+            "report": _design_report(),
+            "trials": SPACE_FILLING_TRIALS,
         },
         "training": {
             "batch_size": int(cfg.training.batch_size),
@@ -129,9 +157,9 @@ def _search_contract(cfg: AttrDict) -> dict[str, Any]:
             "validation_seed": int(opt_cfg.validation_seed),
             "training_seed": int(opt_cfg.training_seed),
             "sampler_seed": int(opt_cfg.sampler_seed),
-            "design": str(opt_cfg.get("design", "pairwise_balanced_12")),
-            "balanced_design_report": _balanced_design_report(),
-            "balanced_trials": BALANCED_TRIALS,
+            "max_failed_attempts_per_design": int(
+                opt_cfg.get("max_failed_attempts_per_design", 2)
+            ),
         },
     }
 
@@ -141,10 +169,7 @@ def _contract_signature(cfg: AttrDict) -> str:
 
 
 def _trial_cache_key(contract_signature: str, params: dict[str, Any]) -> str:
-    signature = {
-        "contract_signature": contract_signature,
-        "params": params,
-    }
+    signature = {"contract_signature": contract_signature, "params": params}
     return hashlib.sha256(_canonical_json(signature).encode("utf-8")).hexdigest()[:24]
 
 
@@ -164,7 +189,6 @@ def _fixed_bit_nll(
     batches_per_snr: int,
     batch_size: int,
 ) -> tuple[float, float]:
-    """Evaluate a fixed validation stream without changing the training RNG state."""
     rng_state = capture_rng_state()
     was_training = model.training
     values: list[float] = []
@@ -187,13 +211,232 @@ def _fixed_bit_nll(
     return float(sum(values) / len(values)), float(sum(edge_densities) / len(edge_densities))
 
 
+def _params_from_trial(trial: Any) -> dict[str, Any]:
+    fixed = dict(getattr(trial, "system_attrs", {}).get("fixed_params", {}))
+    return fixed if fixed else dict(getattr(trial, "params", {}))
+
+
+def _analyze_trial_collection(
+    trials: Iterable[Any],
+    *,
+    contract_signature: str,
+    target_complete: int,
+    max_failed_attempts_per_design: int,
+) -> tuple[dict[str, Any], dict[int, Any]]:
+    required = set(range(int(target_complete)))
+    complete_by_index: dict[int, Any] = {}
+    waiting: set[int] = set()
+    running: set[int] = set()
+    failed_counts: Counter[int] = Counter()
+    attempt_counts: Counter[int] = Counter()
+    unexpected: list[int] = []
+    duplicate_complete: set[int] = set()
+
+    for trial in trials:
+        params = _params_from_trial(trial)
+        index = _design_index(params)
+        trial_number = int(getattr(trial, "number", -1))
+        trial_contract = getattr(trial, "user_attrs", {}).get("contract_signature")
+        if index is None or trial_contract != contract_signature:
+            unexpected.append(trial_number)
+            continue
+        if index not in required:
+            # A valid design point outside a deliberately smaller target is ignored.
+            continue
+        attempt_counts[index] += 1
+        state = getattr(trial, "state")
+        if state == TrialState.COMPLETE:
+            current = complete_by_index.get(index)
+            value = getattr(trial, "value", None)
+            if value is None:
+                unexpected.append(trial_number)
+                continue
+            if current is None:
+                complete_by_index[index] = trial
+            else:
+                duplicate_complete.add(index)
+                if float(value) < float(current.value):
+                    complete_by_index[index] = trial
+        elif state == TrialState.WAITING:
+            waiting.add(index)
+        elif state == TrialState.RUNNING:
+            running.add(index)
+        elif state == TrialState.FAIL:
+            failed_counts[index] += 1
+        elif state == TrialState.PRUNED:
+            # NopPruner is used. A PRUNED state is therefore unexpected.
+            unexpected.append(trial_number)
+
+    completed = set(complete_by_index)
+    missing = required - completed
+    enqueue_candidates = missing - waiting
+    blocked = {
+        index
+        for index in enqueue_candidates
+        if failed_counts[index] >= int(max_failed_attempts_per_design)
+    }
+    report = {
+        "required_design_indices": sorted(required),
+        "completed_design_indices": sorted(completed),
+        "missing_design_indices": sorted(missing),
+        "waiting_design_indices": sorted(waiting),
+        "stale_running_design_indices": sorted(running & missing),
+        "enqueue_candidate_design_indices": sorted(enqueue_candidates - blocked),
+        "blocked_failed_design_indices": sorted(blocked),
+        "failed_attempts_by_design": {
+            str(index): int(count) for index, count in sorted(failed_counts.items())
+        },
+        "attempt_counts_by_design": {
+            str(index): int(count) for index, count in sorted(attempt_counts.items())
+        },
+        "complete_trial_numbers_by_design": {
+            str(index): int(trial.number)
+            for index, trial in sorted(complete_by_index.items())
+        },
+        "duplicate_complete_design_indices": sorted(duplicate_complete),
+        "unexpected_trial_numbers": sorted(set(unexpected)),
+        "all_required_design_points_complete": bool(completed == required),
+    }
+    return report, complete_by_index
+
+
+def _workflow_self_test() -> dict[str, Any]:
+    contract = "self-test-contract"
+
+    def fake(number: int, state: TrialState, index: int, value: float | None = None):
+        params = dict(SPACE_FILLING_TRIALS[index])
+        return SimpleNamespace(
+            number=number,
+            state=state,
+            params=params if state != TrialState.WAITING else {},
+            system_attrs={"fixed_params": params} if state == TrialState.WAITING else {},
+            user_attrs={"contract_signature": contract},
+            value=value,
+        )
+
+    trials = [
+        fake(0, TrialState.COMPLETE, 0, 0.5),
+        fake(1, TrialState.FAIL, 1),
+        fake(2, TrialState.RUNNING, 2),
+        fake(3, TrialState.WAITING, 3),
+    ]
+    first, _ = _analyze_trial_collection(
+        trials,
+        contract_signature=contract,
+        target_complete=12,
+        max_failed_attempts_per_design=2,
+    )
+    trials.append(fake(4, TrialState.FAIL, 1))
+    second, _ = _analyze_trial_collection(
+        trials,
+        contract_signature=contract,
+        target_complete=12,
+        max_failed_attempts_per_design=2,
+    )
+    # Exercise Optuna's real queue semantics as well. In particular, a FAIL
+    # and a stale RUNNING trial must be re-enqueued even though Optuna's
+    # skip_if_exists=True would suppress both states.
+    integration_contract = "integration-contract"
+    previous_verbosity = optuna.logging.get_verbosity()
+    optuna.logging.set_verbosity(optuna.logging.WARNING)
+    study = optuna.create_study(
+        sampler=RandomSampler(seed=7),
+        pruner=optuna.pruners.NopPruner(),
+    )
+    initial_events = _enqueue_missing_design_trials(
+        study,
+        contract_signature=integration_contract,
+        target_complete=12,
+        max_failed_attempts_per_design=2,
+    )
+
+    def populate(trial: optuna.Trial) -> None:
+        for name, values in SEARCH_GRID.items():
+            trial.suggest_categorical(name, values)
+
+    complete_trial = study.ask()
+    populate(complete_trial)
+    study.tell(complete_trial, 0.5)
+    failed_trial = study.ask()
+    populate(failed_trial)
+    study.tell(failed_trial, state=TrialState.FAIL)
+    running_trial = study.ask()
+    populate(running_trial)
+    integration_before, _ = _analyze_trial_collection(
+        study.trials,
+        contract_signature=integration_contract,
+        target_complete=12,
+        max_failed_attempts_per_design=2,
+    )
+    recovery_events = _enqueue_missing_design_trials(
+        study,
+        contract_signature=integration_contract,
+        target_complete=12,
+        max_failed_attempts_per_design=2,
+    )
+    recovered_indices = {event["design_index"] for event in recovery_events}
+    optuna.logging.set_verbosity(previous_verbosity)
+    integration_passed = bool(
+        len(initial_events) == 12
+        and integration_before["completed_design_indices"] == [0]
+        and integration_before["failed_attempts_by_design"] == {"1": 1}
+        and integration_before["stale_running_design_indices"] == [2]
+        and recovered_indices == {1, 2}
+        and sum(t.state == TrialState.WAITING for t in study.trials) == 11
+    )
+
+    passed = bool(
+        first["completed_design_indices"] == [0]
+        and 1 in first["enqueue_candidate_design_indices"]
+        and 2 in first["enqueue_candidate_design_indices"]
+        and 3 not in first["enqueue_candidate_design_indices"]
+        and first["stale_running_design_indices"] == [2]
+        and second["blocked_failed_design_indices"] == [1]
+        and 1 not in second["enqueue_candidate_design_indices"]
+        and not first["unexpected_trial_numbers"]
+        and _design_report()["passed"]
+        and integration_passed
+    )
+    return {
+        "passed": passed,
+        "design_report": _design_report(),
+        "single_failure_requeued": 1 in first["enqueue_candidate_design_indices"],
+        "stale_running_requeued": 2 in first["enqueue_candidate_design_indices"],
+        "waiting_not_duplicated": 3 not in first["enqueue_candidate_design_indices"],
+        "retry_limit_blocks_repeated_failure": second["blocked_failed_design_indices"] == [1],
+        "actual_optuna_queue_integration_passed": integration_passed,
+        "actual_optuna_recovered_design_indices": sorted(recovered_indices),
+    }
+
+
+def _preflight_report(cfg: AttrDict) -> dict[str, Any]:
+    design = _design_report()
+    workflow = _workflow_self_test()
+    passed = bool(
+        str(cfg.get("package_revision", "")) == "gate0_v2_4_20260809"
+        and str(cfg.optuna.get("design", "")) == DESIGN_NAME
+        and int(cfg.optuna.n_trials) == len(SPACE_FILLING_TRIALS)
+        and int(cfg.model.get("operator_bank_rank", cfg.model.rank)) >= max(RANK_CANDIDATES)
+        and int(cfg.optuna.get("max_failed_attempts_per_design", 0)) >= 1
+        and design["passed"]
+        and workflow["passed"]
+    )
+    return {
+        "passed": passed,
+        "package_revision": str(cfg.get("package_revision", "unknown")),
+        "search_space_version": SEARCH_SPACE_VERSION,
+        "contract_signature": _contract_signature(cfg),
+        "design_report": design,
+        "workflow_self_test": workflow,
+    }
+
+
 def _bind_study_contract(
     study: optuna.Study,
     *,
     cfg: AttrDict,
     contract_signature: str,
 ) -> None:
-    """Bind a persistent Optuna study to one immutable search contract."""
     existing = study.user_attrs.get("contract_signature")
     if existing is None:
         if study.trials:
@@ -202,55 +445,71 @@ def _bind_study_contract(
                 "Move or delete the stale outputs/optuna directory."
             )
         study.set_user_attr("contract_signature", contract_signature)
-        study.set_user_attr(
-            "package_revision", str(cfg.get("package_revision", "unknown"))
-        )
+        study.set_user_attr("package_revision", str(cfg.get("package_revision", "unknown")))
         study.set_user_attr("search_space_version", SEARCH_SPACE_VERSION)
+        study.set_user_attr("design_name", DESIGN_NAME)
+        study.set_user_attr("design_signature", DESIGN_SIGNATURE)
         return
     if str(existing) != contract_signature:
         raise RuntimeError(
             "Optuna study/search-contract mismatch. Move or delete the stale "
             "outputs/optuna directory before starting a new search."
         )
-    if study.user_attrs.get("package_revision") != str(
-        cfg.get("package_revision", "unknown")
-    ):
-        raise RuntimeError("Optuna study/package revision mismatch")
-    if study.user_attrs.get("search_space_version") != SEARCH_SPACE_VERSION:
-        raise RuntimeError("Optuna study/search-space version mismatch")
-
-
-
-def _recover_interrupted_parameter_sets(study: optuna.Study) -> list[int]:
-    """Enqueue each stale RUNNING parameter set once.
-
-    The replacement trial uses the same hash-keyed checkpoint, so the numerical
-    work resumes near the interruption even though Optuna assigns a new trial ID.
-    """
-    complete = {
-        _canonical_json(t.params)
-        for t in study.trials
-        if t.state == TrialState.COMPLETE and t.params
+    required_attrs = {
+        "package_revision": str(cfg.get("package_revision", "unknown")),
+        "search_space_version": SEARCH_SPACE_VERSION,
+        "design_name": DESIGN_NAME,
+        "design_signature": DESIGN_SIGNATURE,
     }
-    waiting = {
-        _canonical_json(t.params)
-        for t in study.trials
-        if t.state == TrialState.WAITING and t.params
-    }
-    recovered: list[int] = []
-    for trial in study.trials:
-        if trial.state != TrialState.RUNNING or not trial.params:
-            continue
-        key = _canonical_json(trial.params)
-        if key in complete or key in waiting:
-            continue
-        study.enqueue_trial(
-            dict(trial.params),
-            user_attrs={"resume_of_trial": int(trial.number)},
+    for name, expected in required_attrs.items():
+        if study.user_attrs.get(name) != expected:
+            raise RuntimeError(f"Optuna study attribute mismatch: {name}")
+
+
+def _enqueue_missing_design_trials(
+    study: optuna.Study,
+    *,
+    contract_signature: str,
+    target_complete: int,
+    max_failed_attempts_per_design: int,
+) -> list[dict[str, Any]]:
+    state, _ = _analyze_trial_collection(
+        study.trials,
+        contract_signature=contract_signature,
+        target_complete=target_complete,
+        max_failed_attempts_per_design=max_failed_attempts_per_design,
+    )
+    if state["unexpected_trial_numbers"]:
+        raise RuntimeError(
+            f"Unexpected Optuna trials: {state['unexpected_trial_numbers']}"
         )
-        waiting.add(key)
-        recovered.append(int(trial.number))
-    return recovered
+    events: list[dict[str, Any]] = []
+    failed = {int(k): int(v) for k, v in state["failed_attempts_by_design"].items()}
+    stale = set(state["stale_running_design_indices"])
+    for index in state["enqueue_candidate_design_indices"]:
+        if failed.get(index, 0) > 0:
+            reason = "retry_failed_trial"
+        elif index in stale:
+            reason = "recover_stale_running_trial"
+        else:
+            reason = "initial_design_enqueue"
+        study.enqueue_trial(
+            dict(SPACE_FILLING_TRIALS[index]),
+            user_attrs={
+                "contract_signature": contract_signature,
+                "space_filling_design": True,
+                "design_name": DESIGN_NAME,
+                "design_signature": DESIGN_SIGNATURE,
+                "design_index": int(index),
+                "enqueue_reason": reason,
+            },
+            # Deliberately False: Optuna's skip_if_exists checks all states,
+            # including FAIL and stale RUNNING trials. We already prevent
+            # duplicate WAITING or COMPLETE design points above.
+            skip_if_exists=False,
+        )
+        events.append({"design_index": int(index), "reason": reason})
+    return events
 
 
 def _write_status(
@@ -260,63 +519,95 @@ def _write_status(
     *,
     cfg: AttrDict,
     contract_signature: str,
-    recovered: list[int] | None = None,
-) -> None:
+    max_failed_attempts_per_design: int,
+    recovery_events: list[dict[str, Any]] | None = None,
+    stop_reason: str | None = None,
+) -> dict[str, Any]:
+    design_state, complete_by_index = _analyze_trial_collection(
+        study.trials,
+        contract_signature=contract_signature,
+        target_complete=target_complete,
+        max_failed_attempts_per_design=max_failed_attempts_per_design,
+    )
     states = {state.name: 0 for state in TrialState}
     for trial in study.trials:
         states[trial.state.name] = states.get(trial.state.name, 0) + 1
-    complete = [
-        t for t in study.trials
-        if t.state == TrialState.COMPLETE
-        and t.user_attrs.get("contract_signature") == contract_signature
-    ]
+
     status: dict[str, Any] = {
         "package_revision": str(cfg.get("package_revision", "unknown")),
         "search_space_version": SEARCH_SPACE_VERSION,
         "contract_signature": contract_signature,
         "study_name": study.study_name,
         "objective_metric": "fixed_validation_bit_nll",
-        "pruning_metric": "none_all_balanced_trials_complete",
-        "sampler": "GridSampler_with_enqueued_pairwise_balanced_design",
-        "balanced_design_size": len(BALANCED_TRIALS),
-        "balanced_design_report": _balanced_design_report(),
+        "pruning_metric": "none_all_required_design_points_are_run",
+        "sampler": "Optuna RandomSampler used only as a guarded fallback; all trials are explicitly enqueued",
         "sampler_seed": int(cfg.optuna.sampler_seed),
         "common_training_seed": int(cfg.optuna.training_seed),
+        "design_name": DESIGN_NAME,
+        "design_signature": DESIGN_SIGNATURE,
+        "design_report": _design_report(),
         "fixed_edge_mass": float(cfg.model.get("edge_mass", 1.0)),
         "target_complete_trials": int(target_complete),
+        "complete_trials": len(complete_by_index),
+        "target_reached": bool(design_state["all_required_design_points_complete"]),
+        "all_required_design_points_complete": bool(
+            design_state["all_required_design_points_complete"]
+        ),
+        "design_state": design_state,
         "state_counts": states,
-        "complete_trials": len(complete),
-        "target_reached": len(complete) >= int(target_complete),
         "study_db": str(outdir / "study.db"),
         "updated": time.strftime("%Y-%m-%d %H:%M:%S %Z"),
-        "recovery_enqueued_from_trials": recovered or [],
+        "recovery_events_this_invocation": recovery_events or [],
+        "max_failed_attempts_per_design": int(max_failed_attempts_per_design),
+        "stop_reason": stop_reason,
     }
-    if complete:
-        best = study.best_trial
+
+    if complete_by_index:
+        best_index, best = min(
+            complete_by_index.items(), key=lambda item: float(item[1].value)
+        )
         status["best_value"] = float(best.value)
         status["best_trial_number"] = int(best.number)
+        status["best_design_index"] = int(best_index)
         status["best_params"] = dict(best.params)
         status["best_trial_user_attrs"] = dict(best.user_attrs)
+
+    best_path = outdir / "best_params.json"
+    if status["target_reached"]:
+        best_index, best = min(
+            complete_by_index.items(), key=lambda item: float(item[1].value)
+        )
         save_json(
             {
                 "package_revision": str(cfg.get("package_revision", "unknown")),
                 "search_space_version": SEARCH_SPACE_VERSION,
                 "contract_signature": contract_signature,
                 "objective_metric": "fixed_validation_bit_nll",
-                "balanced_design_report": _balanced_design_report(),
+                "design_name": DESIGN_NAME,
+                "design_signature": DESIGN_SIGNATURE,
+                "design_report": _design_report(),
                 "fixed_edge_mass": float(cfg.model.get("edge_mass", 1.0)),
                 "best_value": float(best.value),
                 "best_trial_number": int(best.number),
+                "best_design_index": int(best_index),
                 "best_params": dict(best.params),
                 "best_trial_user_attrs": dict(best.user_attrs),
-                "n_complete_trials": len(complete),
+                "n_complete_trials": len(complete_by_index),
                 "target_complete_trials": int(target_complete),
+                "all_required_design_points_complete": True,
+                "completed_design_indices": design_state["completed_design_indices"],
+                "missing_design_indices": design_state["missing_design_indices"],
+                "unexpected_trial_numbers": design_state["unexpected_trial_numbers"],
                 "study_db": str(outdir / "study.db"),
             },
-            outdir / "best_params.json",
+            best_path,
         )
+    else:
+        best_path.unlink(missing_ok=True)
+
     save_json(status, outdir / "OPTUNA_STATUS.json")
     study.trials_dataframe().to_csv(outdir / "trials.csv", index=False)
+    return status
 
 
 def objective(
@@ -326,31 +617,39 @@ def objective(
     contract_signature: str,
 ) -> float:
     cfg = AttrDict(copy.deepcopy(base_cfg.to_dict()))
-    cfg.model.rank = trial.suggest_categorical(
-        "rank", SEARCH_GRID["rank"]
-    )
+    cfg.model.rank = trial.suggest_categorical("rank", SEARCH_GRID["rank"])
     cfg.model.detector_iterations = trial.suggest_categorical(
         "detector_iterations", SEARCH_GRID["detector_iterations"]
     )
-    cfg.training.lr = trial.suggest_categorical(
-        "lr", SEARCH_GRID["lr"]
-    )
+    cfg.training.lr = trial.suggest_categorical("lr", SEARCH_GRID["lr"])
     cfg.training.channel_loss_weight = trial.suggest_categorical(
         "channel_loss_weight", SEARCH_GRID["channel_loss_weight"]
     )
     cfg.training.steps = int(cfg.optuna.train_steps_per_trial)
 
     params = dict(trial.params)
+    design_index = _design_index(params)
+    expected_index = trial.user_attrs.get("design_index")
+    if (
+        design_index is None
+        or expected_index is None
+        or int(expected_index) != int(design_index)
+        or trial.user_attrs.get("contract_signature") != contract_signature
+        or trial.user_attrs.get("design_signature") != DESIGN_SIGNATURE
+    ):
+        trial.set_user_attr("unexpected_sampled_trial", True)
+        raise RuntimeError(
+            "Optuna attempted a trial outside the explicit 12-point design"
+        )
+
     cache_key = _trial_cache_key(contract_signature, params)
     trial.set_user_attr("cache_key", cache_key)
-    trial.set_user_attr("contract_signature", contract_signature)
     trial.set_user_attr("common_training_seed", int(cfg.optuna.training_seed))
     cache_dir = outdir / "trial_cache" / cache_key
     checkpoint = cache_dir / "last.pt"
     summary_path = cache_dir / "summary.json"
     cache_dir.mkdir(parents=True, exist_ok=True)
 
-    # A job may have ended after writing the summary but before Optuna committed.
     if summary_path.exists():
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         if summary.get("contract_signature") != contract_signature:
@@ -361,8 +660,6 @@ def objective(
         trial.set_user_attr("validation_edge_density", float(summary["edge_density"]))
         return float(summary["score"])
 
-    # All hyperparameter sets see the same ordered training stream. This removes
-    # an avoidable trial-to-trial random-seed confound in the short Gate-0 search.
     set_seed(int(cfg.optuna.training_seed))
     device = get_device(cfg)
     simulator = UplinkToySimulator(cfg, device)
@@ -424,6 +721,8 @@ def objective(
                     "params": params,
                     "config": cfg.to_dict(),
                     "contract_signature": contract_signature,
+                    "design_index": int(design_index),
+                    "design_signature": DESIGN_SIGNATURE,
                     "rng_state": capture_rng_state(),
                 },
                 checkpoint,
@@ -445,6 +744,9 @@ def objective(
             "package_revision": str(cfg.get("package_revision", "unknown")),
             "search_space_version": SEARCH_SPACE_VERSION,
             "contract_signature": contract_signature,
+            "design_name": DESIGN_NAME,
+            "design_signature": DESIGN_SIGNATURE,
+            "design_index": int(design_index),
             "cache_key": cache_key,
             "last_optuna_trial_number": trial.number,
             "score": score,
@@ -458,77 +760,95 @@ def objective(
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--config", required=True)
-    ap.add_argument("--out", default="outputs/optuna")
-    ap.add_argument("--target-trials", type=int, default=None)
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", required=True)
+    parser.add_argument("--out", default="outputs/optuna")
+    parser.add_argument("--target-trials", type=int, default=None)
+    parser.add_argument("--preflight-only", action="store_true")
+    args = parser.parse_args()
 
     cfg = load_config(args.config)
     outdir = Path(args.out)
     outdir.mkdir(parents=True, exist_ok=True)
+    preflight = _preflight_report(cfg)
+    save_json(preflight, outdir / "OPTUNA_PREFLIGHT.json")
+    if not preflight["passed"]:
+        raise RuntimeError(f"Optuna workflow preflight failed: {preflight}")
+    if args.preflight_only:
+        print(json.dumps(preflight, indent=2))
+        return
+
     target = int(args.target_trials or cfg.optuna.n_trials)
-    design_report = _balanced_design_report()
-    if not design_report["passed"]:
-        raise RuntimeError(f"Invalid pairwise-balanced Optuna design: {design_report}")
-    if str(cfg.optuna.get("design", "")) != "pairwise_balanced_12":
-        raise RuntimeError("configs/optuna.yaml must request design=pairwise_balanced_12")
-    if int(cfg.optuna.n_trials) != len(BALANCED_TRIALS):
+    if target <= 0 or target > len(SPACE_FILLING_TRIALS):
         raise RuntimeError(
-            "The Gate-0 v2.3 screening contract requires exactly twelve trials"
-        )
-    if target <= 0 or target > len(BALANCED_TRIALS):
-        raise RuntimeError(
-            f"target-trials must be in 1..{len(BALANCED_TRIALS)}"
+            f"target-trials must be in 1..{len(SPACE_FILLING_TRIALS)}"
         )
     contract_signature = _contract_signature(cfg)
     storage = f"sqlite:///{outdir / 'study.db'}"
-    sampler = GridSampler(SEARCH_GRID, seed=int(cfg.optuna.sampler_seed))
-    pruner = optuna.pruners.NopPruner()
-    if int(cfg.model.get("operator_bank_rank", cfg.model.rank)) < max(RANK_CANDIDATES):
-        raise RuntimeError(
-            "operator_bank_rank must cover every Optuna rank candidate"
-        )
+    sampler = RandomSampler(seed=int(cfg.optuna.sampler_seed))
     study = optuna.create_study(
         direction="minimize",
         study_name=str(cfg.optuna.study_name),
         storage=storage,
         load_if_exists=True,
         sampler=sampler,
-        pruner=pruner,
+        pruner=optuna.pruners.NopPruner(),
     )
-    _bind_study_contract(
-        study, cfg=cfg, contract_signature=contract_signature
-    )
-    for design_index, params in enumerate(BALANCED_TRIALS):
-        study.enqueue_trial(
-            dict(params),
-            user_attrs={
-                "balanced_design": True,
-                "balanced_design_index": int(design_index),
-            },
-            skip_if_exists=True,
+    _bind_study_contract(study, cfg=cfg, contract_signature=contract_signature)
+
+    max_failed = int(cfg.optuna.get("max_failed_attempts_per_design", 2))
+    deadline = time.monotonic() + float(cfg.optuna.timeout_minutes) * 60.0
+    recovery_events: list[dict[str, Any]] = []
+    stop_reason: str | None = None
+
+    while True:
+        status = _write_status(
+            study,
+            outdir,
+            target,
+            cfg=cfg,
+            contract_signature=contract_signature,
+            max_failed_attempts_per_design=max_failed,
+            recovery_events=recovery_events,
+            stop_reason=stop_reason,
         )
-    recovered = _recover_interrupted_parameter_sets(study)
-    complete_before = sum(
-        t.state == TrialState.COMPLETE
-        and t.user_attrs.get("contract_signature") == contract_signature
-        for t in study.trials
-    )
-    remaining = max(0, target - complete_before)
-    _write_status(
-        study,
-        outdir,
-        target,
-        cfg=cfg,
-        contract_signature=contract_signature,
-        recovered=recovered,
-    )
-    if remaining > 0:
+        design_state = status["design_state"]
+        if status["target_reached"]:
+            stop_reason = "all_required_design_points_complete"
+            break
+        if design_state["unexpected_trial_numbers"]:
+            raise RuntimeError(
+                f"Unexpected Optuna trials: {design_state['unexpected_trial_numbers']}"
+            )
+        if time.monotonic() >= deadline:
+            stop_reason = "timeout_before_all_design_points_completed"
+            break
+
+        events = _enqueue_missing_design_trials(
+            study,
+            contract_signature=contract_signature,
+            target_complete=target,
+            max_failed_attempts_per_design=max_failed,
+        )
+        recovery_events.extend(events)
+        queued_state, _ = _analyze_trial_collection(
+            study.trials,
+            contract_signature=contract_signature,
+            target_complete=target,
+            max_failed_attempts_per_design=max_failed,
+        )
+        if not queued_state["waiting_design_indices"]:
+            if queued_state["blocked_failed_design_indices"]:
+                stop_reason = "failed_retry_limit_reached"
+            else:
+                stop_reason = "no_waiting_trial_available_for_missing_design_points"
+            break
+
+        remaining_seconds = max(1.0, deadline - time.monotonic())
         study.optimize(
             lambda trial: objective(trial, cfg, outdir, contract_signature),
-            n_trials=remaining,
-            timeout=int(float(cfg.optuna.timeout_minutes) * 60),
+            n_trials=1,
+            timeout=remaining_seconds,
             callbacks=[
                 lambda current_study, _: _write_status(
                     current_study,
@@ -536,22 +856,26 @@ def main() -> None:
                     target,
                     cfg=cfg,
                     contract_signature=contract_signature,
-                    recovered=recovered,
+                    max_failed_attempts_per_design=max_failed,
+                    recovery_events=recovery_events,
+                    stop_reason=None,
                 )
             ],
             gc_after_trial=True,
             catch=(RuntimeError,),
         )
-    _write_status(
+
+    final_status = _write_status(
         study,
         outdir,
         target,
         cfg=cfg,
         contract_signature=contract_signature,
-        recovered=recovered,
+        max_failed_attempts_per_design=max_failed,
+        recovery_events=recovery_events,
+        stop_reason=stop_reason,
     )
-    status = json.loads((outdir / "OPTUNA_STATUS.json").read_text(encoding="utf-8"))
-    print(json.dumps(status, indent=2))
+    print(json.dumps(final_status, indent=2))
 
 
 if __name__ == "__main__":

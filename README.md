@@ -1,4 +1,4 @@
-# BayesRoute-Rx Gate-0 v2.3
+# BayesRoute-Rx Gate-0 v2.4
 
 This package tests one receiver principle:
 
@@ -17,7 +17,7 @@ This is **Gate 0: principle validation**. It is not yet a publication-level 3GPP
 
 A later **NR integration gate** must add exact PUSCH/DMRS mapping, channel coding, 3GPP channel models, impairments, and publication baselines. It must also add data-aided channel-posterior refinement, iteration-dependent effective-noise coupling, spatial covariance, and a sparse execution kernel. Gate 0 uses a pilot-only posterior, white-noise coupling, and dense tensor operations; its retained-edge fraction is structural and does not by itself prove wall-clock savings.
 
-## v2.3 mathematical and workflow corrections
+## v2.4 mathematical and workflow corrections
 
 - The posterior covariance is projected with the correct complex contraction `u C u^H` for the model `h=u^T z`.
 - Full local cross-layer posterior covariance is retained in both the uncertainty-aware detector and the posterior coupling graph.
@@ -25,7 +25,7 @@ A later **NR integration gate** must add exact PUSCH/DMRS mapping, channel codin
 - Optuna rank candidates use nested modes from one fixed random Fourier feature bank. Rank is no longer confounded with a different random basis realization.
 - The graph threshold `edge_mass` remains an interpretable fixed retained-coupling-mass parameter. It is evaluated through routing-off/default/full-graph ablations rather than optimized by a performance-only objective.
 - The smoke gate now checks matched-model posterior calibration, the exact covariance projection, detector moments, and the coupling formula against Monte Carlo simulation.
-- Optuna evaluates a seeded pairwise-balanced 12-point discrete design using fixed validation bit NLL, a common training stream, revision-bound storage, and hash-keyed trial checkpoints.
+- Optuna evaluates a deterministic 12-point space-filling discrete design using fixed validation bit NLL, a common training stream, revision-bound storage, and hash-keyed trial checkpoints.
 - Training and evaluation use immutable contracts. Evaluation resumes only when the configuration and checkpoint hash match.
 - Reported latency times the receiver forward pass only; data generation and diagnostic metrics are excluded.
 - Compact tails of recent Slurm stdout/stderr files are synchronized to GitHub.
@@ -37,10 +37,14 @@ A later **NR integration gate** must add exact PUSCH/DMRS mapping, channel codin
 - `bayesroute_uncertainty`: proposed receiver with the fixed 0.80 retained-coupling-mass rule.
 - `bayesroute_full_graph`: posterior uncertainty with all inter-layer edges retained.
 
+## v2.4 exact-design resume contract
+
+The short Optuna stage is an explicitly enqueued 12-point space-filling screening design. Completion is declared only when every required design index has a successful result. A failed or stale RUNNING design point is re-enqueued deliberately; it cannot be silently replaced by another point from the larger Cartesian grid. Repeated failures are stopped after the configured retry limit and remain visible in `OPTUNA_STATUS.json`.
+
 ## Required order
 
 ```text
-v2.3 deployment -> v2.3 smoke -> Optuna -> initial Gate-0 evidence -> scientific review -> larger Gate-0 stress
+v2.4 deployment -> v2.4 smoke -> Optuna -> initial Gate-0 evidence -> scientific review -> larger Gate-0 stress
 ```
 
 Do not run Optuna unless `outputs/smoke/SMOKE_HEALTH.json` reports:

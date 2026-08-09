@@ -9,14 +9,18 @@
   ],
   "package": "BayesRoute-Rx Gate-0",
   "publication_nr_ready": false,
-  "purpose": "mathematically correct, fair, reproducible Gate-0 tuning",
+  "purpose": "mathematically correct Gate-0 screening with exact-design, failure-safe Optuna resumption",
   "repair": [
     "Correct the complex posterior covariance contraction u C u^H.",
     "Propagate full local cross-layer posterior covariance into detection and coupling.",
     "Correct channel-error moments after soft interference cancellation.",
     "Use nested random Fourier feature banks for fair rank tuning.",
     "Keep graph mass fixed during Optuna and assess it through explicit ablations.",
-    "Add matched-model covariance, coupling, detector-moment, and Sionna-mapping health checks."
+    "Add matched-model covariance, coupling, detector-moment, and Sionna-mapping health checks.",
+    "Require completion of each exact 12-point screening design index, not merely twelve arbitrary completed trials.",
+    "Re-enqueue failed or stale RUNNING design points without using Optuna skip_if_exists.",
+    "Prevent failed trials from being replaced by unintended samples from the 192-point Cartesian grid.",
+    "Add an Optuna workflow self-test, retry limit, exact design signature, and downstream completion contract."
   ],
-  "revision": "gate0_v2_3_20260808"
+  "revision": "gate0_v2_4_20260809"
 }

@@ -13,8 +13,8 @@ from pathlib import Path
 REMOTE = "rsadve1@rorqual.alliancecan.ca"
 REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
 GITHUB_REMOTE = "git@github.com:afazeliUofT/revised_TWC.git"
-PACKAGE_NAME = "BayesRoute_TWC_Gate0_v2_3_Full.zip"
-EXPECTED_REVISION = "gate0_v2_3_20260808"
+PACKAGE_NAME = "BayesRoute_TWC_Gate0_v2_4_Full.zip"
+EXPECTED_REVISION = "gate0_v2_4_20260809"
 DOWNLOADS = Path("/mnt/c/Users/alifa/Downloads")
 
 
@@ -57,8 +57,8 @@ def verify_manifest(root: Path) -> None:
         if not path.is_file() or sha256(path) != expected:
             raise SystemExit(f"Manifest failure: {rel}")
         checked += 1
-    if checked < 45:
-        raise SystemExit(f"Manifest unexpectedly small: {checked}")
+    if checked != 50:
+        raise SystemExit(f"Manifest count mismatch: expected=50, actual={checked}")
     print(f"INTERNAL_MANIFEST_PASS: {checked} files")
 
 
@@ -75,7 +75,7 @@ def commit_push(root: Path) -> None:
     run(["git", "add", "-A"], cwd=root)
     changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=root).returncode != 0
     if changed:
-        run(["git", "commit", "-m", "Gate-0 v2.3: correct posterior uncertainty and fair tuning"], cwd=root)
+        run(["git", "commit", "-m", "Gate-0 v2.4: exact-design failure-safe Optuna resumption"], cwd=root)
     run(["git", "push", "-u", "origin", "main"], cwd=root)
 
 
@@ -119,7 +119,7 @@ def main() -> None:
 
     local_root = Path.cwd().resolve()
     package = find_package(local_root)
-    with tempfile.TemporaryDirectory(prefix="gate0_v23_setup_") as tmp:
+    with tempfile.TemporaryDirectory(prefix="gate0_v24_setup_") as tmp:
         with zipfile.ZipFile(package, "r") as archive:
             archive.extractall(tmp)
         extracted = Path(tmp) / "bayesroute_rx_twc"
@@ -131,13 +131,13 @@ def main() -> None:
     shutil.rmtree(local_root / "results" / "from_rorqual", ignore_errors=True)
     (local_root / "results" / "from_rorqual").mkdir(parents=True, exist_ok=True)
     (local_root / "results" / "from_rorqual" / "README.md").write_text(
-        "Awaiting Gate-0 v2.3 Rorqual evidence.\n", encoding="utf-8"
+        "Awaiting Gate-0 v2.4 Rorqual evidence.\n", encoding="utf-8"
     )
     shutil.rmtree(local_root / "outputs", ignore_errors=True)
     (local_root / "outputs").mkdir(exist_ok=True)
     (local_root / "outputs" / ".keep").write_text("", encoding="utf-8")
 
-    run(["python3", "-m", "compileall", "-q", "src", "scripts"], cwd=local_root)
+    run(["python3", "-m", "compileall", "-q", "src", "scripts", "wrappers"], cwd=local_root)
     for path in sorted(local_root.rglob("__pycache__"), reverse=True):
         shutil.rmtree(path, ignore_errors=True)
     for path in local_root.rglob("*.pyc"):
@@ -183,7 +183,7 @@ from bayesroute.config import load_config
 from bayesroute.sionna_check import check_sionna
 root = Path('.')
 revision = json.loads((root/'PACKAGE_REVISION.json').read_text())
-assert revision['revision'] == 'gate0_v2_3_20260808'
+assert revision['revision'] == 'gate0_v2_4_20260809'
 checked = 0
 for raw in (root/'MANIFEST.sha256').read_text().splitlines():
     if not raw.strip():
@@ -201,7 +201,7 @@ print('REVISION', revision['revision'])
 REMOTE_PY
 """
     run(["ssh", *ssh_opts, REMOTE, remote_command])
-    print("GATE0_V2_3_SETUP_DEPLOYED")
+    print("GATE0_V2_4_SETUP_DEPLOYED")
     print("Next: python3 RUN_01_SUBMIT_SMOKE_TEST.py")
 
 

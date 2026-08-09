@@ -1,4 +1,4 @@
-package_revision: gate0_v2_3_20260808
+package_revision: gate0_v2_4_20260809
 seed: 20260808
 device: auto
 optuna_best_path: outputs/optuna/best_params.json

@@ -1,8 +1,8 @@
-# Gate-0 v2.3 scientific alignment
+# Gate-0 v2.4 scientific alignment
 
 The revised implementation is organized around receiver-theoretic quantities rather than generic attention blocks.
 
-| Concern | Gate-0 v2.3 response |
+| Concern | Gate-0 v2.4 response |
 |---|---|
 | Heuristic reliability | reliability is the posterior channel covariance; matched-model calibration is checked numerically |
 | Heuristic inter-layer weights | graph edges are posterior expected squared whitened-Gram couplings and are verified against Monte Carlo simulation |
@@ -17,3 +17,7 @@ The revised implementation is organized around receiver-theoretic quantities rat
 | Missing practical reporting | evaluation records BER, bit NLL, Brier score, ECE, NMSE, coverage, edge density, parameters, receiver-only latency, throughput, and memory |
 
 Gate 0 does not close the publication-level experimental requirements. Exact NR PUSCH/DMRS, LDPC TBLER, 3GPP channels, modern neural/model-driven baselines, data-aided posterior refinement, iteration-dependent effective-noise coupling, spatial covariance, optimized sparse execution, and broad mismatch tests remain a later gate. The Gate-0 edge-density metric is structural; dense reference execution is still used.
+
+
+## Gate-0 v2.4 workflow integrity
+The short screening stage completes only after all twelve named design indices succeed. Failed or interrupted trials are retried by exact parameter identity, and no replacement configuration can satisfy the completion gate.

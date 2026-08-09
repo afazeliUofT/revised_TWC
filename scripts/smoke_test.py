@@ -50,9 +50,24 @@ from bayesroute.pilots import (
 )
 from bayesroute.simulator import UplinkToySimulator
 from bayesroute.sionna_check import check_sionna
+import importlib.util
 
-EXPECTED_REVISION = "gate0_v2_3_20260808"
+EXPECTED_REVISION = "gate0_v2_4_20260809"
 
+
+
+def _optuna_workflow_report() -> dict:
+    module_path = ROOT / "scripts" / "optuna_tune.py"
+    spec = importlib.util.spec_from_file_location("bayesroute_gate0_optuna", module_path)
+    if spec is None or spec.loader is None:
+        return {"passed": False, "error": "could not load scripts/optuna_tune.py"}
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    report = module._workflow_self_test()
+    report["search_space_version"] = module.SEARCH_SPACE_VERSION
+    report["design_name"] = module.DESIGN_NAME
+    report["design_signature"] = module.DESIGN_SIGNATURE
+    return report
 
 def _git_value(*args: str) -> str | None:
     try:
@@ -511,6 +526,7 @@ def main() -> None:
     }
 
     report["manifest"] = _verify_manifest(ROOT)
+    report["optuna_workflow"] = _optuna_workflow_report()
     report["sionna"] = check_sionna(
         device=device,
         bits_per_symbol=int(cfg.system.bits_per_symbol),
@@ -833,10 +849,13 @@ def main() -> None:
     )
 
     checks = {
-        "package_revision_v2_3": bool(
+        "package_revision_v2_4": bool(
             str(cfg.get("package_revision", "")) == EXPECTED_REVISION
         ),
         "package_manifest_valid": bool(report["manifest"]["passed"]),
+        "optuna_exact_design_resume_workflow": bool(
+            report["optuna_workflow"].get("passed", False)
+        ),
         "cuda_compute_node": bool(
             device.type == "cuda" and torch.cuda.is_available()
         ),

@@ -1,4 +1,4 @@
-package_revision: gate0_v2_3_20260808
+package_revision: gate0_v2_4_20260809
 seed: 2026
 device: auto
 system:
@@ -49,12 +49,13 @@ evaluation:
   - bayesroute_uncertainty_off
   - bayesroute_uncertainty
 optuna:
-  study_name: bayesroute_gate0_v2_3_short_tuning
+  study_name: bayesroute_gate0_v2_4_short_tuning
   n_trials: 12
   timeout_minutes: 110
   train_steps_per_trial: 160
   eval_batches_per_snr: 3
   validation_seed: 92026
   sampler_seed: 12026
-  design: pairwise_balanced_12
+  design: space_filling_12
   training_seed: 192026
+  max_failed_attempts_per_design: 2

@@ -47,7 +47,7 @@ required = [
     h.get('overall_pass') is True,
     h.get('optuna_ready') is True,
     h.get('package_revision') == revision,
-    revision == 'gate0_v2_3_20260808',
+    revision == 'gate0_v2_4_20260809',
     h.get('checks', {{}}).get('sionna_mapper_demapper_executed') is True,
     h.get('checks', {{}}).get('uncertainty_and_routing_paths_active') is True,
     h.get('checks', {{}}).get('posterior_psd_and_finite') is True,
@@ -59,9 +59,11 @@ required = [
     h.get('checks', {{}}).get('checkpoint_roundtrip') is True,
 ]
 if not all(required):
-    raise SystemExit('BLOCKED: Gate-0 v2.3 smoke has not passed for the deployed revision')
-print('OPTUNA_PREFLIGHT_PASS', revision)
+    raise SystemExit('BLOCKED: Gate-0 v2.4 smoke has not passed for the deployed revision')
+print('OPTUNA_SMOKE_PREFLIGHT_PASS', revision)
 REMOTE_PY
+.venv/bin/python scripts/optuna_tune.py --config configs/optuna.yaml --out outputs/optuna --preflight-only
+echo 'OPTUNA_WORKFLOW_PREFLIGHT_PASS'
 if squeue -h -u rsadve1 -n brx_optuna | grep -q .; then
   echo 'A brx_optuna job is already queued or running.' >&2
   exit 3
