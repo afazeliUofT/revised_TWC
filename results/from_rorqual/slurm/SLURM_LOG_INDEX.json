@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 524350,
+    "mtime_epoch": 1786280863.0,
+    "name": "brx_initial-18711118.out",
+    "original_size_bytes": 763060,
+    "truncated": true
+  },
+  {
+    "copied_size_bytes": 254,
+    "mtime_epoch": 1786280794.0,
+    "name": "brx_initial-18711118.err",
+    "original_size_bytes": 254,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 4666,
     "mtime_epoch": 1786254832.0,
     "name": "brx_optuna-18693165.out",

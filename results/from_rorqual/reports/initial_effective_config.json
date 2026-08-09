@@ -1,0 +1,155 @@
+{
+  "device": "cuda:0",
+  "effective_config": {
+    "device": "auto",
+    "evaluation": {
+      "baselines": [
+        "ls",
+        "bayesroute_uncertainty_off",
+        "bayesroute_graph_off",
+        "bayesroute_uncertainty",
+        "bayesroute_full_graph",
+        "oracle"
+      ],
+      "batch_size": 128,
+      "batches_per_snr": 20,
+      "snr_grid_db": [
+        2.0,
+        4.0,
+        6.0,
+        8.0,
+        10.0,
+        12.0,
+        14.0,
+        16.0
+      ]
+    },
+    "model": {
+      "detector_iterations": 4,
+      "edge_mass": 0.8,
+      "operator_bank_rank": 24,
+      "operator_seed": 28001,
+      "rank": 16,
+      "use_uncertainty": true
+    },
+    "optuna_best_path": "outputs/optuna/best_params.json",
+    "package_revision": "gate0_v2_4_20260809",
+    "seed": 43999,
+    "system": {
+      "bits_per_symbol": 4,
+      "channel_length_f": 6.0,
+      "channel_length_t": 2.0,
+      "channel_seed": 27001,
+      "channel_true_rank": 20,
+      "dmrs_symbols": [
+        2,
+        7
+      ],
+      "layer_power_spread_db": 0.0,
+      "n_layers": 6,
+      "n_rx": 8,
+      "n_subcarriers": 24,
+      "n_symbols": 10,
+      "snr_db_max": 16.0,
+      "snr_db_min": 4.0
+    },
+    "training": {
+      "batch_size": 64,
+      "channel_loss_weight": 0.0,
+      "grad_clip": 1.0,
+      "log_every": 25,
+      "lr": 0.004,
+      "save_every": 100,
+      "steps": 1200,
+      "validation_batch_size": 128,
+      "validation_batches": 3,
+      "validation_every": 100,
+      "validation_seed": 743999,
+      "validation_snr_db": 10.0
+    }
+  },
+  "optuna": {
+    "applied": true,
+    "best_params": {
+      "channel_loss_weight": 0.0,
+      "detector_iterations": 4,
+      "lr": 0.004,
+      "rank": 16
+    },
+    "best_trial_number": 10,
+    "best_value": 0.5546386109458076,
+    "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+    "n_complete_trials": 12,
+    "objective_metric": "fixed_validation_bit_nll",
+    "package_revision": "gate0_v2_4_20260809",
+    "path": "outputs/optuna/best_params.json",
+    "search_space_version": "gate0_v2_4_search_v1",
+    "target_complete_trials": 12
+  },
+  "run_name": "initial",
+  "source_config": "configs/initial.yaml",
+  "training_contract": {
+    "contract_version": "gate0_v2_4_train_v1",
+    "model": {
+      "detector_iterations": 4,
+      "edge_mass": 0.8,
+      "operator_bank_rank": 24,
+      "operator_seed": 28001,
+      "rank": 16,
+      "use_uncertainty": true
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "weight_decay": 0.0001
+    },
+    "optuna": {
+      "applied": true,
+      "best_params": {
+        "channel_loss_weight": 0.0,
+        "detector_iterations": 4,
+        "lr": 0.004,
+        "rank": 16
+      },
+      "best_trial_number": 10,
+      "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+      "package_revision": "gate0_v2_4_20260809",
+      "search_space_version": "gate0_v2_4_search_v1"
+    },
+    "package_revision": "gate0_v2_4_20260809",
+    "run_name": "initial",
+    "seed": 43999,
+    "signature": "9206c0eb2e753ae0245beff5b7d3c272aa63de695449f3745f5db6ab7832b628",
+    "system": {
+      "bits_per_symbol": 4,
+      "channel_length_f": 6.0,
+      "channel_length_t": 2.0,
+      "channel_seed": 27001,
+      "channel_true_rank": 20,
+      "dmrs_symbols": [
+        2,
+        7
+      ],
+      "layer_power_spread_db": 0.0,
+      "n_layers": 6,
+      "n_rx": 8,
+      "n_subcarriers": 24,
+      "n_symbols": 10,
+      "snr_db_max": 16.0,
+      "snr_db_min": 4.0
+    },
+    "training": {
+      "batch_size": 64,
+      "channel_loss_weight": 0.0,
+      "grad_clip": 1.0,
+      "log_every": 25,
+      "lr": 0.004,
+      "save_every": 100,
+      "steps": 1200,
+      "validation_batch_size": 128,
+      "validation_batches": 3,
+      "validation_every": 100,
+      "validation_seed": 743999,
+      "validation_snr_db": 10.0
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "baselines": [
+    "ls",
+    "bayesroute_uncertainty_off",
+    "bayesroute_graph_off",
+    "bayesroute_uncertainty",
+    "bayesroute_full_graph",
+    "oracle"
+  ],
+  "checkpoint": "/lustre10/scratch/rsadve1/revised_TWC/outputs/checkpoints/initial/best.pt",
+  "checkpoint_sha256": "2358e1e19f79192d82c56b8413f878e71b51d7ecf9cd3a8bc6c584cdf7839597",
+  "contract_version": "gate0_v2_4_eval_v1",
+  "evaluation": {
+    "baselines": [
+      "ls",
+      "bayesroute_uncertainty_off",
+      "bayesroute_graph_off",
+      "bayesroute_uncertainty",
+      "bayesroute_full_graph",
+      "oracle"
+    ],
+    "batch_size": 128,
+    "batches_per_snr": 20,
+    "snr_grid_db": [
+      2.0,
+      4.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      14.0,
+      16.0
+    ]
+  },
+  "model": {
+    "detector_iterations": 4,
+    "edge_mass": 0.8,
+    "operator_bank_rank": 24,
+    "operator_seed": 28001,
+    "rank": 16,
+    "use_uncertainty": true
+  },
+  "package_revision": "gate0_v2_4_20260809",
+  "run_name": "initial",
+  "signature": "63ed30b28d3c5009e262cf4e0ba6657bdb5c39e3d5d4485ccb51a069d1d4805b",
+  "system": {
+    "bits_per_symbol": 4,
+    "channel_length_f": 6.0,
+    "channel_length_t": 2.0,
+    "channel_seed": 27001,
+    "channel_true_rank": 20,
+    "dmrs_symbols": [
+      2,
+      7
+    ],
+    "layer_power_spread_db": 0.0,
+    "n_layers": 6,
+    "n_rx": 8,
+    "n_subcarriers": 24,
+    "n_symbols": 10,
+    "snr_db_max": 16.0,
+    "snr_db_min": 4.0
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "ablation_table": "outputs/reports/initial_ablation_table.csv",
+  "note": "tblER_proxy is intentionally excluded. Latency is receiver-forward-only; batch generation and diagnostics are excluded.",
+  "plots": [
+    "outputs/plots/initial_ber_vs_snr.png",
+    "outputs/plots/initial_bit_nll_vs_snr.png",
+    "outputs/plots/initial_brier_vs_snr.png",
+    "outputs/plots/initial_ece_vs_snr.png",
+    "outputs/plots/initial_channel_nmse_vs_snr.png",
+    "outputs/plots/initial_channel_marginal_nll_vs_snr.png",
+    "outputs/plots/initial_channel_coverage95_vs_snr.png",
+    "outputs/plots/initial_edge_density_vs_snr.png",
+    "outputs/plots/initial_receiver_ms_per_sample_vs_snr.png",
+    "outputs/plots/initial_receiver_samples_per_sec_vs_snr.png",
+    "outputs/plots/initial_receiver_incremental_peak_memory_mib_vs_snr.png",
+    "outputs/plots/initial_bit_nll_delta_proposed_minus_comparator_vs_snr.png",
+    "outputs/plots/initial_ber_delta_proposed_minus_comparator_vs_snr.png",
+    "outputs/plots/initial_receiver_ms_per_sample_delta_proposed_minus_comparator_vs_snr.png"
+  ],
+  "scope": "GATE0_PRINCIPLE_ONLY_NOT_CODED_TBLER",
+  "source_csv": "outputs/eval/initial_eval.csv"
+}
