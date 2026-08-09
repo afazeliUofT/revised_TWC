@@ -1,0 +1,157 @@
+name: gate1_nr_smoke_v1
+gate1_revision: gate1_nr_integration_v1
+required_gate0_classification: GATE0_MECHANISM_SUPPORTED
+seed: 20260809
+device: cuda:0
+batch_size: 2
+ebno_db: 12.0
+bridge:
+  rank: 8
+  bank_rank: 8
+  detector_iterations: 2
+  edge_mass: 0.8
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 48001
+mapping_cases:
+  - name: nr_dmrs_type1_len1_2user_2layer
+    scenario: umi
+    num_users: 2
+    num_layers_per_user: 2
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+  - name: nr_dmrs_type2_len1_3user_2layer
+    scenario: umi
+    num_users: 3
+    num_layers_per_user: 2
+    num_rx_ant: 12
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 2
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 3
+    dmrs_ports: [0, 1, 2, 3, 4, 5]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+  - name: nr_dmrs_type2_len2_time_occ
+    scenario: umi
+    num_users: 4
+    num_layers_per_user: 1
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 2
+    dmrs_length: 2
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 3
+    dmrs_ports: [0, 6, 1, 7]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+  - name: nr_dmrs_type1_random_port_order
+    scenario: umi
+    num_users: 2
+    num_layers_per_user: 1
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [3, 0]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+channel_cases:
+  - name: umi_type1_2user_2layer
+    scenario: umi
+    num_users: 2
+    num_layers_per_user: 2
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+  - name: uma_type1_2user
+    scenario: uma
+    num_users: 2
+    num_layers_per_user: 1
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [1, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 15.0
+    run_kbest_smoke: true
+    kbest_k: 16
+  - name: cdl_a_single_user_2layer
+    scenario: cdl-a
+    num_users: 1
+    num_layers_per_user: 2
+    num_rx_ant: 4
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    delay_spread_s: 1.0e-7
+  - name: cdl_c_single_user
+    scenario: cdl-c
+    num_users: 1
+    num_layers_per_user: 1
+    num_rx_ant: 4
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    delay_spread_s: 3.0e-7
+  - name: cdl_d_single_user
+    scenario: cdl-d
+    num_users: 1
+    num_layers_per_user: 1
+    num_rx_ant: 4
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    delay_spread_s: 1.0e-7

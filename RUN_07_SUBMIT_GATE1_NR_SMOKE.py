@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import shlex
+import subprocess
+
+REMOTE = "rsadve1@rorqual.alliancecan.ca"
+REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
+
+
+def run(command: list[str], check: bool = True) -> subprocess.CompletedProcess:
+    print("+", " ".join(str(x) for x in command), flush=True)
+    result = subprocess.run([str(x) for x in command], text=True)
+    if check and result.returncode != 0:
+        raise SystemExit(result.returncode)
+    return result
+
+
+def main() -> None:
+    global REMOTE_ROOT
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--remote-root", default=REMOTE_ROOT)
+    args = parser.parse_args()
+    REMOTE_ROOT = args.remote_root
+    root = shlex.quote(REMOTE_ROOT)
+    command = f'''set -euo pipefail
+cd {root}
+source .venv/bin/activate
+export PYTHONPATH="$PWD/src:${{PYTHONPATH:-}}"
+python - <<'REMOTE_PY'
+from pathlib import Path
+import hashlib, json
+revision = json.loads(Path('GATE1_NR_REVISION.json').read_text())
+assert revision.get('revision') == 'gate1_nr_integration_v1', revision
+assert revision.get('base_package_revision') == 'gate0_v2_4_20260809', revision
+assert revision.get('pgca_agmp_baseline_included') is False, revision
+checked = 0
+for raw in Path('GATE1_NR_MANIFEST.sha256').read_text().splitlines():
+    if not raw.strip():
+        continue
+    expected, relative = raw.split(None, 1)
+    path = Path(relative.strip().lstrip('*'))
+    assert path.is_file(), path
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, path
+    checked += 1
+assert checked >= 12, checked
+gate0 = Path('outputs/gates/GATE0_MECHANISM_DIAGNOSTIC.txt').read_text()
+assert 'CLASSIFICATION: GATE0_MECHANISM_SUPPORTED' in gate0
+print('GATE1_NR_MANIFEST_PREFLIGHT_PASS', checked)
+print('PGCA_AGMP_BASELINE_INCLUDED NO')
+REMOTE_PY
+python scripts/gate1_nr_preflight.py \
+  --smoke-config configs/gate1_nr_smoke.yaml \
+  --evidence-config configs/gate1_nr_evidence.yaml \
+  --out outputs/gates/GATE1_NR_PREFLIGHT.json
+if squeue -h -u rsadve1 -n brx_nr_smoke | grep -q .; then
+  echo 'A brx_nr_smoke job is already queued or running.' >&2
+  exit 3
+fi
+rm -f outputs/gates/GATE1_NR_SMOKE.json outputs/gates/GATE1_NR_SMOKE.txt
+mkdir -p outputs/slurm outputs/gates
+sbatch slurm/gate1_nr_smoke.sbatch
+'''
+    run(["ssh", REMOTE, command])
+    print("GATE1_NR_SMOKE_SUBMITTED")
+
+
+if __name__ == "__main__":
+    main()

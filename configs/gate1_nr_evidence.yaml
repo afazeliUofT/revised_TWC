@@ -1,0 +1,168 @@
+name: gate1_nr_preliminary_evidence_v1
+gate1_revision: gate1_nr_integration_v1
+required_smoke_classification: GATE1_NR_SMOKE_PASS
+seed: 20261809
+device: cuda:0
+bridge:
+  rank: 16
+  bank_rank: 24
+  detector_iterations: 4
+  edge_mass: 0.8
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 58001
+training:
+  steps: 500
+  batch_size: 16
+  ebno_db_min: -2.0
+  ebno_db_max: 10.0
+  lr: 0.003
+  weight_decay: 0.0001
+  channel_loss_weight: 0.02
+  grad_clip: 1.0
+  save_every: 25
+  validation_every: 50
+  validation_batch_size: 24
+  validation_ebno_db: 4.0
+  validation_seed: 20262809
+  source_case:
+    name: train_umi_type1_4user
+    scenario: umi
+    num_users: 4
+    num_layers_per_user: 1
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+evaluation:
+  ebno_db: [-2.0, 2.0, 6.0, 10.0]
+  repetitions: 5
+  batch_size: 16
+  bp_iterations: 20
+  variants:
+    - proposed
+    - uncertainty_off_fixed_graph
+    - diagonal_posterior_fixed_graph
+    - mean_only_graph_fixed_cardinality
+    - random_graph_fixed_cardinality
+    - full_graph
+    - ls_lmmse
+    - perfect_csi_lmmse
+  cases:
+    - name: eval_umi_type1_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+    - name: eval_umi_type1_random_subset_2user
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [3, 0]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 15.0
+      run_kbest: true
+      kbest_k: 16
+    - name: eval_uma_type1_port_permutation_4user
+      scenario: uma
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [2, 0, 3, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 15.0
+    - name: eval_umi_type2_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 2
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 3
+      dmrs_ports: [4, 5, 0, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+    - name: eval_cdl_a_single_user_2layer
+      scenario: cdl-a
+      num_users: 1
+      num_layers_per_user: 2
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      delay_spread_s: 1.0e-7
+    - name: eval_cdl_c_single_user
+      scenario: cdl-c
+      num_users: 1
+      num_layers_per_user: 1
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      delay_spread_s: 3.0e-7
+    - name: eval_cdl_d_single_user
+      scenario: cdl-d
+      num_users: 1
+      num_layers_per_user: 1
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      delay_spread_s: 1.0e-7

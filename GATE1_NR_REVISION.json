@@ -1,0 +1,13 @@
+{
+  "revision": "gate1_nr_integration_v1",
+  "base_package_revision": "gate0_v2_4_20260809",
+  "required_gate0_classification": "GATE0_MECHANISM_SUPPORTED",
+  "purpose": "Standards-compliant Sionna NR integration smoke gate and resume-safe preliminary evidence campaign",
+  "pgca_agmp_baseline_included": false,
+  "publication_nr_ready": false,
+  "stages": [
+    "CPU/API preflight",
+    "GPU NR smoke gate",
+    "resume-safe preliminary NR training and TBLER evidence"
+  ]
+}
