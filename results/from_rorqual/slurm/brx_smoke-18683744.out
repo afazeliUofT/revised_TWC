@@ -1,0 +1,27 @@
+package_revision_v2_2: PASS
+package_manifest_valid: PASS
+cuda_compute_node: PASS
+sionna_mapper_demapper_executed: PASS
+pilot_scope_explicit: PASS
+pilot_orthogonality: PASS
+pilot_noiseless_separation: PASS
+port_metadata_consistent: PASS
+pilot_data_partition: PASS
+simulator_operator_seed_separation: PASS
+deterministic_repeat: PASS
+tensor_shapes_exact: PASS
+tensor_dtypes: PASS
+loss_finite: PASS
+gradient_nonzero_finite: PASS
+optimizer_updates_parameters: PASS
+posterior_psd_and_finite: PASS
+posterior_coverage_metric_valid: PASS
+coupling_valid: PASS
+uncertainty_and_routing_paths_active: PASS
+checkpoint_roundtrip: PASS
+baseline_sanity: PASS
+OVERALL: PASS
+OPTUNA_READY: YES
+PUBLICATION_NR_READY: NO (a separate 3GPP/Sionna NR integration gate is required)
+
+Prepared /lustre10/scratch/rsadve1/revised_TWC/outputs/github_artifacts
