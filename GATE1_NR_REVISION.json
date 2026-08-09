@@ -13,5 +13,11 @@
   "compatibility_patch": "sionna_2_0_1_list2llr_eager_exact_v1",
   "kbest_list2llr_backend": "eager_exact",
   "triton_required_for_gate1": false,
-  "installed_sionna_files_modified": false
+  "installed_sionna_files_modified": false,
+  "evidence_workflow_patch": "gate1_nr_evidence_workflow_v1",
+  "evidence_contract_source_hashing": true,
+  "evidence_atomic_batch_csv": true,
+  "github_training_log_included": true,
+  "evidence_slurm_walltime": "01:00:00",
+  "evidence_expected_rows": 1140
 }

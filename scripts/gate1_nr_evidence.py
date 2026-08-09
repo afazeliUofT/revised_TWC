@@ -41,6 +41,16 @@ from bayesroute.nr_gate1 import (
 
 TRAINING_VERSION = "gate1_nr_train_v1"
 EVALUATION_VERSION = "gate1_nr_eval_v1"
+WORKFLOW_PATCH_VERSION = "gate1_nr_evidence_workflow_v1"
+SOURCE_CONTRACT_FILES = (
+    "scripts/gate1_nr_evidence.py",
+    "src/bayesroute/nr_gate1.py",
+    "src/bayesroute/models.py",
+    "src/bayesroute/channels.py",
+    "src/bayesroute/qam.py",
+    "src/bayesroute/config.py",
+    "src/bayesroute/sionna_kbest_compat.py",
+)
 CUSTOM_VARIANTS = {
     "proposed",
     "uncertainty_off_fixed_graph",
@@ -149,11 +159,23 @@ def fixed_validation_nll(
         bridge.train(was_training)
 
 
+def source_contract_hashes() -> dict[str, str]:
+    hashes: dict[str, str] = {}
+    for relative in SOURCE_CONTRACT_FILES:
+        path = ROOT / relative
+        if not path.is_file():
+            raise RuntimeError(f"Missing source-contract file: {relative}")
+        hashes[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashes
+
+
 def training_contract(config: dict[str, Any], config_path: Path) -> dict[str, Any]:
     payload = {
         "version": TRAINING_VERSION,
+        "workflow_patch_version": WORKFLOW_PATCH_VERSION,
         "gate1_revision": config["gate1_revision"],
         "config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
+        "source_sha256": source_contract_hashes(),
         "seed": int(config["seed"]),
         "bridge": config["bridge"],
         "training": config["training"],
@@ -346,8 +368,10 @@ def evaluation_contract(
 ) -> dict[str, Any]:
     payload = {
         "version": EVALUATION_VERSION,
+        "workflow_patch_version": WORKFLOW_PATCH_VERSION,
         "gate1_revision": config["gate1_revision"],
         "config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
+        "source_sha256": source_contract_hashes(),
         "training_checkpoint_sha256": train_summary["best_checkpoint_sha256"],
         "evaluation": config["evaluation"],
         "bridge": config["bridge"],
@@ -356,10 +380,21 @@ def evaluation_contract(
     return payload
 
 
-def append_row(path: Path, row: dict[str, Any]) -> None:
-    pd.DataFrame([row]).to_csv(
-        path, mode="a", header=not path.is_file(), index=False
-    )
+def append_rows_atomic(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Atomically commit one complete paired evaluation batch to the CSV."""
+    if not rows:
+        return
+    new_rows = pd.DataFrame(rows)
+    if path.is_file():
+        current = pd.read_csv(path)
+        if list(current.columns) != list(new_rows.columns):
+            raise RuntimeError("Gate-1 evaluation CSV column contract mismatch")
+        combined = pd.concat([current, new_rows], ignore_index=True)
+    else:
+        combined = new_rows
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    combined.to_csv(temporary, index=False)
+    temporary.replace(path)
 
 
 def standard_row(
@@ -487,6 +522,7 @@ def evaluate_or_resume(
         expected_rows += len(base_variants) * len(evaluation["ebno_db"]) * int(evaluation["repetitions"])
         if bool(raw_case.get("run_kbest", False)):
             expected_rows += len(evaluation["ebno_db"]) * int(evaluation["repetitions"])
+    kbest_compatibility: dict[str, dict[str, Any]] = {}
 
     for case_index, (raw_case, case) in enumerate(zip(evaluation["cases"], cases)):
         context = build_nr_context(case, device)
@@ -516,6 +552,21 @@ def evaluate_or_resume(
                 kbest_k=int(raw_case.get("kbest_k", 16)),
                 return_crc=True,
             )
+            compatibility = dict(
+                getattr(kbest, "_bayesroute_kbest_compatibility", {})
+            )
+            compatibility_valid = bool(
+                compatibility.get("passed")
+                and compatibility.get("backend") == "eager_exact"
+                and compatibility.get("active_semantics_exact") is True
+                and compatibility.get("installed_sionna_files_modified") is False
+            )
+            if not compatibility_valid:
+                raise RuntimeError(
+                    f"Invalid Sionna K-best compatibility for {case.name}: "
+                    f"{compatibility}"
+                )
+            kbest_compatibility[case.name] = compatibility
 
         case_variants = list(base_variants)
         if kbest is not None:
@@ -550,6 +601,7 @@ def evaluate_or_resume(
                 else:
                     reference_counts = None
 
+                rows_for_batch: list[dict[str, Any]] = []
                 for variant in missing:
                     if variant in CUSTOM_VARIANTS:
                         output = custom_outputs[variant]
@@ -634,7 +686,11 @@ def evaluate_or_resume(
                         )
                     else:
                         raise RuntimeError(f"Unknown Gate-1 evidence variant {variant}")
-                    append_row(raw_path, row)
+                    rows_for_batch.append(row)
+
+                append_rows_atomic(raw_path, rows_for_batch)
+                for row in rows_for_batch:
+                    variant = str(row["variant"])
                     done.add((case.name, variant, snr, rep))
                     print(json.dumps({
                         "case": case.name,
@@ -734,6 +790,8 @@ def evaluate_or_resume(
         "unique_rows": unique_rows,
         "expected_rows": expected_rows,
         "complete": complete,
+        "workflow_patch_version": WORKFLOW_PATCH_VERSION,
+        "kbest_compatibility": kbest_compatibility,
     }
 
 
@@ -787,6 +845,35 @@ def make_plots(df: pd.DataFrame) -> list[str]:
         fig.savefig(path, dpi=220)
         plt.close(fig)
         paths.append(str(path))
+
+    training_path = Path("outputs/logs/gate1_nr_preliminary_train.csv")
+    if training_path.is_file():
+        training = pd.read_csv(training_path)
+        if not training.empty:
+            fig, ax = plt.subplots(figsize=(7.2, 4.8))
+            ax.plot(
+                training["step"],
+                training["coded_bit_nll"],
+                marker="o",
+                label="training coded-bit NLL",
+            )
+            valid = training["validation_coded_bit_nll"].notna()
+            if valid.any():
+                ax.plot(
+                    training.loc[valid, "step"],
+                    training.loc[valid, "validation_coded_bit_nll"],
+                    marker="s",
+                    label="fixed-validation coded-bit NLL",
+                )
+            ax.set_xlabel("Training step")
+            ax.set_ylabel("Coded-bit NLL")
+            ax.grid(True, alpha=0.3)
+            ax.legend(fontsize=8)
+            fig.tight_layout()
+            path = plot_dir / "gate1_nr_training_nll.png"
+            fig.savefig(path, dpi=220)
+            plt.close(fig)
+            paths.append(str(path))
     return paths
 
 
@@ -846,6 +933,17 @@ def classify(
             improving_cases += int(float(curve.iloc[-1]) <= float(curve.iloc[0]))
     perfect_improves = bool(tested_cases > 0 and improving_cases == tested_cases)
     kbest_present = "perfect_csi_kbest" in set(df["variant"])
+    compatibility_records = evaluation_meta.get("kbest_compatibility", {})
+    kbest_compatibility_verified = bool(
+        compatibility_records
+        and all(
+            item.get("passed") is True
+            and item.get("backend") == "eager_exact"
+            and item.get("active_semantics_exact") is True
+            and item.get("installed_sionna_files_modified") is False
+            for item in compatibility_records.values()
+        )
+    )
 
     checks = {
         "complete_rows": bool(evaluation_meta["complete"]),
@@ -854,6 +952,7 @@ def classify(
         "training_complete": bool(train_summary["complete"]),
         "perfect_csi_lmmse_improves_with_snr": perfect_improves,
         "kbest_reference_executed": kbest_present,
+        "kbest_eager_exact_compatibility_verified": kbest_compatibility_verified,
     }
     mechanism_signals = {
         "uncertainty_coded_nll_gain": bool(math.isfinite(uncertainty_nll) and uncertainty_nll < 0.0),
@@ -919,6 +1018,7 @@ def main() -> None:
     result.update(
         {
             "gate1_revision": GATE1_NR_VERSION,
+            "workflow_patch_version": WORKFLOW_PATCH_VERSION,
             "complete": bool(evaluation_meta["complete"]),
             "publication_nr_ready": False,
             "scope": "PRELIMINARY_STANDARD_COMPLIANT_GATE_NOT_PUBLICATION_CAMPAIGN",

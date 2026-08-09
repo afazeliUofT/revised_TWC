@@ -73,7 +73,7 @@ def main() -> None:
     copy_tree_files(root / "outputs/reports", dest / "reports", ["*.json", "*.csv"])
     copy_tree_files(root / "outputs/eval", dest / "eval", ["*.json", "*.csv"])
     copy_tree_files(root / "outputs/plots", dest / "plots", ["*.png", "*.pdf"])
-    copy_tree_files(root / "outputs/logs", dest / "logs", ["*_train_metrics.csv", "*.txt"])
+    copy_tree_files(root / "outputs/logs", dest / "logs", ["*.csv", "*.txt"])
     copy_tree_files(root / "outputs/gates", dest / "gates", ["*.json", "*.txt"])
 
     slurm_index = copy_recent_slurm_logs(root / "outputs/slurm", dest / "slurm")
@@ -84,7 +84,7 @@ def main() -> None:
         )
 
     (dest / "README.md").write_text(
-        "Compact BayesRoute-Rx Gate-0 evidence. Heavy checkpoints and study.db are excluded. "
+        "Compact BayesRoute-Rx evidence. Heavy checkpoints and study.db are excluded. "
         "Recent Slurm log tails are included for diagnosis.\n",
         encoding="utf-8",
     )
