@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from bayesroute.nr_gate1 import (
     GATE1_NR_VERSION,
+    SIONNA_TOPOLOGY_RESIZE_VERSION,
     NRBayesRouteBridge,
     NRCase,
     build_nr_context,
@@ -73,7 +74,7 @@ def manifest_report(root: Path) -> dict[str, Any]:
         elif hashlib.sha256(target.read_bytes()).hexdigest() != expected:
             failures.append(f"hash:{relative}")
         checked += 1
-    return {"passed": not failures and checked >= 12, "checked": checked, "failures": failures}
+    return {"passed": not failures and checked == 19, "checked": checked, "failures": failures}
 
 
 def gate0_report(root: Path, expected: str) -> dict[str, Any]:
@@ -209,6 +210,61 @@ def channel_case(
         "coded_bits_shape": list(batch.coded_bits.shape),
         "ls_lmmse": ls,
         "perfect_csi_lmmse": perfect,
+    }
+
+
+def topology_batch_resize_check(
+    case: NRCase,
+    device: torch.device,
+    batch_size: int,
+    ebno_db: float,
+) -> dict[str, Any]:
+    """Exercise Sionna's required reset path for changing batch sizes."""
+    if case.scenario.lower() not in {"umi", "uma"}:
+        raise ValueError("Topology-resize smoke case must be UMi or UMa")
+    context = build_nr_context(case, device)
+    sequence = [int(batch_size), int(batch_size) + 1, int(batch_size)]
+    records: list[dict[str, Any]] = []
+    passed = True
+    for requested in sequence:
+        batch = context.sample(batch_size=requested, ebno_db=ebno_db)
+        finite = bool(
+            torch.isfinite(batch.y).all().item()
+            and torch.isfinite(batch.h).all().item()
+        )
+        shapes = bool(
+            int(batch.y.shape[0]) == requested
+            and int(batch.h.shape[0]) == requested
+            and int(batch.information_bits.shape[0]) == requested
+        )
+        state_matches = context.topology_shape == (
+            requested,
+            case.num_users,
+            1,
+        )
+        passed = bool(passed and finite and shapes and state_matches)
+        records.append(
+            {
+                "requested_batch_size": requested,
+                "finite": finite,
+                "shapes_valid": shapes,
+                "topology_shape": list(context.topology_shape or ()),
+                "state_matches": state_matches,
+                "y_shape": list(batch.y.shape),
+                "h_shape": list(batch.h.shape),
+            }
+        )
+    expected_resets = 2
+    passed = bool(
+        passed and context.topology_reset_count == expected_resets
+    )
+    return {
+        "passed": passed,
+        "case": case.__dict__,
+        "batch_sequence": sequence,
+        "expected_reset_count": expected_resets,
+        "observed_reset_count": context.topology_reset_count,
+        "records": records,
     }
 
 
@@ -419,6 +475,17 @@ def main() -> None:
             float(config["ebno_db"]),
         )
 
+    resize_case = next(
+        case for _, case in channel_cases
+        if case.scenario.lower() in {"umi", "uma"}
+    )
+    topology_resize = topology_batch_resize_check(
+        resize_case,
+        device,
+        int(config["batch_size"]),
+        float(config["ebno_db"]),
+    )
+
     kbest_raw, kbest_case = next(
         (raw, case) for raw, case in channel_cases if bool(raw.get("run_kbest_smoke"))
     )
@@ -480,6 +547,7 @@ def main() -> None:
         "standard_ls_and_perfect_csi_lmmse_paths": all(
             item["passed"] for item in channel_results.values()
         ),
+        "sionna_topology_batch_resize": bool(topology_resize["passed"]),
         "kbest_eager_exact_compatibility": bool(
             kbest.get("compatibility_valid", False)
         ),
@@ -492,6 +560,7 @@ def main() -> None:
     report = {
         "classification": classification,
         "gate1_revision": GATE1_NR_VERSION,
+        "topology_batch_resize_patch": SIONNA_TOPOLOGY_RESIZE_VERSION,
         "complete": True,
         "overall_pass": overall,
         "evidence_ready": overall,
@@ -513,6 +582,7 @@ def main() -> None:
         },
         "mapping_cases": mapping_results,
         "channel_cases": channel_results,
+        "topology_batch_resize": topology_resize,
         "kbest": kbest,
         "bridge": bridge_report,
         "operator_transfer": transfer,

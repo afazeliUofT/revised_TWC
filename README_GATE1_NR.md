@@ -25,3 +25,10 @@ that helper at process scope by the exact eager expression
 `(path_inds == c).any(dim=-2)`. No installed Sionna file is edited and the
 K-best algorithm, candidate list, distance metric, and LLR definition are
 unchanged. Gate reports record the active backend explicitly.
+
+## Sionna system-level topology resizing
+
+Sionna 2.0.1 freezes UMi/UMa topology-buffer shapes after the first
+`set_topology` call. Gate-1 tracks the active `(batch_size, num_ut, num_bs)`
+shape and calls the public `reset_topology()` method before a shape change.
+The GPU smoke gate explicitly tests the sequence `B -> B+1 -> B`.

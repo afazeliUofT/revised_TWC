@@ -7,7 +7,7 @@ The module deliberately uses Sionna's PUSCHConfig/PUSCHTransmitter/PUSCHReceiver
 NR DMRS or LDPC processing with local approximations.
 """
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, field, fields
 from pathlib import Path
 from typing import Any, Iterable
 import hashlib
@@ -28,6 +28,7 @@ from .models import (
 )
 
 GATE1_NR_VERSION = "gate1_nr_integration_v1"
+SIONNA_TOPOLOGY_RESIZE_VERSION = "sionna_2_0_1_topology_reset_v1"
 
 
 @dataclass(frozen=True)
@@ -153,6 +154,20 @@ class NRContext:
     channel_model: Any
     channel: Any
     device: torch.device
+    _topology_shape: tuple[int, int, int] | None = field(
+        default=None, init=False, repr=False
+    )
+    _topology_reset_count: int = field(default=0, init=False, repr=False)
+
+    @property
+    def topology_shape(self) -> tuple[int, int, int] | None:
+        """Current ``(batch_size, num_ut, num_bs)`` topology shape."""
+        return self._topology_shape
+
+    @property
+    def topology_reset_count(self) -> int:
+        """Number of shape-changing Sionna topology resets."""
+        return int(self._topology_reset_count)
 
     def new_topology(self, batch_size: int) -> None:
         scenario = self.case.scenario.lower()
@@ -160,15 +175,35 @@ class NRContext:
             return
         from sionna.phy.channel import gen_single_sector_topology
 
-        topology = gen_single_sector_topology(
+        requested_shape = (
             int(batch_size),
             int(self.case.num_users),
+            1,
+        )
+        if (
+            self._topology_shape is not None
+            and self._topology_shape != requested_shape
+        ):
+            reset_topology = getattr(self.channel_model, "reset_topology", None)
+            if not callable(reset_topology):
+                raise RuntimeError(
+                    "The Sionna system-level channel cannot change topology "
+                    "shape because reset_topology() is unavailable."
+                )
+            reset_topology()
+            self._topology_shape = None
+            self._topology_reset_count += 1
+
+        topology = gen_single_sector_topology(
+            requested_shape[0],
+            requested_shape[1],
             scenario,
             min_ut_velocity=float(self.case.speed_mps),
             max_ut_velocity=float(self.case.speed_mps),
             device=str(self.device),
         )
         self.channel_model.set_topology(*topology)
+        self._topology_shape = requested_shape
 
     def sample(self, batch_size: int, ebno_db: float) -> NRBatch:
         from sionna.phy.utils import ebnodb2no

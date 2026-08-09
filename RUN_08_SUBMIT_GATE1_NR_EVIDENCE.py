@@ -44,11 +44,13 @@ required = [
     report.get('overall_pass') is True,
     report.get('evidence_ready') is True,
     report.get('gate1_revision') == 'gate1_nr_integration_v1',
+    report.get('topology_batch_resize_patch') == 'sionna_2_0_1_topology_reset_v1',
     report.get('pgca_agmp_baseline_included') is False,
     report.get('checks', {{}}).get('all_dmrs_mapping_cases') is True,
     report.get('checks', {{}}).get('explicit_user_layer_port_mapping') is True,
     report.get('checks', {{}}).get('nr_tb_ldpc_roundtrip') is True,
     report.get('checks', {{}}).get('all_38901_channel_cases') is True,
+    report.get('checks', {{}}).get('sionna_topology_batch_resize') is True,
     report.get('checks', {{}}).get('kbest_eager_exact_compatibility') is True,
     report.get('checks', {{}}).get('kbest_path') is True,
     report.get('checks', {{}}).get('bayesroute_nr_bridge') is True,
@@ -56,6 +58,9 @@ required = [
     revision.get('evidence_workflow_patch') == 'gate1_nr_evidence_workflow_v1',
     revision.get('evidence_contract_source_hashing') is True,
     revision.get('github_training_log_included') is True,
+    revision.get('topology_batch_resize_patch') == 'sionna_2_0_1_topology_reset_v1',
+    revision.get('topology_shape_tracking') is True,
+    revision.get('topology_resize_smoke_required') is True,
 ]
 if not all(required):
     raise SystemExit('BLOCKED: Gate-1 NR evidence preflight contract has not passed')
@@ -88,6 +93,7 @@ print('GATE1_NR_EVIDENCE_PREFLIGHT_PASS')
 print('GATE1_NR_EVIDENCE_WORKFLOW', revision['evidence_workflow_patch'])
 print('GATE1_NR_MANIFEST_FILES', checked)
 print('GATE1_NR_EVIDENCE_EXPECTED_ROWS', expected_rows)
+print('GATE1_NR_TOPOLOGY_RESIZE_SMOKE_PASS')
 print('PGCA_AGMP_BASELINE_INCLUDED NO')
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_nr_evid | grep -q .; then
