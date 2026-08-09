@@ -1,0 +1,82 @@
+W0809 12:47:13.314000 2284920 torch/utils/flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+Traceback (most recent call last):
+  File "/lustre10/scratch/rsadve1/revised_TWC/scripts/gate1_nr_smoke.py", line 534, in <module>
+    main()
+  File "/lustre10/scratch/rsadve1/revised_TWC/scripts/gate1_nr_smoke.py", line 413, in main
+    kbest = kbest_check(
+            ^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/scripts/gate1_nr_smoke.py", line 228, in kbest_check
+    metrics = run_standard_receiver(
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/src/bayesroute/nr_gate1.py", line 1085, in run_standard_receiver
+    result = receiver(batch.raw_y, batch.noise_var, batch.raw_h)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 85, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 89, in forward
+    return self.call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/nr/pusch_receiver.py", line 268, in call
+    llr = self._mimo_detector(y, h_hat, err_var, no)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 85, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 89, in forward
+    return self.call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/ofdm/detection.py", line 366, in call
+    z = self._detector(y_dt, h_dt_desired, s)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 85, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 89, in forward
+    return self.call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/mimo/detection.py", line 1041, in call
+    llr = self.list2llr(y, r, dists, path_inds.to(torch.int32), path_syms)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 85, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1778, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1789, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/block.py", line 89, in forward
+    return self.call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/sionna/phy/mimo/utils.py", line 602, in call
+    b0 = self._fused_equal_any(path_inds, self._c0)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/_dynamo/eval_frame.py", line 1183, in compile_wrapper
+    raise e.remove_dynamo_frames() from None  # see TORCHDYNAMO_VERBOSE=1
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/lustre10/scratch/rsadve1/revised_TWC/.venv/lib/python3.11/site-packages/torch/_inductor/scheduler.py", line 8499, in create_backend
+    raise TritonMissing(inspect.currentframe())
+torch._inductor.exc.TritonMissing: Cannot find a working triton installation. Either the package is not installed or it is too old. More information on installing Triton can be found at: https://github.com/triton-lang/triton
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"
+

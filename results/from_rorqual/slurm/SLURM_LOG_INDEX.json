@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 72,
+    "mtime_epoch": 1786294055.0,
+    "name": "brx_nr_smoke-18720821.out",
+    "original_size_bytes": 72,
+    "truncated": false
+  },
+  {
+    "copied_size_bytes": 6096,
+    "mtime_epoch": 1786294050.0,
+    "name": "brx_nr_smoke-18720821.err",
+    "original_size_bytes": 6096,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 5100,
     "mtime_epoch": 1786284159.0,
     "name": "brx_diag-18712904.out",
