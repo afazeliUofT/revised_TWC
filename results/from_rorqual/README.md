@@ -1,1 +1,1 @@
-Awaiting Gate-0 v2.3 Rorqual evidence.
+Compact BayesRoute-Rx Gate-0 evidence. Heavy checkpoints and study.db are excluded. Recent Slurm log tails are included for diagnosis.
