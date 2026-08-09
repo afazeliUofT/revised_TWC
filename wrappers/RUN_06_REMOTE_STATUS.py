@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import shlex
 import subprocess
@@ -8,7 +9,9 @@ REMOTE = "rsadve1@rorqual.alliancecan.ca"
 REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
 
 
-def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess:
+def run(
+    cmd: list[str], cwd: Path | None = None, check: bool = True
+) -> subprocess.CompletedProcess:
     print("+", " ".join(str(x) for x in cmd), flush=True)
     proc = subprocess.run([str(x) for x in cmd], cwd=cwd, text=True)
     if check and proc.returncode != 0:
@@ -32,9 +35,20 @@ squeue -u rsadve1
 cd {qroot} || exit 0
 echo '--- newest Slurm logs ---'
 find outputs/slurm -maxdepth 1 -type f -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -12 | cut -d' ' -f2-
+echo '--- tails of four newest Slurm logs ---'
+for f in $(find outputs/slurm -maxdepth 1 -type f -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -4 | cut -d' ' -f2-); do
+  echo "### $f"
+  tail -60 "$f"
+done
 echo '--- gate summaries ---'
-for f in outputs/setup/VENV_OK.txt outputs/smoke/SMOKE_HEALTH.txt outputs/optuna/OPTUNA_STATUS.json outputs/reports/initial_eval_summary.json; do
-  if [ -f "$f" ]; then echo "### $f"; tail -40 "$f"; fi
+for f in \
+  outputs/setup/VENV_OK.txt \
+  outputs/smoke/SMOKE_HEALTH.txt \
+  outputs/optuna/OPTUNA_STATUS.json \
+  outputs/optuna/best_params.json \
+  outputs/reports/initial_train_summary.json \
+  outputs/reports/initial_eval_summary.json; do
+  if [ -f "$f" ]; then echo "### $f"; tail -60 "$f"; fi
 done
 """
     ssh(command, check=False)

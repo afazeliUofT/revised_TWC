@@ -1,4 +1,4 @@
-package_revision: gate0_v2_1_20260808
+package_revision: gate0_v2_2_20260808
 seed: 2026
 device: auto
 system:
@@ -6,7 +6,9 @@ system:
   n_layers: 6
   n_subcarriers: 24
   n_symbols: 10
-  dmrs_symbols: [2, 7]
+  dmrs_symbols:
+  - 2
+  - 7
   bits_per_symbol: 4
   snr_db_min: 4.0
   snr_db_max: 16.0
@@ -35,14 +37,29 @@ training:
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
-  snr_grid_db: [6.0, 10.0, 14.0]
+  snr_grid_db:
+  - 6.0
+  - 10.0
+  - 14.0
   batches_per_snr: 8
   batch_size: 96
-  baselines: [ls, bayesroute_mean, bayesroute_uncertainty]
+  baselines:
+  - ls
+  - bayesroute_mean
+  - bayesroute_uncertainty
 optuna:
-  study_name: bayesroute_gate0_v2_short_tuning
+  study_name: bayesroute_gate0_v2_2_short_tuning
   n_trials: 12
   timeout_minutes: 110
   train_steps_per_trial: 160
   eval_batches_per_snr: 3
   validation_seed: 92026
+  sampler_seed: 12026
+  training_seed: 192026
+  pruning_validation_seed: 292026
+  pruning_validation_snr_db: 10.0
+  pruning_validation_batches: 1
+  pruning_validation_batch_size: 48
+  n_startup_trials: 5
+  n_warmup_steps: 40
+  interval_steps: 40

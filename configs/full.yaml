@@ -1,4 +1,4 @@
-package_revision: gate0_v2_1_20260808
+package_revision: gate0_v2_2_20260808
 seed: 20260808
 device: auto
 optuna_best_path: outputs/optuna/best_params.json
@@ -7,7 +7,9 @@ system:
   n_layers: 8
   n_subcarriers: 48
   n_symbols: 14
-  dmrs_symbols: [2, 11]
+  dmrs_symbols:
+  - 2
+  - 11
   bits_per_symbol: 4
   snr_db_min: 0.0
   snr_db_max: 18.0
@@ -36,7 +38,23 @@ training:
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
-  snr_grid_db: [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0]
+  snr_grid_db:
+  - 0.0
+  - 2.0
+  - 4.0
+  - 6.0
+  - 8.0
+  - 10.0
+  - 12.0
+  - 14.0
+  - 16.0
+  - 18.0
   batches_per_snr: 120
   batch_size: 192
-  baselines: [ls, bayesroute_mean, bayesroute_graph_off, bayesroute_uncertainty, bayesroute_full_graph, oracle]
+  baselines:
+  - ls
+  - bayesroute_mean
+  - bayesroute_graph_off
+  - bayesroute_uncertainty
+  - bayesroute_full_graph
+  - oracle

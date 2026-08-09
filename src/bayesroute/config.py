@@ -106,7 +106,7 @@ def count_parameters(module: torch.nn.Module) -> int:
 
 
 def apply_optuna_best(cfg: AttrDict, path: str | Path | None = None) -> tuple[AttrDict, dict]:
-    """Apply only known Optuna fields and return the effective config plus metadata."""
+    """Apply a completed, revision-matched Optuna result to known fields only."""
     configured = path or cfg.get("optuna_best_path", None)
     if not configured:
         return cfg, {"applied": False, "reason": "no_path_configured"}
@@ -114,9 +114,29 @@ def apply_optuna_best(cfg: AttrDict, path: str | Path | None = None) -> tuple[At
     if not best_path.exists():
         return cfg, {"applied": False, "reason": "file_missing", "path": str(best_path)}
     data = json.loads(best_path.read_text(encoding="utf-8"))
+    expected_revision = str(cfg.get("package_revision", "unknown"))
+    result_revision = str(data.get("package_revision", "unknown"))
+    if result_revision != expected_revision:
+        raise RuntimeError(
+            "Optuna/package revision mismatch: "
+            f"result={result_revision}, config={expected_revision}"
+        )
+    complete = int(data.get("n_complete_trials", 0))
+    target = int(data.get("target_complete_trials", 0))
+    if target <= 0 or complete < target:
+        raise RuntimeError(
+            f"Optuna result is incomplete: complete={complete}, target={target}"
+        )
+    if data.get("objective_metric") != "fixed_validation_bit_nll":
+        raise RuntimeError(
+            f"Unexpected Optuna objective metric: {data.get('objective_metric')}"
+        )
     params = dict(data.get("best_params", {}))
     model_fields = {"rank", "detector_iterations", "edge_mass"}
     training_fields = {"lr", "channel_loss_weight"}
+    unknown = set(params) - model_fields - training_fields
+    if unknown:
+        raise RuntimeError(f"Unknown Optuna parameter fields: {sorted(unknown)}")
     for key, value in params.items():
         if key in model_fields:
             cfg.model[key] = value
@@ -125,6 +145,13 @@ def apply_optuna_best(cfg: AttrDict, path: str | Path | None = None) -> tuple[At
     return cfg, {
         "applied": True,
         "path": str(best_path),
+        "package_revision": result_revision,
+        "search_space_version": data.get("search_space_version"),
+        "contract_signature": data.get("contract_signature"),
+        "objective_metric": data.get("objective_metric"),
         "best_value": data.get("best_value"),
+        "best_trial_number": data.get("best_trial_number"),
         "best_params": params,
+        "n_complete_trials": complete,
+        "target_complete_trials": target,
     }

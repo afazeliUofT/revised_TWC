@@ -330,7 +330,7 @@ def main():
     )
 
     checks = {
-        "package_revision_v2": bool(str(cfg.get("package_revision", "")).startswith("gate0_v2_")),
+        "package_revision_v2_2": bool(str(cfg.get("package_revision", "")) == "gate0_v2_2_20260808"),
         "package_manifest_valid": bool(report["manifest"]["passed"]),
         "cuda_compute_node": bool(device.type == "cuda" and torch.cuda.is_available()),
         "sionna_mapper_demapper_executed": bool(report["sionna"].get("passed", False)),

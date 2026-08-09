@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import shlex
 import subprocess
@@ -8,7 +9,9 @@ REMOTE = "rsadve1@rorqual.alliancecan.ca"
 REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
 
 
-def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess:
+def run(
+    cmd: list[str], cwd: Path | None = None, check: bool = True
+) -> subprocess.CompletedProcess:
     print("+", " ".join(str(x) for x in cmd), flush=True)
     proc = subprocess.run([str(x) for x in cmd], cwd=cwd, text=True)
     if check and proc.returncode != 0:
@@ -32,14 +35,28 @@ cd {qroot}
 .venv/bin/python - <<'REMOTE_PY'
 import json
 from pathlib import Path
-p = Path('outputs/optuna/OPTUNA_STATUS.json')
-b = Path('outputs/optuna/best_params.json')
-if not p.exists() or not b.exists():
+import yaml
+status_path = Path('outputs/optuna/OPTUNA_STATUS.json')
+best_path = Path('outputs/optuna/best_params.json')
+config_path = Path('configs/initial.yaml')
+if not status_path.exists() or not best_path.exists():
     raise SystemExit('BLOCKED: Optuna status/best parameters are missing')
-s = json.loads(p.read_text())
-if s.get('target_reached') is not True:
-    raise SystemExit('BLOCKED: Optuna target complete-trial count has not been reached')
-print('INITIAL_PREFLIGHT_PASS')
+status = json.loads(status_path.read_text())
+best = json.loads(best_path.read_text())
+cfg = yaml.safe_load(config_path.read_text())
+revision = str(cfg.get('package_revision', ''))
+required = [
+    status.get('target_reached') is True,
+    int(status.get('complete_trials', 0)) >= int(status.get('target_complete_trials', 1)),
+    status.get('package_revision') == revision,
+    best.get('package_revision') == revision,
+    status.get('contract_signature') == best.get('contract_signature'),
+    best.get('objective_metric') == 'fixed_validation_bit_nll',
+    int(best.get('n_complete_trials', 0)) >= int(best.get('target_complete_trials', 1)),
+]
+if not all(required):
+    raise SystemExit('BLOCKED: Optuna completion/revision/contract validation failed')
+print('INITIAL_PREFLIGHT_PASS', revision, best.get('best_trial_number'))
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_initial | grep -q .; then
   echo 'A brx_initial job is already queued or running.' >&2

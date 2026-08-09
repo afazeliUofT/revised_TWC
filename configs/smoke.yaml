@@ -1,4 +1,4 @@
-package_revision: gate0_v2_1_20260808
+package_revision: gate0_v2_2_20260808
 seed: 1234
 device: auto
 system:
@@ -6,7 +6,9 @@ system:
   n_layers: 3
   n_subcarriers: 12
   n_symbols: 7
-  dmrs_symbols: [1, 5]
+  dmrs_symbols:
+  - 1
+  - 5
   bits_per_symbol: 4
   snr_db_min: 8.0
   snr_db_max: 12.0
@@ -18,7 +20,7 @@ system:
 model:
   rank: 8
   detector_iterations: 2
-  edge_mass: 0.50
+  edge_mass: 0.5
   use_uncertainty: true
   operator_seed: 8001
 training:
@@ -35,7 +37,15 @@ training:
   channel_loss_weight: 0.05
   grad_clip: 1.0
 evaluation:
-  snr_grid_db: [6.0, 10.0]
+  snr_grid_db:
+  - 6.0
+  - 10.0
   batches_per_snr: 2
   batch_size: 16
-  baselines: [ls, bayesroute_mean, bayesroute_graph_off, bayesroute_uncertainty, bayesroute_full_graph, oracle]
+  baselines:
+  - ls
+  - bayesroute_mean
+  - bayesroute_graph_off
+  - bayesroute_uncertainty
+  - bayesroute_full_graph
+  - oracle

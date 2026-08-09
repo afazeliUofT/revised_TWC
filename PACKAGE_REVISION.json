@@ -1,7 +1,12 @@
 {
   "package": "BayesRoute-Rx Gate-0",
   "publication_nr_ready": false,
-  "purpose": "principle validation before Optuna",
-  "repair": "Normalize unindexed CUDA device names to Sionna-compatible cuda:<index>.",
-  "revision": "gate0_v2_1_20260808"
+  "purpose": "fair, reproducible, resume-safe Gate-0 tuning and evaluation",
+  "repair": [
+    "Use fixed validation bit NLL for Optuna pruning.",
+    "Use common training data streams and a seeded sampler across trials.",
+    "Synchronize compact Slurm diagnostics to GitHub.",
+    "Enforce evaluation contracts and fair receiver-only latency measurement."
+  ],
+  "revision": "gate0_v2_2_20260808"
 }

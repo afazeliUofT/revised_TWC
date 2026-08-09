@@ -76,7 +76,9 @@ def main() -> None:
         ("channel_marginal_nll", "Channel marginal NLL", "Gate-0 posterior channel marginal NLL", False),
         ("channel_coverage95", "Empirical 95% coverage", "Gate-0 posterior marginal coverage", False),
         ("edge_density", "Retained directed-edge fraction", "Posterior coupling graph density", False),
-        ("elapsed_sec", "Batch latency [s]", "Measured end-to-end batch latency", False),
+        ("receiver_ms_per_sample", "Receiver latency [ms/sample]", "Measured receiver-only latency", False),
+        ("receiver_samples_per_sec", "Receiver throughput [samples/s]", "Measured receiver throughput", False),
+        ("receiver_incremental_peak_memory_mib", "Incremental peak memory [MiB]", "Receiver incremental peak GPU memory", False),
     ]
     made = []
     for metric, ylabel, title, log_y in plot_specs:
@@ -99,6 +101,11 @@ def main() -> None:
                 "ber_delta_proposed_minus_comparator",
                 "BER delta: proposed - comparator",
                 "Paired Gate-0 BER differences",
+            ),
+            (
+                "receiver_ms_per_sample_delta_proposed_minus_comparator",
+                "Receiver-latency delta [ms/sample]",
+                "Paired receiver-only latency differences",
             ),
         ]:
             agg = (
@@ -134,7 +141,10 @@ def main() -> None:
     numeric = [
         c for c in [
             "ber", "bit_nll", "brier", "ece", "channel_nmse",
-            "channel_marginal_nll", "channel_coverage95", "edge_density", "elapsed_sec", "trainable_params",
+            "channel_marginal_nll", "channel_coverage95", "edge_density",
+            "receiver_ms_per_sample", "receiver_samples_per_sec",
+            "receiver_peak_memory_mib", "receiver_incremental_peak_memory_mib",
+            "trainable_params",
         ] if c in df.columns
     ]
     summary = df.groupby("baseline", as_index=False)[numeric].mean(numeric_only=True)
@@ -147,7 +157,7 @@ def main() -> None:
             "source_csv": str(csv_path),
             "plots": made,
             "ablation_table": str(table_path),
-            "note": "tblER_proxy is intentionally excluded from main plots.",
+            "note": "tblER_proxy is intentionally excluded. Latency is receiver-forward-only; batch generation and diagnostics are excluded.",
         },
         report_dir / f"{args.run_name}_plot_summary.json",
     )

@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import shlex
 import subprocess
@@ -8,7 +9,9 @@ REMOTE = "rsadve1@rorqual.alliancecan.ca"
 REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
 
 
-def run(cmd: list[str], cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess:
+def run(
+    cmd: list[str], cwd: Path | None = None, check: bool = True
+) -> subprocess.CompletedProcess:
     print("+", " ".join(str(x) for x in cmd), flush=True)
     proc = subprocess.run([str(x) for x in cmd], cwd=cwd, text=True)
     if check and proc.returncode != 0:
@@ -30,18 +33,31 @@ def main() -> None:
     command = f"""set -euo pipefail
 cd {qroot}
 .venv/bin/python - <<'REMOTE_PY'
+import hashlib
 import json
 from pathlib import Path
-summary = Path('outputs/reports/initial_eval_summary.json')
-approval = Path('outputs/gates/GATE0_FULL_APPROVED.json')
-if not summary.exists():
+import yaml
+summary_path = Path('outputs/reports/initial_eval_summary.json')
+approval_path = Path('outputs/gates/GATE0_FULL_APPROVED.json')
+config = yaml.safe_load(Path('configs/full.yaml').read_text())
+revision = str(config.get('package_revision', ''))
+if not summary_path.exists():
     raise SystemExit('BLOCKED: initial Gate-0 evaluation is missing')
-s = json.loads(summary.read_text())
-if s.get('complete') is not True:
+summary = json.loads(summary_path.read_text())
+if summary.get('complete') is not True:
     raise SystemExit('BLOCKED: initial Gate-0 evaluation is incomplete')
-if not approval.exists() or json.loads(approval.read_text()).get('approved') is not True:
-    raise SystemExit('BLOCKED: scientific review must create outputs/gates/GATE0_FULL_APPROVED.json')
-print('GATE0_STRESS_PREFLIGHT_PASS')
+if not approval_path.exists():
+    raise SystemExit('BLOCKED: scientific approval file is missing')
+approval = json.loads(approval_path.read_text())
+summary_hash = hashlib.sha256(summary_path.read_bytes()).hexdigest()
+required = [
+    approval.get('approved') is True,
+    approval.get('package_revision') == revision,
+    approval.get('initial_eval_summary_sha256') == summary_hash,
+]
+if not all(required):
+    raise SystemExit('BLOCKED: approval does not match this revision and initial evidence')
+print('GATE0_STRESS_PREFLIGHT_PASS', revision, summary_hash)
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_full | grep -q .; then
   echo 'A brx_full job is already queued or running.' >&2
