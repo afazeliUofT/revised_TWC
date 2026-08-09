@@ -1,0 +1,92 @@
+{
+  "checkpoint_sha256": "2358e1e19f79192d82c56b8413f878e71b51d7ecf9cd3a8bc6c584cdf7839597",
+  "diagnostic_config": {
+    "base_seed": 880901,
+    "batch_size": 96,
+    "calibration_batch_size": 192,
+    "calibration_seed_offset": 7000000,
+    "checkpoint": "outputs/checkpoints/initial/best.pt",
+    "edge_mass": 0.8,
+    "name": "gate0_mechanism_diagnostic_v1",
+    "output_prefix": "gate0_mechanism_diagnostic",
+    "package_revision": "gate0_v2_4_20260809",
+    "repetitions": 10,
+    "required_variants": [
+      "trained_proposed",
+      "uncertainty_detector_off_fixed_graph",
+      "uncertainty_detector_off_fixed_graph_calibrated",
+      "uncertainty_all_off",
+      "diagonal_posterior",
+      "homoscedastic_posterior",
+      "graph_off",
+      "mean_only_graph",
+      "random_graph_same_density",
+      "full_graph",
+      "untrained_proposed",
+      "matched_posterior",
+      "perfect_csi_pic_iter1",
+      "perfect_csi_pic_iter2",
+      "perfect_csi_pic_iter3",
+      "perfect_csi_pic_iter4",
+      "perfect_csi_pic_iter4_calibrated",
+      "perfect_csi_lmmse"
+    ],
+    "snr_grid_db": [
+      4.0,
+      10.0,
+      16.0
+    ],
+    "source_config": "configs/initial.yaml",
+    "temperature_grid_max": 2.0,
+    "temperature_grid_min": 0.005,
+    "temperature_grid_points": 161
+  },
+  "diagnostic_config_sha256": "52a6211510461c60740522f5ae3ab678101c9aeac3e748b5cb9b502e2a20b520",
+  "diagnostic_version": "gate0_mechanism_diagnostic_v1",
+  "effective_model": {
+    "detector_iterations": 4,
+    "edge_mass": 0.8,
+    "operator_bank_rank": 24,
+    "operator_seed": 28001,
+    "rank": 16,
+    "use_uncertainty": true
+  },
+  "effective_system": {
+    "bits_per_symbol": 4,
+    "channel_length_f": 6.0,
+    "channel_length_t": 2.0,
+    "channel_seed": 27001,
+    "channel_true_rank": 20,
+    "dmrs_symbols": [
+      2,
+      7
+    ],
+    "layer_power_spread_db": 0.0,
+    "n_layers": 6,
+    "n_rx": 8,
+    "n_subcarriers": 24,
+    "n_symbols": 10,
+    "snr_db_max": 16.0,
+    "snr_db_min": 4.0
+  },
+  "optuna": {
+    "applied": true,
+    "best_params": {
+      "channel_loss_weight": 0.0,
+      "detector_iterations": 4,
+      "lr": 0.004,
+      "rank": 16
+    },
+    "best_trial_number": 10,
+    "best_value": 0.5546386109458076,
+    "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+    "n_complete_trials": 12,
+    "objective_metric": "fixed_validation_bit_nll",
+    "package_revision": "gate0_v2_4_20260809",
+    "path": "outputs/optuna/best_params.json",
+    "search_space_version": "gate0_v2_4_search_v1",
+    "target_complete_trials": 12
+  },
+  "signature": "7e9865e07421e6cee75f1a2751a574da6c5b5d118cd85ca37fce442b0c393f18",
+  "source_config_sha256": "4a2542346ce5a6f7b95137c1245ac487a4354b94922dd7f8fa51a64dd5904ed5"
+}

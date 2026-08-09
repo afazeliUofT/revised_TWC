@@ -1,0 +1,12 @@
+complete_rows: PASS
+fixed_graph_uncertainty_ber_gain: PASS
+fixed_graph_uncertainty_nll_gain: PASS
+uncertainty_not_only_temperature: PASS
+coupling_graph_beats_graph_off: PASS
+coupling_graph_beats_random_same_density: PASS
+sparse_graph_not_worse_than_full_by_0p001: PASS
+training_improves_nll: PASS
+matched_posterior_coverage_near_95: PASS
+perfect_csi_lmmse_ber_improves_with_snr: PASS
+CLASSIFICATION: GATE0_MECHANISM_SUPPORTED
+PUBLICATION_NR_READY: NO
