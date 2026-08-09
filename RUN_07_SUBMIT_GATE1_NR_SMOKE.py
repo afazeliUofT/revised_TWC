@@ -45,9 +45,15 @@ for raw in Path('GATE1_NR_MANIFEST.sha256').read_text().splitlines():
     assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, path
     checked += 1
 assert checked >= 12, checked
+from bayesroute.sionna_kbest_compat import configure_sionna_kbest_compat
+compat = configure_sionna_kbest_compat(force_eager=True)
+assert compat.get('passed') is True, compat
+assert compat.get('backend') == 'eager_exact', compat
+assert compat.get('active_semantics_exact') is True, compat
 gate0 = Path('outputs/gates/GATE0_MECHANISM_DIAGNOSTIC.txt').read_text()
 assert 'CLASSIFICATION: GATE0_MECHANISM_SUPPORTED' in gate0
 print('GATE1_NR_MANIFEST_PREFLIGHT_PASS', checked)
+print('GATE1_NR_KBEST_COMPAT_PREFLIGHT_PASS', compat['compat_version'], compat['backend'])
 print('PGCA_AGMP_BASELINE_INCLUDED NO')
 REMOTE_PY
 python scripts/gate1_nr_preflight.py \

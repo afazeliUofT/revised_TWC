@@ -9,5 +9,9 @@
     "CPU/API preflight",
     "GPU NR smoke gate",
     "resume-safe preliminary NR training and TBLER evidence"
-  ]
+  ],
+  "compatibility_patch": "sionna_2_0_1_list2llr_eager_exact_v1",
+  "kbest_list2llr_backend": "eager_exact",
+  "triton_required_for_gate1": false,
+  "installed_sionna_files_modified": false
 }

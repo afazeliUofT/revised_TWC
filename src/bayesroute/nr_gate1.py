@@ -1048,7 +1048,21 @@ def standard_receiver(
 
     detector = None
     stream_management = None
+    kbest_compatibility = None
     if kbest_k is not None:
+        # BayesRoute Gate-1 compatibility patch:
+        # Sionna 2.0.1 compiles only an equal+any helper in List2LLRSimple.
+        # Alliance's CUDA PyTorch build has no Triton, so use the exact eager
+        # expression. K-best candidates, distances, LLR equations, and outputs
+        # are unchanged.
+        from .sionna_kbest_compat import configure_sionna_kbest_compat
+
+        kbest_compatibility = configure_sionna_kbest_compat(force_eager=True)
+        if not kbest_compatibility.get("passed", False):
+            raise RuntimeError(
+                f"Sionna K-best compatibility self-test failed: {kbest_compatibility}"
+            )
+
         rx_tx_association = np.ones([1, context.case.num_users], dtype=bool)
         stream_management = StreamManagement(
             rx_tx_association, int(context.case.num_layers_per_user)
@@ -1063,7 +1077,7 @@ def standard_receiver(
             num_bits_per_symbol=context.transmitter._num_bits_per_symbol,
             device=str(context.device),
         )
-    return PUSCHReceiver(
+    receiver = PUSCHReceiver(
         context.transmitter,
         channel_estimator="perfect" if perfect_csi else None,
         mimo_detector=detector,
@@ -1072,6 +1086,9 @@ def standard_receiver(
         input_domain="freq",
         device=str(context.device),
     )
+    if kbest_compatibility is not None:
+        receiver._bayesroute_kbest_compatibility = kbest_compatibility
+    return receiver
 
 
 def run_standard_receiver(

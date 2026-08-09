@@ -224,16 +224,28 @@ def kbest_check(
     receiver = standard_receiver(
         context, perfect_csi=True, kbest_k=int(k), return_crc=True
     )
+    compatibility = dict(
+        getattr(receiver, "_bayesroute_kbest_compatibility", {})
+    )
     with torch.no_grad():
         metrics = run_standard_receiver(
             receiver, batch, batch.information_bits, perfect_csi=True
         )
-    valid = all(
+    metric_valid = all(
         0.0 <= float(metrics[key]) <= 1.0
         for key in ("information_ber", "tbler", "crc_failure_rate")
     )
+    compatibility_valid = bool(
+        compatibility.get("passed")
+        and compatibility.get("backend") == "eager_exact"
+        and compatibility.get("active_semantics_exact")
+        and compatibility.get("installed_sionna_files_modified") is False
+    )
     return {
-        "passed": bool(valid),
+        "passed": bool(metric_valid and compatibility_valid),
+        "metrics_valid": bool(metric_valid),
+        "compatibility_valid": compatibility_valid,
+        "compatibility": compatibility,
         "metrics": metrics,
         "case": case.__dict__,
         "num_streams": case.num_streams,
@@ -467,6 +479,9 @@ def main() -> None:
         "all_38901_channel_cases": all(item["passed"] for item in channel_results.values()),
         "standard_ls_and_perfect_csi_lmmse_paths": all(
             item["passed"] for item in channel_results.values()
+        ),
+        "kbest_eager_exact_compatibility": bool(
+            kbest.get("compatibility_valid", False)
         ),
         "kbest_path": bool(kbest["passed"]),
         "bayesroute_nr_bridge": bool(bridge_report["passed"]),
