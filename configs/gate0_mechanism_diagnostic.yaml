@@ -1,0 +1,34 @@
+name: gate0_mechanism_diagnostic_v1
+package_revision: gate0_v2_4_20260809
+source_config: configs/initial.yaml
+checkpoint: outputs/checkpoints/initial/best.pt
+output_prefix: gate0_mechanism_diagnostic
+snr_grid_db: [4.0, 10.0, 16.0]
+repetitions: 10
+batch_size: 96
+base_seed: 880901
+edge_mass: 0.8
+temperature_grid_min: 0.005
+temperature_grid_max: 2.0
+temperature_grid_points: 161
+calibration_batch_size: 192
+calibration_seed_offset: 7000000
+required_variants:
+  - trained_proposed
+  - uncertainty_detector_off_fixed_graph
+  - uncertainty_detector_off_fixed_graph_calibrated
+  - uncertainty_all_off
+  - diagonal_posterior
+  - homoscedastic_posterior
+  - graph_off
+  - mean_only_graph
+  - random_graph_same_density
+  - full_graph
+  - untrained_proposed
+  - matched_posterior
+  - perfect_csi_pic_iter1
+  - perfect_csi_pic_iter2
+  - perfect_csi_pic_iter3
+  - perfect_csi_pic_iter4
+  - perfect_csi_pic_iter4_calibrated
+  - perfect_csi_lmmse

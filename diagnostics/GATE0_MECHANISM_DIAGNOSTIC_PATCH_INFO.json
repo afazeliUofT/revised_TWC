@@ -1,0 +1,16 @@
+{
+  "name": "BayesRoute-Rx Gate-0 mechanism diagnostic",
+  "version": "v1_20260809",
+  "compatible_package_revision": "gate0_v2_4_20260809",
+  "changes_receiver_mathematics": false,
+  "requires_existing_initial_checkpoint": true,
+  "purpose": [
+    "isolate detector uncertainty from graph construction",
+    "test full, diagonal, scalar, and zero posterior uncertainty",
+    "compare posterior coupling with mean-only and random same-density routing",
+    "compare trained, untrained, and matched posterior operators",
+    "diagnose perfect-CSI PIC overconfidence and iteration behavior",
+    "add a perfect-CSI LMMSE reference and held-out temperature controls"
+  ],
+  "publication_nr_ready": false
+}

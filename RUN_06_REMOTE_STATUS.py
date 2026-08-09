@@ -47,7 +47,9 @@ for f in \
   outputs/optuna/OPTUNA_STATUS.json \
   outputs/optuna/best_params.json \
   outputs/reports/initial_train_summary.json \
-  outputs/reports/initial_eval_summary.json; do
+  outputs/reports/initial_eval_summary.json \
+  outputs/gates/GATE0_MECHANISM_DIAGNOSTIC.txt \
+  outputs/reports/gate0_mechanism_diagnostic_summary.json; do
   if [ -f "$f" ]; then echo "### $f"; tail -60 "$f"; fi
 done
 """
