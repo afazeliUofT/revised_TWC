@@ -1,0 +1,1790 @@
+{
+  "bridge": {
+    "bce": 1.9201616048812866,
+    "case": {
+      "carrier_frequency_hz": 3500000000.0,
+      "delay_spread_s": 1e-07,
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 42,
+      "name": "umi_type1_2user_2layer",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 2,
+      "num_prb": 4,
+      "num_rx_ant": 8,
+      "num_users": 2,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    },
+    "channel_nll": 93.68340301513672,
+    "coded_metrics": {
+      "coded_ber": 0.4710828959941864,
+      "coded_bit_nll": 1.9201616048812866,
+      "coded_brier": 0.39255619049072266
+    },
+    "decoded_metrics": {
+      "codeword_llr_shape": [
+        2,
+        2,
+        4608
+      ],
+      "crc_failure_rate": 1.0,
+      "crc_shape": [
+        2,
+        2
+      ],
+      "decoded_shape": [
+        2,
+        2,
+        1544
+      ],
+      "information_ber": 0.4787888526916504,
+      "layer_llr_shape": [
+        2,
+        2,
+        2,
+        2304
+      ],
+      "tbler": 1.0
+    },
+    "edge_densities": {
+      "diagonal_posterior_fixed_graph": 0.6551649570465088,
+      "full_graph": 1.0,
+      "graph_off": 0.0,
+      "mean_only_graph_fixed_cardinality": 0.6551649570465088,
+      "proposed": 0.6551649570465088,
+      "random_graph_fixed_cardinality": 0.6551649570465088,
+      "uncertainty_off_fixed_graph": 0.6551649570465088
+    },
+    "gradient_pass": true,
+    "gradients": {
+      "posterior.log_noise_scale": {
+        "finite": true,
+        "norm": 0.8526489734649658,
+        "present": true
+      },
+      "posterior.raw_weights": {
+        "finite": true,
+        "norm": 0.2072010040283203,
+        "present": true
+      }
+    },
+    "graph_cardinality": {
+      "checks": {
+        "diagonal_exact_mask": true,
+        "diagonal_posterior_fixed_graph": true,
+        "mean_only_graph_fixed_cardinality": true,
+        "random_graph_fixed_cardinality": true,
+        "uncertainty_off_exact_mask": true,
+        "uncertainty_off_fixed_graph": true
+      },
+      "passed": true,
+      "reference_count_max": 3,
+      "reference_count_min": 1,
+      "reference_edge_density": 0.6551649570465088
+    },
+    "logit_shape": [
+      2,
+      4,
+      576,
+      4
+    ],
+    "logit_shape_pass": true,
+    "num_streams": 4,
+    "passed": true,
+    "posterior": {
+      "bit_logits_shape": [
+        2,
+        4,
+        576,
+        4
+      ],
+      "finite": true,
+      "max_hermitian_error": 0.0,
+      "min_eigenvalue": 0.0008686811441008337,
+      "passed": true,
+      "posterior_mean_shape": [
+        2,
+        4,
+        8,
+        672
+      ]
+    },
+    "tb_decoder_accepts_layer_demapped_bridge_llrs": true
+  },
+  "channel_cases": {
+    "cdl_a_single_user_2layer": {
+      "adapted_h_shape": [
+        2,
+        2,
+        4,
+        672
+      ],
+      "adapted_y_shape": [
+        2,
+        4,
+        672
+      ],
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "coded_bits_shape": [
+        2,
+        2,
+        576,
+        4
+      ],
+      "finite": true,
+      "ls_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          1544
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "passed": true,
+      "perfect_csi_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          1544
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "raw_h_shape": [
+        2,
+        1,
+        4,
+        1,
+        2,
+        14,
+        48
+      ],
+      "raw_y_shape": [
+        2,
+        1,
+        4,
+        14,
+        48
+      ],
+      "shapes_valid": true
+    },
+    "cdl_c_single_user": {
+      "adapted_h_shape": [
+        2,
+        1,
+        4,
+        672
+      ],
+      "adapted_y_shape": [
+        2,
+        4,
+        672
+      ],
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 3e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "cdl_c_single_user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-c",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "coded_bits_shape": [
+        2,
+        1,
+        576,
+        4
+      ],
+      "finite": true,
+      "ls_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "passed": true,
+      "perfect_csi_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "raw_h_shape": [
+        2,
+        1,
+        4,
+        1,
+        1,
+        14,
+        48
+      ],
+      "raw_y_shape": [
+        2,
+        1,
+        4,
+        14,
+        48
+      ],
+      "shapes_valid": true
+    },
+    "cdl_d_single_user": {
+      "adapted_h_shape": [
+        2,
+        1,
+        4,
+        672
+      ],
+      "adapted_y_shape": [
+        2,
+        4,
+        672
+      ],
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "cdl_d_single_user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-d",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "coded_bits_shape": [
+        2,
+        1,
+        576,
+        4
+      ],
+      "finite": true,
+      "ls_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "passed": true,
+      "perfect_csi_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          1
+        ],
+        "decoded_shape": [
+          2,
+          1,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "raw_h_shape": [
+        2,
+        1,
+        4,
+        1,
+        1,
+        14,
+        48
+      ],
+      "raw_y_shape": [
+        2,
+        1,
+        4,
+        14,
+        48
+      ],
+      "shapes_valid": true
+    },
+    "uma_type1_2user": {
+      "adapted_h_shape": [
+        2,
+        2,
+        8,
+        672
+      ],
+      "adapted_y_shape": [
+        2,
+        8,
+        672
+      ],
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          1,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "uma_type1_2user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "coded_bits_shape": [
+        2,
+        2,
+        576,
+        4
+      ],
+      "finite": true,
+      "ls_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "passed": true,
+      "perfect_csi_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          768
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "raw_h_shape": [
+        2,
+        1,
+        8,
+        2,
+        1,
+        14,
+        48
+      ],
+      "raw_y_shape": [
+        2,
+        1,
+        8,
+        14,
+        48
+      ],
+      "shapes_valid": true
+    },
+    "umi_type1_2user_2layer": {
+      "adapted_h_shape": [
+        2,
+        4,
+        8,
+        672
+      ],
+      "adapted_y_shape": [
+        2,
+        8,
+        672
+      ],
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "coded_bits_shape": [
+        2,
+        4,
+        576,
+        4
+      ],
+      "finite": true,
+      "ls_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          1544
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "passed": true,
+      "perfect_csi_lmmse": {
+        "crc_failure_rate": 0.0,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          1544
+        ],
+        "information_ber": 0.0,
+        "tbler": 0.0
+      },
+      "raw_h_shape": [
+        2,
+        1,
+        8,
+        2,
+        2,
+        14,
+        48
+      ],
+      "raw_y_shape": [
+        2,
+        1,
+        8,
+        14,
+        48
+      ],
+      "shapes_valid": true
+    }
+  },
+  "checks": {
+    "all_38901_channel_cases": true,
+    "all_dmrs_mapping_cases": true,
+    "bayesroute_nr_bridge": true,
+    "cuda_compute_node": true,
+    "exact_reserved_re_and_layer_mapping": true,
+    "explicit_user_layer_port_mapping": true,
+    "gate0_mechanism_supported": true,
+    "gate1_manifest_valid": true,
+    "kbest_eager_exact_compatibility": true,
+    "kbest_path": true,
+    "learned_operator_transfer_across_dmrs": true,
+    "nr_tb_ldpc_roundtrip": true,
+    "sionna_2_0_1": true,
+    "sionna_topology_batch_resize": true,
+    "standard_ls_and_perfect_csi_lmmse_paths": true
+  },
+  "classification": "GATE1_NR_SMOKE_PASS",
+  "complete": true,
+  "environment": {
+    "cuda_available": true,
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "hostname": "rg32202",
+    "platform": "Linux-5.14.0-687.26.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
+    "sionna": "2.0.1",
+    "slurm_job_id": "18731986",
+    "torch": "2.13.0"
+  },
+  "evidence_ready": true,
+  "gate0": {
+    "classification": "GATE0_MECHANISM_SUPPORTED",
+    "passed": true,
+    "path": "/lustre10/scratch/rsadve1/revised_TWC/outputs/gates/GATE0_MECHANISM_DIAGNOSTIC.txt"
+  },
+  "gate1_revision": "gate1_nr_integration_v1",
+  "kbest": {
+    "case": {
+      "carrier_frequency_hz": 3500000000.0,
+      "delay_spread_s": 1e-07,
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        1,
+        3
+      ],
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 42,
+      "name": "uma_type1_2user",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 1,
+      "num_prb": 4,
+      "num_rx_ant": 8,
+      "num_users": 2,
+      "scenario": "uma",
+      "speed_mps": 15.0,
+      "subcarrier_spacing_khz": 30
+    },
+    "compatibility": {
+      "active_semantics_exact": true,
+      "already_patched": false,
+      "backend": "eager_exact",
+      "compat_version": "sionna_2_0_1_list2llr_eager_exact_v1",
+      "force_eager": true,
+      "installed_sionna_files_modified": false,
+      "passed": true,
+      "semantic_self_test": {
+        "expected_shape": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "observed_shape": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "passed": true,
+        "semantics": "(path_inds == c).any(dim=-2)"
+      },
+      "sionna_version": "2.0.1",
+      "torch_version": "2.13.0",
+      "triton_importable": false
+    },
+    "compatibility_valid": true,
+    "k": 16,
+    "metrics": {
+      "crc_failure_rate": 0.0,
+      "crc_shape": [
+        2,
+        2
+      ],
+      "decoded_shape": [
+        2,
+        2,
+        768
+      ],
+      "information_ber": 0.0,
+      "tbler": 0.0
+    },
+    "metrics_valid": true,
+    "num_streams": 2,
+    "passed": true
+  },
+  "manifest": {
+    "checked": 19,
+    "failures": [],
+    "passed": true
+  },
+  "mapping_cases": {
+    "nr_dmrs_type1_len1_2user_2layer": {
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "nr_dmrs_type1_len1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "codec_roundtrip": {
+        "bit_errors": 0,
+        "coded_shape": [
+          2,
+          2,
+          4608
+        ],
+        "crc_all_pass": true,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          1544
+        ],
+        "information_shape": [
+          2,
+          2,
+          1544
+        ],
+        "passed": true
+      },
+      "exact_grid": {
+        "b_shape": [
+          2,
+          2,
+          1544
+        ],
+        "coded_bits_per_user": 4608,
+        "expected_coded_bits_per_user": 4608,
+        "globally_unused_reserved_re_count": 0,
+        "layered_shape": [
+          2,
+          2,
+          2,
+          576
+        ],
+        "max_abs_data_layer_mapping_error": 0.0,
+        "max_abs_pilot_grid_error": 0.0,
+        "max_abs_reserved_zero_error": 0.0,
+        "passed": true,
+        "reserved_zero_stream_re_count": 192,
+        "x_effective_shape": [
+          2,
+          2,
+          2,
+          14,
+          48
+        ],
+        "x_shape": [
+          2,
+          2,
+          2,
+          14,
+          48
+        ]
+      },
+      "metadata": {
+        "expected_user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "flat_layer_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "metadata": [
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 0,
+            "layer_index": 0,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 0,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 1,
+            "layer_index": 1,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 0,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 1
+          },
+          {
+            "cdm_group": 1,
+            "delta": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 2,
+            "layer_index": 2,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 1,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 1,
+            "delta": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 3,
+            "layer_index": 3,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 1,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 1
+          }
+        ],
+        "passed": true,
+        "ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "num_streams": 4,
+      "orthogonality": {
+        "energies": [
+          95.99999237060547,
+          95.99999237060547,
+          95.99999237060547,
+          95.99999237060547
+        ],
+        "max_abs_diagonal_error": 0.0,
+        "max_abs_offdiagonal": 2.6863258284492986e-09,
+        "passed": true,
+        "shape": [
+          4,
+          96
+        ]
+      },
+      "partition": {
+        "actual_pilot_observations": 96,
+        "data_symbols_per_stream": 576,
+        "globally_unused_reserved_re": 0,
+        "passed": true,
+        "resource_elements": 672
+      },
+      "passed": true,
+      "phi_shape": [
+        4,
+        96
+      ]
+    },
+    "nr_dmrs_type1_random_port_order": {
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          3,
+          0
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "nr_dmrs_type1_random_port_order",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "codec_roundtrip": {
+        "bit_errors": 0,
+        "coded_shape": [
+          2,
+          2,
+          2304
+        ],
+        "crc_all_pass": true,
+        "crc_shape": [
+          2,
+          2
+        ],
+        "decoded_shape": [
+          2,
+          2,
+          768
+        ],
+        "information_shape": [
+          2,
+          2,
+          768
+        ],
+        "passed": true
+      },
+      "exact_grid": {
+        "b_shape": [
+          2,
+          2,
+          768
+        ],
+        "coded_bits_per_user": 2304,
+        "expected_coded_bits_per_user": 2304,
+        "globally_unused_reserved_re_count": 0,
+        "layered_shape": [
+          2,
+          2,
+          1,
+          576
+        ],
+        "max_abs_data_layer_mapping_error": 0.0,
+        "max_abs_pilot_grid_error": 0.0,
+        "max_abs_reserved_zero_error": 0.0,
+        "passed": true,
+        "reserved_zero_stream_re_count": 96,
+        "x_effective_shape": [
+          2,
+          2,
+          1,
+          14,
+          48
+        ],
+        "x_shape": [
+          2,
+          2,
+          1,
+          14,
+          48
+        ]
+      },
+      "metadata": {
+        "expected_user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "flat_layer_indices": [
+          0,
+          1
+        ],
+        "metadata": [
+          {
+            "cdm_group": 1,
+            "delta": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 3,
+            "layer_index": 0,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 0,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_port": 0,
+            "layer_index": 1,
+            "num_cdm_groups_without_data": 2,
+            "user_index": 1,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          }
+        ],
+        "passed": true,
+        "ports": [
+          3,
+          0
+        ],
+        "user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "num_streams": 2,
+      "orthogonality": {
+        "energies": [
+          95.99999237060547,
+          95.99999237060547
+        ],
+        "max_abs_diagonal_error": 0.0,
+        "max_abs_offdiagonal": 0.0,
+        "passed": true,
+        "shape": [
+          2,
+          96
+        ]
+      },
+      "partition": {
+        "actual_pilot_observations": 96,
+        "data_symbols_per_stream": 576,
+        "globally_unused_reserved_re": 0,
+        "passed": true,
+        "resource_elements": 672
+      },
+      "passed": true,
+      "phi_shape": [
+        2,
+        96
+      ]
+    },
+    "nr_dmrs_type2_len1_3user_2layer": {
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "nr_dmrs_type2_len1_3user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 12,
+        "num_users": 3,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "codec_roundtrip": {
+        "bit_errors": 0,
+        "coded_shape": [
+          2,
+          3,
+          4608
+        ],
+        "crc_all_pass": true,
+        "crc_shape": [
+          2,
+          3
+        ],
+        "decoded_shape": [
+          2,
+          3,
+          1544
+        ],
+        "information_shape": [
+          2,
+          3,
+          1544
+        ],
+        "passed": true
+      },
+      "exact_grid": {
+        "b_shape": [
+          2,
+          3,
+          1544
+        ],
+        "coded_bits_per_user": 4608,
+        "expected_coded_bits_per_user": 4608,
+        "globally_unused_reserved_re_count": 0,
+        "layered_shape": [
+          2,
+          3,
+          2,
+          576
+        ],
+        "max_abs_data_layer_mapping_error": 0.0,
+        "max_abs_pilot_grid_error": 0.0,
+        "max_abs_reserved_zero_error": 0.0,
+        "passed": true,
+        "reserved_zero_stream_re_count": 384,
+        "x_effective_shape": [
+          2,
+          3,
+          2,
+          14,
+          48
+        ],
+        "x_shape": [
+          2,
+          3,
+          2,
+          14,
+          48
+        ]
+      },
+      "metadata": {
+        "expected_user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "flat_layer_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "metadata": [
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 0,
+            "layer_index": 0,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 0,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 1,
+            "layer_index": 1,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 0,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 1
+          },
+          {
+            "cdm_group": 1,
+            "delta": 2,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 2,
+            "layer_index": 2,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 1,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 1,
+            "delta": 2,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 3,
+            "layer_index": 3,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 1,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 1
+          },
+          {
+            "cdm_group": 2,
+            "delta": 4,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 4,
+            "layer_index": 4,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 2,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 2,
+            "delta": 4,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_port": 5,
+            "layer_index": 5,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 2,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 1
+          }
+        ],
+        "passed": true,
+        "ports": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      },
+      "num_streams": 6,
+      "orthogonality": {
+        "energies": [
+          96.00000762939453,
+          96.00000762939453,
+          96.00000762939453,
+          96.00000762939453,
+          96.00000762939453,
+          96.00000762939453
+        ],
+        "max_abs_diagonal_error": 0.0,
+        "max_abs_offdiagonal": 0.0,
+        "passed": true,
+        "shape": [
+          6,
+          96
+        ]
+      },
+      "partition": {
+        "actual_pilot_observations": 96,
+        "data_symbols_per_stream": 576,
+        "globally_unused_reserved_re": 0,
+        "passed": true,
+        "resource_elements": 672
+      },
+      "passed": true,
+      "phi_shape": [
+        6,
+        96
+      ]
+    },
+    "nr_dmrs_type2_len2_time_occ": {
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 2,
+        "dmrs_ports": [
+          0,
+          6,
+          1,
+          7
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "nr_dmrs_type2_len2_time_occ",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      "codec_roundtrip": {
+        "bit_errors": 0,
+        "coded_shape": [
+          2,
+          4,
+          1920
+        ],
+        "crc_all_pass": true,
+        "crc_shape": [
+          2,
+          4
+        ],
+        "decoded_shape": [
+          2,
+          4,
+          640
+        ],
+        "information_shape": [
+          2,
+          4,
+          640
+        ],
+        "passed": true
+      },
+      "exact_grid": {
+        "b_shape": [
+          2,
+          4,
+          640
+        ],
+        "coded_bits_per_user": 1920,
+        "expected_coded_bits_per_user": 1920,
+        "globally_unused_reserved_re_count": 128,
+        "layered_shape": [
+          2,
+          4,
+          1,
+          480
+        ],
+        "max_abs_data_layer_mapping_error": 0.0,
+        "max_abs_pilot_grid_error": 0.0,
+        "max_abs_reserved_zero_error": 0.0,
+        "passed": true,
+        "reserved_zero_stream_re_count": 512,
+        "x_effective_shape": [
+          2,
+          4,
+          1,
+          14,
+          48
+        ],
+        "x_shape": [
+          2,
+          4,
+          1,
+          14,
+          48
+        ]
+      },
+      "metadata": {
+        "expected_user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "flat_layer_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "metadata": [
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 2,
+            "dmrs_port": 0,
+            "layer_index": 0,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 0,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 2,
+            "dmrs_port": 6,
+            "layer_index": 1,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 1,
+            "w_f": [
+              1,
+              1
+            ],
+            "w_t": [
+              1,
+              -1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 2,
+            "dmrs_port": 1,
+            "layer_index": 2,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 2,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              1
+            ],
+            "within_user_layer_index": 0
+          },
+          {
+            "cdm_group": 0,
+            "delta": 0,
+            "dmrs_config_type": 2,
+            "dmrs_length": 2,
+            "dmrs_port": 7,
+            "layer_index": 3,
+            "num_cdm_groups_without_data": 3,
+            "user_index": 3,
+            "w_f": [
+              1,
+              -1
+            ],
+            "w_t": [
+              1,
+              -1
+            ],
+            "within_user_layer_index": 0
+          }
+        ],
+        "passed": true,
+        "ports": [
+          0,
+          6,
+          1,
+          7
+        ],
+        "user_layer_map": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "num_streams": 4,
+      "orthogonality": {
+        "energies": [
+          192.00001525878906,
+          192.00001525878906,
+          192.00001525878906,
+          192.00001525878906
+        ],
+        "max_abs_diagonal_error": 5.960497162504907e-08,
+        "max_abs_offdiagonal": 1.417061312736223e-08,
+        "passed": true,
+        "shape": [
+          4,
+          64
+        ]
+      },
+      "partition": {
+        "actual_pilot_observations": 64,
+        "data_symbols_per_stream": 480,
+        "globally_unused_reserved_re": 128,
+        "passed": true,
+        "resource_elements": 672
+      },
+      "passed": true,
+      "phi_shape": [
+        4,
+        64
+      ]
+    }
+  },
+  "operator_transfer": {
+    "copied": [
+      "posterior.raw_weights",
+      "posterior.log_noise_scale"
+    ],
+    "passed": true,
+    "source_streams": 4,
+    "target_forward_finite_and_shape_valid": true,
+    "target_streams": 6
+  },
+  "overall_pass": true,
+  "pgca_agmp_baseline_included": false,
+  "publication_nr_ready": false,
+  "source_grid": {
+    "case": "umi_type1_2user_2layer",
+    "data_symbols_per_stream": 576,
+    "num_layers_per_user": 2,
+    "num_streams": 4,
+    "num_users": 2,
+    "phi_shape": [
+      4,
+      96
+    ],
+    "pilot_observations": 96
+  },
+  "timestamp": "2026-08-09 16:50:45 EDT",
+  "topology_batch_resize": {
+    "batch_sequence": [
+      2,
+      3,
+      2
+    ],
+    "case": {
+      "carrier_frequency_hz": 3500000000.0,
+      "delay_spread_s": 1e-07,
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 42,
+      "name": "umi_type1_2user_2layer",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 2,
+      "num_prb": 4,
+      "num_rx_ant": 8,
+      "num_users": 2,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    },
+    "expected_reset_count": 2,
+    "observed_reset_count": 2,
+    "passed": true,
+    "records": [
+      {
+        "finite": true,
+        "h_shape": [
+          2,
+          4,
+          8,
+          672
+        ],
+        "requested_batch_size": 2,
+        "shapes_valid": true,
+        "state_matches": true,
+        "topology_shape": [
+          2,
+          2,
+          1
+        ],
+        "y_shape": [
+          2,
+          8,
+          672
+        ]
+      },
+      {
+        "finite": true,
+        "h_shape": [
+          3,
+          4,
+          8,
+          672
+        ],
+        "requested_batch_size": 3,
+        "shapes_valid": true,
+        "state_matches": true,
+        "topology_shape": [
+          3,
+          2,
+          1
+        ],
+        "y_shape": [
+          3,
+          8,
+          672
+        ]
+      },
+      {
+        "finite": true,
+        "h_shape": [
+          2,
+          4,
+          8,
+          672
+        ],
+        "requested_batch_size": 2,
+        "shapes_valid": true,
+        "state_matches": true,
+        "topology_shape": [
+          2,
+          2,
+          1
+        ],
+        "y_shape": [
+          2,
+          8,
+          672
+        ]
+      }
+    ]
+  },
+  "topology_batch_resize_patch": "sionna_2_0_1_topology_reset_v1"
+}

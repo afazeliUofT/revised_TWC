@@ -1,29 +1,15 @@
 [
   {
-    "copied_size_bytes": 72,
-    "mtime_epoch": 1786305945.0,
-    "name": "brx_nr_evid-18730582.out",
-    "original_size_bytes": 72,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 2015,
-    "mtime_epoch": 1786305943.0,
-    "name": "brx_nr_evid-18730582.err",
-    "original_size_bytes": 2015,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 635,
-    "mtime_epoch": 1786296735.0,
-    "name": "brx_nr_smoke-18723240.out",
-    "original_size_bytes": 635,
+    "copied_size_bytes": 670,
+    "mtime_epoch": 1786308646.0,
+    "name": "brx_nr_smoke-18731986.out",
+    "original_size_bytes": 670,
     "truncated": false
   },
   {
     "copied_size_bytes": 127,
-    "mtime_epoch": 1786296725.0,
-    "name": "brx_nr_smoke-18723240.err",
+    "mtime_epoch": 1786308639.0,
+    "name": "brx_nr_smoke-18731986.err",
     "original_size_bytes": 127,
     "truncated": false
   },
