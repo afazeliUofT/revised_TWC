@@ -13,8 +13,8 @@ from pathlib import Path
 REMOTE = "rsadve1@rorqual.alliancecan.ca"
 REMOTE_ROOT = "/home/rsadve1/links/scratch/revised_TWC"
 GITHUB_REMOTE = "git@github.com:afazeliUofT/revised_TWC.git"
-PACKAGE_NAME = "BayesRoute_TWC_Gate0_v2_2_Full.zip"
-EXPECTED_REVISION = "gate0_v2_2_20260808"
+PACKAGE_NAME = "BayesRoute_TWC_Gate0_v2_3_Full.zip"
+EXPECTED_REVISION = "gate0_v2_3_20260808"
 DOWNLOADS = Path("/mnt/c/Users/alifa/Downloads")
 
 
@@ -75,7 +75,7 @@ def commit_push(root: Path) -> None:
     run(["git", "add", "-A"], cwd=root)
     changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=root).returncode != 0
     if changed:
-        run(["git", "commit", "-m", "Gate-0 v2.2: fair tuning and diagnostic workflow"], cwd=root)
+        run(["git", "commit", "-m", "Gate-0 v2.3: correct posterior uncertainty and fair tuning"], cwd=root)
     run(["git", "push", "-u", "origin", "main"], cwd=root)
 
 
@@ -119,7 +119,7 @@ def main() -> None:
 
     local_root = Path.cwd().resolve()
     package = find_package(local_root)
-    with tempfile.TemporaryDirectory(prefix="gate0_v22_setup_") as tmp:
+    with tempfile.TemporaryDirectory(prefix="gate0_v23_setup_") as tmp:
         with zipfile.ZipFile(package, "r") as archive:
             archive.extractall(tmp)
         extracted = Path(tmp) / "bayesroute_rx_twc"
@@ -131,7 +131,7 @@ def main() -> None:
     shutil.rmtree(local_root / "results" / "from_rorqual", ignore_errors=True)
     (local_root / "results" / "from_rorqual").mkdir(parents=True, exist_ok=True)
     (local_root / "results" / "from_rorqual" / "README.md").write_text(
-        "Awaiting Gate-0 v2.2 Rorqual evidence.\n", encoding="utf-8"
+        "Awaiting Gate-0 v2.3 Rorqual evidence.\n", encoding="utf-8"
     )
     shutil.rmtree(local_root / "outputs", ignore_errors=True)
     (local_root / "outputs").mkdir(exist_ok=True)
@@ -174,9 +174,34 @@ rm -rf outputs/smoke outputs/optuna outputs/checkpoints outputs/logs \
   outputs/eval outputs/reports outputs/plots outputs/github_artifacts outputs/slurm outputs/gates
 mkdir -p outputs/setup
 python3 scripts/rorqual_setup_env.py --venv .venv --out outputs/setup
+source .venv/bin/activate
+export PYTHONPATH="$PWD/src:${PYTHONPATH:-}"
+python - <<'REMOTE_PY'
+from pathlib import Path
+import hashlib, json
+from bayesroute.config import load_config
+from bayesroute.sionna_check import check_sionna
+root = Path('.')
+revision = json.loads((root/'PACKAGE_REVISION.json').read_text())
+assert revision['revision'] == 'gate0_v2_3_20260808'
+checked = 0
+for raw in (root/'MANIFEST.sha256').read_text().splitlines():
+    if not raw.strip():
+        continue
+    expected, rel = raw.split(None, 1)
+    path = root / rel.strip().lstrip('*')
+    assert path.is_file(), path
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, path
+    checked += 1
+report = check_sionna(device='cpu', bits_per_symbol=int(load_config('configs/smoke.yaml').system.bits_per_symbol))
+assert report.get('passed'), report
+print('REMOTE_MANIFEST_PASS', checked)
+print('REMOTE_CPU_SIONNA_PREFLIGHT_PASS')
+print('REVISION', revision['revision'])
+REMOTE_PY
 """
     run(["ssh", *ssh_opts, REMOTE, remote_command])
-    print("GATE0_V2_2_SETUP_DEPLOYED")
+    print("GATE0_V2_3_SETUP_DEPLOYED")
     print("Next: python3 RUN_01_SUBMIT_SMOKE_TEST.py")
 
 

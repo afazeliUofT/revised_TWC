@@ -1,4 +1,4 @@
-package_revision: gate0_v2_2_20260808
+package_revision: gate0_v2_3_20260808
 seed: 2026
 device: auto
 system:
@@ -20,8 +20,9 @@ system:
 model:
   rank: 16
   detector_iterations: 3
-  edge_mass: 0.92
+  edge_mass: 0.8
   use_uncertainty: true
+  operator_bank_rank: 24
   operator_seed: 28001
 training:
   batch_size: 48
@@ -45,21 +46,15 @@ evaluation:
   batch_size: 96
   baselines:
   - ls
-  - bayesroute_mean
+  - bayesroute_uncertainty_off
   - bayesroute_uncertainty
 optuna:
-  study_name: bayesroute_gate0_v2_2_short_tuning
+  study_name: bayesroute_gate0_v2_3_short_tuning
   n_trials: 12
   timeout_minutes: 110
   train_steps_per_trial: 160
   eval_batches_per_snr: 3
   validation_seed: 92026
   sampler_seed: 12026
+  design: pairwise_balanced_12
   training_seed: 192026
-  pruning_validation_seed: 292026
-  pruning_validation_snr_db: 10.0
-  pruning_validation_batches: 1
-  pruning_validation_batch_size: 48
-  n_startup_trials: 5
-  n_warmup_steps: 40
-  interval_steps: 40

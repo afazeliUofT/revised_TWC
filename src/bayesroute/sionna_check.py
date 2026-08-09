@@ -23,6 +23,8 @@ def check_sionna(device: torch.device | str | None = None, bits_per_symbol: int 
         "mapper_constructed": False,
         "demapper_constructed": False,
         "roundtrip_bit_errors": None,
+        "internal_mapper_max_abs_error": None,
+        "internal_mapper_matches_sionna": False,
         "gradient_finite_nonzero": False,
         "error": None,
     }
@@ -54,11 +56,32 @@ def check_sionna(device: torch.device | str | None = None, bits_per_symbol: int 
             torch.mean(torch.abs(constellation()) ** 2).item()
         )
 
-        n_bits = 256
-        bit_index = torch.arange(n_bits, device=dev)
-        bits = ((bit_index * 13 + bit_index // 7) % 2).to(torch.float32).view(4, -1)
-        keep = (bits.shape[-1] // int(bits_per_symbol)) * int(bits_per_symbol)
-        bits = bits[:, :keep]
+        # Exhaustively enumerate every binary label once. This verifies the full
+        # point ordering, not only a sampled subset of constellation points.
+        q = int(bits_per_symbol)
+        n_points = 2 ** q
+        indices = torch.arange(n_points, device=dev, dtype=torch.long)
+        shifts = torch.arange(q - 1, -1, -1, device=dev, dtype=torch.long)
+        all_grouped_bits = ((indices[:, None] >> shifts[None, :]) & 1).to(
+            torch.float32
+        )
+        all_bits = all_grouped_bits.reshape(1, -1)
+        all_symbols = mapper(all_bits)
+
+        from .qam import bits_to_symbols
+        internal_all_symbols = bits_to_symbols(
+            all_grouped_bits.view(1, n_points, q), q
+        )
+        mapping_error = torch.max(
+            torch.abs(internal_all_symbols - all_symbols)
+        ).item()
+        rep["enumerated_constellation_points"] = n_points
+        rep["internal_mapper_max_abs_error"] = float(mapping_error)
+        rep["internal_mapper_matches_sionna"] = bool(mapping_error < 1e-7)
+
+        # Repeat the complete constellation four times to exercise batching,
+        # demapping, hard decisions, and gradients.
+        bits = all_bits.repeat(4, 1)
         symbols = mapper(bits)
         y = symbols.detach().clone().requires_grad_(True)
         no = torch.tensor(1e-2, dtype=torch.float32, device=dev)
@@ -94,6 +117,7 @@ def check_sionna(device: torch.device | str | None = None, bits_per_symbol: int 
         and rep["mapper_constructed"]
         and rep["demapper_constructed"]
         and rep["roundtrip_bit_errors"] == 0
+        and rep["internal_mapper_matches_sionna"]
         and rep["gradient_finite_nonzero"]
     )
     return rep

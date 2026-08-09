@@ -45,7 +45,7 @@ def make_receiver(name: str, cfg, simulator, checkpoint: str | None = None):
     if name in {
         "bayesroute",
         "bayesroute_uncertainty",
-        "bayesroute_mean",
+        "bayesroute_uncertainty_off",
         "bayesroute_graph_off",
         "bayesroute_full_graph",
     }:
@@ -70,7 +70,7 @@ def make_receiver(name: str, cfg, simulator, checkpoint: str | None = None):
 def _forward(name: str, model, batch):
     use_uncertainty = None
     edge_mass = None
-    if name == "bayesroute_mean":
+    if name == "bayesroute_uncertainty_off":
         use_uncertainty = False
     elif name in {
         "bayesroute",

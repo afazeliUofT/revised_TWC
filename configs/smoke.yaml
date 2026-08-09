@@ -1,4 +1,4 @@
-package_revision: gate0_v2_2_20260808
+package_revision: gate0_v2_3_20260808
 seed: 1234
 device: auto
 system:
@@ -22,6 +22,7 @@ model:
   detector_iterations: 2
   edge_mass: 0.5
   use_uncertainty: true
+  operator_bank_rank: 24
   operator_seed: 8001
 training:
   batch_size: 8
@@ -44,7 +45,7 @@ evaluation:
   batch_size: 16
   baselines:
   - ls
-  - bayesroute_mean
+  - bayesroute_uncertainty_off
   - bayesroute_graph_off
   - bayesroute_uncertainty
   - bayesroute_full_graph

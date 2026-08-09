@@ -7,6 +7,9 @@ import numpy as np
 import torch
 import yaml
 
+EXPECTED_OPTUNA_SEARCH_SPACE_VERSION = "gate0_v2_3_search_v2"
+EXPECTED_OPTUNA_COMPLETE_TRIALS = 12
+
 
 class AttrDict(dict):
     """Dictionary with attribute access for simple configs."""
@@ -123,16 +126,32 @@ def apply_optuna_best(cfg: AttrDict, path: str | Path | None = None) -> tuple[At
         )
     complete = int(data.get("n_complete_trials", 0))
     target = int(data.get("target_complete_trials", 0))
-    if target <= 0 or complete < target:
+    if target != EXPECTED_OPTUNA_COMPLETE_TRIALS or complete < target:
         raise RuntimeError(
-            f"Optuna result is incomplete: complete={complete}, target={target}"
+            "Optuna result is incomplete or does not contain the required "
+            f"{EXPECTED_OPTUNA_COMPLETE_TRIALS}-point design: "
+            f"complete={complete}, target={target}"
+        )
+    if data.get("search_space_version") != EXPECTED_OPTUNA_SEARCH_SPACE_VERSION:
+        raise RuntimeError(
+            "Unexpected Optuna search-space version: "
+            f"{data.get('search_space_version')}"
         )
     if data.get("objective_metric") != "fixed_validation_bit_nll":
         raise RuntimeError(
             f"Unexpected Optuna objective metric: {data.get('objective_metric')}"
         )
+    design = data.get("balanced_design_report", {})
+    if design.get("passed") is not True or int(design.get("unique_rows", 0)) != 12:
+        raise RuntimeError("Optuna result lacks the validated 12-point balanced design")
+    configured_mass = float(cfg.model.get("edge_mass", 1.0))
+    result_mass = float(data.get("fixed_edge_mass", float("nan")))
+    if not np.isfinite(result_mass) or abs(result_mass - configured_mass) > 1e-12:
+        raise RuntimeError(
+            f"Optuna fixed-edge-mass mismatch: result={result_mass}, config={configured_mass}"
+        )
     params = dict(data.get("best_params", {}))
-    model_fields = {"rank", "detector_iterations", "edge_mass"}
+    model_fields = {"rank", "detector_iterations"}
     training_fields = {"lr", "channel_loss_weight"}
     unknown = set(params) - model_fields - training_fields
     if unknown:

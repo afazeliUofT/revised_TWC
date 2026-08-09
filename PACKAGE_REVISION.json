@@ -1,12 +1,22 @@
 {
+  "fixed_gate0_edge_mass": 0.8,
+  "gate0_limitations": [
+    "abstract orthogonal pilot codebook, not exact 3GPP PUSCH DMRS",
+    "pilot-only posterior without data-aided channel refinement",
+    "white-noise, receive-diagonal covariance approximation",
+    "dense reference execution; edge density is not yet wall-clock sparsity",
+    "uncoded Gate-0 metrics, not publication TBLER"
+  ],
   "package": "BayesRoute-Rx Gate-0",
   "publication_nr_ready": false,
-  "purpose": "fair, reproducible, resume-safe Gate-0 tuning and evaluation",
+  "purpose": "mathematically correct, fair, reproducible Gate-0 tuning",
   "repair": [
-    "Use fixed validation bit NLL for Optuna pruning.",
-    "Use common training data streams and a seeded sampler across trials.",
-    "Synchronize compact Slurm diagnostics to GitHub.",
-    "Enforce evaluation contracts and fair receiver-only latency measurement."
+    "Correct the complex posterior covariance contraction u C u^H.",
+    "Propagate full local cross-layer posterior covariance into detection and coupling.",
+    "Correct channel-error moments after soft interference cancellation.",
+    "Use nested random Fourier feature banks for fair rank tuning.",
+    "Keep graph mass fixed during Optuna and assess it through explicit ablations.",
+    "Add matched-model covariance, coupling, detector-moment, and Sionna-mapping health checks."
   ],
-  "revision": "gate0_v2_2_20260808"
+  "revision": "gate0_v2_3_20260808"
 }

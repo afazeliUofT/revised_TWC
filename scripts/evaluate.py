@@ -24,7 +24,7 @@ from bayesroute.config import (
 from bayesroute.eval_utils import evaluate_one_batch, make_receiver, warmup_receiver
 from bayesroute.simulator import UplinkToySimulator
 
-EVALUATION_CONTRACT_VERSION = "gate0_v2_2_eval_v1"
+EVALUATION_CONTRACT_VERSION = "gate0_v2_3_eval_v1"
 
 
 def _canonical_json(value: Any) -> str:

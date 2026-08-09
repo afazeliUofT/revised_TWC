@@ -47,15 +47,19 @@ required = [
     h.get('overall_pass') is True,
     h.get('optuna_ready') is True,
     h.get('package_revision') == revision,
-    revision == 'gate0_v2_2_20260808',
+    revision == 'gate0_v2_3_20260808',
     h.get('checks', {{}}).get('sionna_mapper_demapper_executed') is True,
     h.get('checks', {{}}).get('uncertainty_and_routing_paths_active') is True,
     h.get('checks', {{}}).get('posterior_psd_and_finite') is True,
-    h.get('checks', {{}}).get('posterior_coverage_metric_valid') is True,
+    h.get('checks', {{}}).get('rff_rank_bank_nested') is True,
+    h.get('checks', {{}}).get('posterior_projection_u_C_uH') is True,
+    h.get('checks', {{}}).get('posterior_matched_calibration') is True,
+    h.get('checks', {{}}).get('detector_moment_formula') is True,
+    h.get('checks', {{}}).get('coupling_closed_form_monte_carlo') is True,
     h.get('checks', {{}}).get('checkpoint_roundtrip') is True,
 ]
 if not all(required):
-    raise SystemExit('BLOCKED: Gate-0 v2.2 smoke has not passed for the deployed revision')
+    raise SystemExit('BLOCKED: Gate-0 v2.3 smoke has not passed for the deployed revision')
 print('OPTUNA_PREFLIGHT_PASS', revision)
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_optuna | grep -q .; then

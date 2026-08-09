@@ -1,4 +1,4 @@
-package_revision: gate0_v2_2_20260808
+package_revision: gate0_v2_3_20260808
 seed: 43999
 device: auto
 optuna_best_path: outputs/optuna/best_params.json
@@ -21,8 +21,9 @@ system:
 model:
   rank: 16
   detector_iterations: 3
-  edge_mass: 0.92
+  edge_mass: 0.8
   use_uncertainty: true
+  operator_bank_rank: 24
   operator_seed: 28001
 training:
   batch_size: 64
@@ -51,7 +52,7 @@ evaluation:
   batch_size: 128
   baselines:
   - ls
-  - bayesroute_mean
+  - bayesroute_uncertainty_off
   - bayesroute_graph_off
   - bayesroute_uncertainty
   - bayesroute_full_graph

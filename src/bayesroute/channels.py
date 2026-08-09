@@ -1,30 +1,57 @@
 from __future__ import annotations
+
 import math
 import torch
 
 
-def complex_normal(shape, device=None, scale: float = 1.0,
-                   dtype=torch.complex64) -> torch.Tensor:
+def complex_normal(
+    shape,
+    device=None,
+    scale: float = 1.0,
+    dtype=torch.complex64,
+) -> torch.Tensor:
+    """Draw a proper complex Gaussian tensor with E|z|^2=scale^2."""
     re = torch.randn(shape, device=device) * (scale / math.sqrt(2.0))
     im = torch.randn(shape, device=device) * (scale / math.sqrt(2.0))
     return torch.complex(re, im).to(dtype)
 
 
-def rff_bank(coords: torch.Tensor, rank: int, length_f: float,
-             length_t: float, seed: int = 0) -> torch.Tensor:
-    """Fixed complex random Fourier feature bank [R, rank]."""
-    if int(rank) <= 0:
+def rff_bank(
+    coords: torch.Tensor,
+    rank: int,
+    length_f: float,
+    length_t: float,
+    seed: int = 0,
+    bank_rank: int | None = None,
+) -> torch.Tensor:
+    """Return a fixed complex random-Fourier-feature bank [R, rank].
+
+    ``bank_rank`` fixes the largest generated bank. Candidate ranks obtained with
+    the same seed and bank_rank are nested: a rank-q bank uses the first q modes
+    of the common bank. This prevents Optuna from comparing different random
+    basis realizations when it changes the model rank.
+    """
+    rank = int(rank)
+    max_rank = rank if bank_rank is None else int(bank_rank)
+    if rank <= 0:
         raise ValueError("rank must be positive")
+    if max_rank < rank:
+        raise ValueError(f"bank_rank={max_rank} must be at least rank={rank}")
+
     gen = torch.Generator(device="cpu")
     gen.manual_seed(int(seed))
-    wf = torch.randn(rank, generator=gen) / max(float(length_f), 1e-3)
-    wt = torch.randn(rank, generator=gen) / max(float(length_t), 1e-3)
-    phase0 = 2.0 * math.pi * torch.rand(rank, generator=gen)
+    wf_all = torch.randn(max_rank, generator=gen)
+    wt_all = torch.randn(max_rank, generator=gen)
+    phase_all = 2.0 * math.pi * torch.rand(max_rank, generator=gen)
+
+    wf = wf_all[:rank] / max(float(length_f), 1e-3)
+    wt = wt_all[:rank] / max(float(length_t), 1e-3)
+    phase0 = phase_all[:rank]
     omega = torch.stack([wf, wt], dim=-1).to(coords.device, coords.dtype)
     phase0 = phase0.to(coords.device, coords.dtype)
     phase = 2.0 * math.pi * (coords @ omega.T) + phase0.view(1, -1)
-    # Every coordinate has exactly unit feature energy. Therefore E|h[r]|^2=1
-    # for unit-variance latent coefficients, without per-realization normalization.
+
+    # Each coordinate has unit total feature energy for every candidate rank.
     return torch.exp(1j * phase).to(torch.complex64) / math.sqrt(float(rank))
 
 
@@ -46,7 +73,14 @@ def generate_low_rank_channel(
     Gaussian prior used by the posterior operator.
     """
     device = coords.device
-    basis = rff_bank(coords, true_rank, length_f, length_t, seed=seed)
+    basis = rff_bank(
+        coords,
+        true_rank,
+        length_f,
+        length_t,
+        seed=seed,
+        bank_rank=true_rank,
+    )
     latent = complex_normal(
         (batch_size, n_layers, n_rx, true_rank), device=device
     )

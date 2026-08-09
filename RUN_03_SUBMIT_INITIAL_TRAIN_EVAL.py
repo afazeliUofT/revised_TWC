@@ -48,11 +48,21 @@ revision = str(cfg.get('package_revision', ''))
 required = [
     status.get('target_reached') is True,
     int(status.get('complete_trials', 0)) >= int(status.get('target_complete_trials', 1)),
+    revision == 'gate0_v2_3_20260808',
     status.get('package_revision') == revision,
     best.get('package_revision') == revision,
     status.get('contract_signature') == best.get('contract_signature'),
+    status.get('search_space_version') == 'gate0_v2_3_search_v2',
+    best.get('search_space_version') == 'gate0_v2_3_search_v2',
     best.get('objective_metric') == 'fixed_validation_bit_nll',
-    int(best.get('n_complete_trials', 0)) >= int(best.get('target_complete_trials', 1)),
+    int(status.get('target_complete_trials', 0)) == 12,
+    int(status.get('complete_trials', 0)) >= 12,
+    int(best.get('target_complete_trials', 0)) == 12,
+    int(best.get('n_complete_trials', 0)) >= 12,
+    status.get('balanced_design_report', {{}}).get('passed') is True,
+    best.get('balanced_design_report', {{}}).get('passed') is True,
+    abs(float(status.get('fixed_edge_mass')) - float(cfg.get('model', {{}}).get('edge_mass'))) < 1e-12,
+    abs(float(best.get('fixed_edge_mass')) - float(cfg.get('model', {{}}).get('edge_mass'))) < 1e-12,
 ]
 if not all(required):
     raise SystemExit('BLOCKED: Optuna completion/revision/contract validation failed')
