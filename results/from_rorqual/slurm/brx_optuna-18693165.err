@@ -1,0 +1,14 @@
+[I 2026-08-09 01:47:02,361] A new study created in RDB with name: bayesroute_gate0_v2_4_short_tuning
+W0809 01:47:10.568000 2580844 torch/utils/flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+[I 2026-08-09 01:47:37,973] Trial 0 finished with value: 0.58152750465605 and parameters: {'rank': 8, 'detector_iterations': 2, 'lr': 0.002, 'channel_loss_weight': 0.0}. Best is trial 0 with value: 0.58152750465605.
+[I 2026-08-09 01:48:01,452] Trial 1 finished with value: 0.5783313380347358 and parameters: {'rank': 12, 'detector_iterations': 2, 'lr': 0.0005, 'channel_loss_weight': 0.05}. Best is trial 1 with value: 0.5783313380347358.
+[I 2026-08-09 01:48:24,881] Trial 2 finished with value: 0.5657503141297234 and parameters: {'rank': 16, 'detector_iterations': 2, 'lr': 0.001, 'channel_loss_weight': 0.15}. Best is trial 2 with value: 0.5657503141297234.
+[I 2026-08-09 01:48:48,019] Trial 3 finished with value: 0.5607138143645393 and parameters: {'rank': 24, 'detector_iterations': 2, 'lr': 0.004, 'channel_loss_weight': 0.1}. Best is trial 3 with value: 0.5607138143645393.
+[I 2026-08-09 01:49:20,476] Trial 4 finished with value: 0.5812651250097487 and parameters: {'rank': 8, 'detector_iterations': 3, 'lr': 0.001, 'channel_loss_weight': 0.1}. Best is trial 3 with value: 0.5607138143645393.
+[I 2026-08-09 01:49:54,636] Trial 5 finished with value: 0.5656016535229154 and parameters: {'rank': 12, 'detector_iterations': 3, 'lr': 0.004, 'channel_loss_weight': 0.15}. Best is trial 3 with value: 0.5607138143645393.
+[I 2026-08-09 01:50:27,114] Trial 6 finished with value: 0.5552081598175896 and parameters: {'rank': 16, 'detector_iterations': 3, 'lr': 0.002, 'channel_loss_weight': 0.05}. Best is trial 6 with value: 0.5552081598175896.
+[I 2026-08-09 01:50:59,152] Trial 7 finished with value: 0.554948541853163 and parameters: {'rank': 24, 'detector_iterations': 3, 'lr': 0.0005, 'channel_loss_weight': 0.0}. Best is trial 7 with value: 0.554948541853163.
+[I 2026-08-09 01:51:41,393] Trial 8 finished with value: 0.5861516197522482 and parameters: {'rank': 8, 'detector_iterations': 4, 'lr': 0.0005, 'channel_loss_weight': 0.15}. Best is trial 7 with value: 0.554948541853163.
+[I 2026-08-09 01:52:22,979] Trial 9 finished with value: 0.5683243804507785 and parameters: {'rank': 12, 'detector_iterations': 4, 'lr': 0.002, 'channel_loss_weight': 0.1}. Best is trial 7 with value: 0.554948541853163.
+[I 2026-08-09 01:53:05,477] Trial 10 finished with value: 0.5546386109458076 and parameters: {'rank': 16, 'detector_iterations': 4, 'lr': 0.004, 'channel_loss_weight': 0.0}. Best is trial 10 with value: 0.5546386109458076.
+[I 2026-08-09 01:53:47,015] Trial 11 finished with value: 0.555198609828949 and parameters: {'rank': 24, 'detector_iterations': 4, 'lr': 0.001, 'channel_loss_weight': 0.05}. Best is trial 10 with value: 0.5546386109458076.

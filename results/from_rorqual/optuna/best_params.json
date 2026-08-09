@@ -1,0 +1,68 @@
+{
+  "all_required_design_points_complete": true,
+  "best_design_index": 10,
+  "best_params": {
+    "channel_loss_weight": 0.0,
+    "detector_iterations": 4,
+    "lr": 0.004,
+    "rank": 16
+  },
+  "best_trial_number": 10,
+  "best_trial_user_attrs": {
+    "cache_key": "a3e887594a6784fe7582bf5e",
+    "common_training_seed": 192026,
+    "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+    "design_index": 10,
+    "design_name": "space_filling_12",
+    "design_signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+    "enqueue_reason": "initial_design_enqueue",
+    "last_checkpoint_step": 159,
+    "space_filling_design": true,
+    "validation_bit_nll": 0.5546386109458076,
+    "validation_edge_density": 0.79883916510476
+  },
+  "best_value": 0.5546386109458076,
+  "completed_design_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+  "design_name": "space_filling_12",
+  "design_report": {
+    "claim_scope": "deterministic space-filling screening design; not a full factorial or orthogonal array",
+    "full_factorial_size": 192,
+    "name": "space_filling_12",
+    "pairwise_distinct_level_pairs": {
+      "detector_iterations__channel_loss_weight": 12,
+      "detector_iterations__lr": 12,
+      "lr__channel_loss_weight": 12,
+      "rank__channel_loss_weight": 12,
+      "rank__detector_iterations": 12,
+      "rank__lr": 12
+    },
+    "passed": true,
+    "rows": 12,
+    "signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+    "unique_rows": 12
+  },
+  "design_signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+  "fixed_edge_mass": 0.8,
+  "missing_design_indices": [],
+  "n_complete_trials": 12,
+  "objective_metric": "fixed_validation_bit_nll",
+  "package_revision": "gate0_v2_4_20260809",
+  "search_space_version": "gate0_v2_4_search_v1",
+  "study_db": "outputs/optuna/study.db",
+  "target_complete_trials": 12,
+  "unexpected_trial_numbers": []
+}

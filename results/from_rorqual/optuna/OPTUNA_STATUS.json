@@ -1,0 +1,185 @@
+{
+  "all_required_design_points_complete": true,
+  "best_design_index": 10,
+  "best_params": {
+    "channel_loss_weight": 0.0,
+    "detector_iterations": 4,
+    "lr": 0.004,
+    "rank": 16
+  },
+  "best_trial_number": 10,
+  "best_trial_user_attrs": {
+    "cache_key": "a3e887594a6784fe7582bf5e",
+    "common_training_seed": 192026,
+    "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+    "design_index": 10,
+    "design_name": "space_filling_12",
+    "design_signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+    "enqueue_reason": "initial_design_enqueue",
+    "last_checkpoint_step": 159,
+    "space_filling_design": true,
+    "validation_bit_nll": 0.5546386109458076,
+    "validation_edge_density": 0.79883916510476
+  },
+  "best_value": 0.5546386109458076,
+  "common_training_seed": 192026,
+  "complete_trials": 12,
+  "contract_signature": "5351e302a4cbfde01b39a72f5c66b708c18d902991116e7d62c0210d427017ff",
+  "design_name": "space_filling_12",
+  "design_report": {
+    "claim_scope": "deterministic space-filling screening design; not a full factorial or orthogonal array",
+    "full_factorial_size": 192,
+    "name": "space_filling_12",
+    "pairwise_distinct_level_pairs": {
+      "detector_iterations__channel_loss_weight": 12,
+      "detector_iterations__lr": 12,
+      "lr__channel_loss_weight": 12,
+      "rank__channel_loss_weight": 12,
+      "rank__detector_iterations": 12,
+      "rank__lr": 12
+    },
+    "passed": true,
+    "rows": 12,
+    "signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+    "unique_rows": 12
+  },
+  "design_signature": "53f3a2614ac172c6ec39515b8bee71f1567da7a42587c42bd93fa9dc54bc1c74",
+  "design_state": {
+    "all_required_design_points_complete": true,
+    "attempt_counts_by_design": {
+      "0": 1,
+      "1": 1,
+      "10": 1,
+      "11": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1
+    },
+    "blocked_failed_design_indices": [],
+    "complete_trial_numbers_by_design": {
+      "0": 0,
+      "1": 1,
+      "10": 10,
+      "11": 11,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9
+    },
+    "completed_design_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "duplicate_complete_design_indices": [],
+    "enqueue_candidate_design_indices": [],
+    "failed_attempts_by_design": {},
+    "missing_design_indices": [],
+    "required_design_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "stale_running_design_indices": [],
+    "unexpected_trial_numbers": [],
+    "waiting_design_indices": []
+  },
+  "fixed_edge_mass": 0.8,
+  "max_failed_attempts_per_design": 2,
+  "objective_metric": "fixed_validation_bit_nll",
+  "package_revision": "gate0_v2_4_20260809",
+  "pruning_metric": "none_all_required_design_points_are_run",
+  "recovery_events_this_invocation": [
+    {
+      "design_index": 0,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 1,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 2,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 3,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 4,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 5,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 6,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 7,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 8,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 9,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 10,
+      "reason": "initial_design_enqueue"
+    },
+    {
+      "design_index": 11,
+      "reason": "initial_design_enqueue"
+    }
+  ],
+  "sampler": "Optuna RandomSampler used only as a guarded fallback; all trials are explicitly enqueued",
+  "sampler_seed": 12026,
+  "search_space_version": "gate0_v2_4_search_v1",
+  "state_counts": {
+    "COMPLETE": 12,
+    "FAIL": 0,
+    "PRUNED": 0,
+    "RUNNING": 0,
+    "WAITING": 0
+  },
+  "stop_reason": "all_required_design_points_complete",
+  "study_db": "outputs/optuna/study.db",
+  "study_name": "bayesroute_gate0_v2_4_short_tuning",
+  "target_complete_trials": 12,
+  "target_reached": true,
+  "updated": "2026-08-09 01:53:47 EDT"
+}
