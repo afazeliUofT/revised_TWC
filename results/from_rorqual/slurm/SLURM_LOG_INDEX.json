@@ -1,16 +1,16 @@
 [
   {
-    "copied_size_bytes": 72,
-    "mtime_epoch": 1786294055.0,
-    "name": "brx_nr_smoke-18720821.out",
-    "original_size_bytes": 72,
+    "copied_size_bytes": 635,
+    "mtime_epoch": 1786296735.0,
+    "name": "brx_nr_smoke-18723240.out",
+    "original_size_bytes": 635,
     "truncated": false
   },
   {
-    "copied_size_bytes": 6096,
-    "mtime_epoch": 1786294050.0,
-    "name": "brx_nr_smoke-18720821.err",
-    "original_size_bytes": 6096,
+    "copied_size_bytes": 127,
+    "mtime_epoch": 1786296725.0,
+    "name": "brx_nr_smoke-18723240.err",
+    "original_size_bytes": 127,
     "truncated": false
   },
   {
