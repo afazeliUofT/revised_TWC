@@ -1,0 +1,522 @@
+{
+  "cases": {
+    "diag_cdl_a_single_user_2layer": {
+      "by_snr": {
+        "-2.0": {
+          "calibration_samples": 331776,
+          "coverage95": 0.9996081789334615,
+          "normalized_error_mean": 0.2967546284198761,
+          "normalized_error_median": 0.18948665261268616,
+          "proposed": {
+            "calibration_nll": 0.5247486233711243,
+            "temperature": 1.4427777528762817,
+            "uncalibrated_nll": 0.539861798286438
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.520034909248352,
+            "temperature": 1.8595397472381592,
+            "uncalibrated_nll": 0.5662315487861633
+          },
+          "variance_scale": 0.2967546284198761
+        },
+        "10.0": {
+          "calibration_samples": 331776,
+          "coverage95": 0.9999879399935404,
+          "normalized_error_mean": 0.19166618585586548,
+          "normalized_error_median": 0.1337081789970398,
+          "proposed": {
+            "calibration_nll": 0.5197043418884277,
+            "temperature": 5.46740198135376,
+            "uncalibrated_nll": 1.1050198078155518
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.6318881511688232,
+            "temperature": 8.0,
+            "uncalibrated_nll": 3.9761736392974854
+          },
+          "variance_scale": 0.19166618585586548
+        },
+        "2.0": {
+          "calibration_samples": 331776,
+          "coverage95": 0.9998161594072977,
+          "normalized_error_mean": 0.24817697703838348,
+          "normalized_error_median": 0.15507841110229492,
+          "proposed": {
+            "calibration_nll": 0.5095420479774475,
+            "temperature": 2.111098289489746,
+            "uncalibrated_nll": 0.5973637700080872
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.4994777739048004,
+            "temperature": 3.5068764686584473,
+            "uncalibrated_nll": 0.7746773362159729
+          },
+          "variance_scale": 0.24817697703838348
+        },
+        "6.0": {
+          "calibration_samples": 331776,
+          "coverage95": 0.9999095797538757,
+          "normalized_error_mean": 0.20945367217063904,
+          "normalized_error_median": 0.1372218132019043,
+          "proposed": {
+            "calibration_nll": 0.5056389570236206,
+            "temperature": 3.5068764686584473,
+            "uncalibrated_nll": 0.7756190896034241
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.4850545823574066,
+            "temperature": 8.0,
+            "uncalibrated_nll": 1.574607491493225
+          },
+          "variance_scale": 0.20945367217063904
+        }
+      },
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "diag_cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    },
+    "diag_uma_type1_4user": {
+      "by_snr": {
+        "-2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.9079333543777466,
+          "normalized_error_mean": 1.1556419134140015,
+          "normalized_error_median": 0.5461206436157227,
+          "proposed": {
+            "calibration_nll": 0.4765157401561737,
+            "temperature": 0.9254201054573059,
+            "uncalibrated_nll": 0.47677505016326904
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.47697141766548157,
+            "temperature": 1.3540912866592407,
+            "uncalibrated_nll": 0.48764389753341675
+          },
+          "variance_scale": 1.1556419134140015
+        },
+        "10.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.887122650941213,
+          "normalized_error_mean": 1.4271483421325684,
+          "normalized_error_median": 0.45049458742141724,
+          "proposed": {
+            "calibration_nll": 0.35954397916793823,
+            "temperature": 1.3540912866592407,
+            "uncalibrated_nll": 0.36872467398643494
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.39919140934944153,
+            "temperature": 5.131324768066406,
+            "uncalibrated_nll": 0.8365043997764587
+          },
+          "variance_scale": 1.4271483421325684
+        },
+        "2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.9096144636472067,
+          "normalized_error_mean": 1.1326978206634521,
+          "normalized_error_median": 0.44361793994903564,
+          "proposed": {
+            "calibration_nll": 0.4049668610095978,
+            "temperature": 1.0506110191345215,
+            "uncalibrated_nll": 0.4051348567008972
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.4080755114555359,
+            "temperature": 1.8595397472381592,
+            "uncalibrated_nll": 0.4578465521335602
+          },
+          "variance_scale": 1.1326978206634521
+        },
+        "6.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.8939977486928304,
+          "normalized_error_mean": 1.2928099632263184,
+          "normalized_error_median": 0.4383993148803711,
+          "proposed": {
+            "calibration_nll": 0.38758546113967896,
+            "temperature": 1.270856261253357,
+            "uncalibrated_nll": 0.3929908275604248
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.40364399552345276,
+            "temperature": 3.0889968872070312,
+            "uncalibrated_nll": 0.5973044633865356
+          },
+          "variance_scale": 1.2928099632263184
+        }
+      },
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "diag_uma_type1_4user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      }
+    },
+    "diag_umi_type1_2user_2layer": {
+      "by_snr": {
+        "-2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.9192934632301331,
+          "normalized_error_mean": 1.0400570631027222,
+          "normalized_error_median": 0.40936580300331116,
+          "proposed": {
+            "calibration_nll": 0.5031263828277588,
+            "temperature": 1.3540912866592407,
+            "uncalibrated_nll": 0.5141935348510742
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.5110335946083069,
+            "temperature": 2.2493650913238525,
+            "uncalibrated_nll": 0.6013293862342834
+          },
+          "variance_scale": 1.0400570631027222
+        },
+        "10.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.8910530209541321,
+          "normalized_error_mean": 1.4410090446472168,
+          "normalized_error_median": 0.3468136787414551,
+          "proposed": {
+            "calibration_nll": 0.5383843183517456,
+            "temperature": 3.0889968872070312,
+            "uncalibrated_nll": 0.7155942916870117
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.6973222494125366,
+            "temperature": 8.0,
+            "uncalibrated_nll": 2.9509952068328857
+          },
+          "variance_scale": 1.4410090446472168
+        },
+        "2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.919438103834788,
+          "normalized_error_mean": 1.0552706718444824,
+          "normalized_error_median": 0.3405512273311615,
+          "proposed": {
+            "calibration_nll": 0.5173022150993347,
+            "temperature": 1.9813306331634521,
+            "uncalibrated_nll": 0.5805087089538574
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.5469275116920471,
+            "temperature": 4.815905570983887,
+            "uncalibrated_nll": 0.9897754788398743
+          },
+          "variance_scale": 1.0552706718444824
+        },
+        "6.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.8974082072575887,
+          "normalized_error_mean": 1.2851134538650513,
+          "normalized_error_median": 0.35565799474716187,
+          "proposed": {
+            "calibration_nll": 0.5588289499282837,
+            "temperature": 3.291311502456665,
+            "uncalibrated_nll": 0.7497367262840271
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.6222839951515198,
+            "temperature": 8.0,
+            "uncalibrated_nll": 2.148860454559326
+          },
+          "variance_scale": 1.2851134538650513
+        }
+      },
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "diag_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    },
+    "diag_umi_type2_2user_2layer": {
+      "by_snr": {
+        "-2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.9181398153305054,
+          "normalized_error_mean": 1.0562080144882202,
+          "normalized_error_median": 0.40691882371902466,
+          "proposed": {
+            "calibration_nll": 0.5235080122947693,
+            "temperature": 1.5372728109359741,
+            "uncalibrated_nll": 0.5441223978996277
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.5371735692024231,
+            "temperature": 2.720911741256714,
+            "uncalibrated_nll": 0.6692666411399841
+          },
+          "variance_scale": 1.0562080144882202
+        },
+        "10.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.8671852548917135,
+          "normalized_error_mean": 1.6394442319869995,
+          "normalized_error_median": 0.40638914704322815,
+          "proposed": {
+            "calibration_nll": 0.5524449348449707,
+            "temperature": 3.291311502456665,
+            "uncalibrated_nll": 0.7469112277030945
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.7204453349113464,
+            "temperature": 8.0,
+            "uncalibrated_nll": 3.1045234203338623
+          },
+          "variance_scale": 1.6394442319869995
+        },
+        "2.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.9033248424530029,
+          "normalized_error_mean": 1.1893898248672485,
+          "normalized_error_median": 0.42349517345428467,
+          "proposed": {
+            "calibration_nll": 0.5012516379356384,
+            "temperature": 1.8595397472381592,
+            "uncalibrated_nll": 0.5470486879348755
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.5224062204360962,
+            "temperature": 4.242042064666748,
+            "uncalibrated_nll": 0.8753910064697266
+          },
+          "variance_scale": 1.1893898248672485
+        },
+        "6.0": {
+          "calibration_samples": 663552,
+          "coverage95": 0.918766717116038,
+          "normalized_error_mean": 1.0437631607055664,
+          "normalized_error_median": 0.31692391633987427,
+          "proposed": {
+            "calibration_nll": 0.5215620994567871,
+            "temperature": 2.3966877460479736,
+            "uncalibrated_nll": 0.6258206963539124
+          },
+          "uncertainty_off_fixed_graph": {
+            "calibration_nll": 0.5726505517959595,
+            "temperature": 8.0,
+            "uncalibrated_nll": 1.5414667129516602
+          },
+          "variance_scale": 1.0437631607055664
+        }
+      },
+      "case": {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "diag_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    }
+  },
+  "complete": true,
+  "contract": {
+    "bridge": {
+      "bank_rank": 24,
+      "detector_iterations": 4,
+      "edge_mass": 0.8,
+      "length_f": 2.0,
+      "length_t": 1.0,
+      "operator_seed": 58001,
+      "rank": 16
+    },
+    "calibration": {
+      "batch_size": 24,
+      "repetitions": 3,
+      "temperature_max": 8.0,
+      "temperature_max_samples": 200000,
+      "temperature_min": 0.05,
+      "temperature_points": 81,
+      "variance_scale_max": 20.0,
+      "variance_scale_min": 0.05
+    },
+    "cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "diag_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "diag_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "diag_uma_type1_4user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "diag_cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "config_sha256": "7668394ab1c8f4ee3a0a620a722aed0e7f69ca0d820bf62c86fda8c061fbe5e9",
+    "ebno_db": [
+      -2.0,
+      2.0,
+      6.0,
+      10.0
+    ],
+    "kind": "calibration",
+    "signature": "38ac0900ae51e821ac13b15b7e575dd08214dff134ab42a8bb66c690648727a7",
+    "source_sha256": {
+      "scripts/gate1_nr_failure_mode_diagnostic.py": "a0bf8e912037cefc63cbce405630da8b714f51786834f69b6cb99f705e63eca0",
+      "src/bayesroute/channels.py": "7349171bfbf7b281afb6f31d22cb98105f5060beac8260362c471a8f69042d7f",
+      "src/bayesroute/config.py": "c46528c5d5e36ad5b3e9f97dd2d01794058c621a40ecd79b0ee619c319bc999b",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+      "src/bayesroute/sionna_kbest_compat.py": "61b7b40973196a9a1546186da5f40255da75cbfd85037dc0dc9861d9cc4c21ff"
+    },
+    "version": "gate1_nr_failure_mode_diagnostic_v1"
+  },
+  "version": "gate1_nr_failure_mode_diagnostic_v1"
+}

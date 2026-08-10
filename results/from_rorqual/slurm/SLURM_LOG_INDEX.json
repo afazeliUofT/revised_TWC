@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 15220,
+    "mtime_epoch": 1786328258.0,
+    "name": "brx_nr_fdiag-18743433.out",
+    "original_size_bytes": 15220,
+    "truncated": false
+  },
+  {
+    "copied_size_bytes": 127,
+    "mtime_epoch": 1786328147.0,
+    "name": "brx_nr_fdiag-18743433.err",
+    "original_size_bytes": 127,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 146148,
     "mtime_epoch": 1786323846.0,
     "name": "brx_nr_evid-18741276.out",
