@@ -1,0 +1,14 @@
+complete_rows: PASS
+finite_core_metrics: PASS
+fixed_graph_cardinality_exact: PASS
+training_complete: PASS
+perfect_csi_lmmse_improves_with_snr: PASS
+kbest_reference_executed: PASS
+kbest_eager_exact_compatibility_verified: PASS
+uncertainty_coded_nll_gain: PASS
+uncertainty_tbler_gain: PASS
+coupling_beats_random_tbler: PASS
+sparse_not_worse_than_full_by_0p01: PASS
+CLASSIFICATION: GATE1_NR_PRELIMINARY_PROMISING
+PGCA_AGMP_BASELINE_INCLUDED: NO
+PUBLICATION_NR_READY: NO

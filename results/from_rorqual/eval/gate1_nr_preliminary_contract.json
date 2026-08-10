@@ -1,0 +1,198 @@
+{
+  "bridge": {
+    "bank_rank": 24,
+    "detector_iterations": 4,
+    "edge_mass": 0.8,
+    "length_f": 2.0,
+    "length_t": 1.0,
+    "operator_seed": 58001,
+    "rank": 16
+  },
+  "config_sha256": "d8593fe2083e98319ee68256300e0c96c2da2cd385dd6bff5cdb7980bcee09c4",
+  "evaluation": {
+    "batch_size": 16,
+    "bp_iterations": 20,
+    "cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          3,
+          0
+        ],
+        "kbest_k": 16,
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_umi_type1_random_subset_2user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "run_kbest": true,
+        "scenario": "umi",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_uma_type1_port_permutation_4user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "delay_spread_s": 3e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_cdl_c_single_user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-c",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "name": "eval_cdl_d_single_user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-d",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "ebno_db": [
+      -2.0,
+      2.0,
+      6.0,
+      10.0
+    ],
+    "repetitions": 5,
+    "variants": [
+      "proposed",
+      "uncertainty_off_fixed_graph",
+      "diagonal_posterior_fixed_graph",
+      "mean_only_graph_fixed_cardinality",
+      "random_graph_fixed_cardinality",
+      "full_graph",
+      "ls_lmmse",
+      "perfect_csi_lmmse"
+    ]
+  },
+  "gate1_revision": "gate1_nr_integration_v1",
+  "signature": "c512413e46b4382ed4324da185c66005f712380db9087ad89d4de3c90f75c365",
+  "source_sha256": {
+    "scripts/gate1_nr_evidence.py": "0a5def6af6100e92b5594cbe06f1b1f0c026c3faef13db74de52b4084ece7c55",
+    "src/bayesroute/channels.py": "7349171bfbf7b281afb6f31d22cb98105f5060beac8260362c471a8f69042d7f",
+    "src/bayesroute/config.py": "c46528c5d5e36ad5b3e9f97dd2d01794058c621a40ecd79b0ee619c319bc999b",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+    "src/bayesroute/sionna_kbest_compat.py": "61b7b40973196a9a1546186da5f40255da75cbfd85037dc0dc9861d9cc4c21ff"
+  },
+  "training_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+  "version": "gate1_nr_eval_v1",
+  "workflow_patch_version": "gate1_nr_evidence_workflow_v1"
+}
