@@ -1,0 +1,94 @@
+repair_revision: gate1_nr_detector_repair_v1
+device: cuda
+seed: 202681101
+checkpoint_path: outputs/gate1_nr/checkpoints/preliminary/best.pt
+bridge:
+  rank: 16
+  bank_rank: 24
+  edge_mass: 0.8
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 58001
+screen:
+  iterations: [2, 4, 6]
+  damping: [0.35, 0.5, 0.7]
+  selection_reps: [0, 1, 2, 3]
+  holdout_reps: [4, 5, 6, 7]
+evaluation:
+  batch_size: 16
+  bp_iterations: 20
+  ebno_db: [-2.0, 2.0, 6.0, 10.0]
+  repetitions: 8
+  cases:
+    - name: repair_umi_type1_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1, 2, 3]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: repair_umi_type2_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 2
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [4, 5, 0, 1]
+      num_cdm_groups_without_data: 3
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: repair_uma_type1_4user
+      scenario: uma
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 15.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [2, 0, 3, 1]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: repair_cdl_a_single_user_2layer
+      scenario: cdl-a
+      num_users: 1
+      num_layers_per_user: 2
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42

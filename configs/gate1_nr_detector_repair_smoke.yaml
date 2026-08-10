@@ -1,0 +1,38 @@
+repair_revision: gate1_nr_detector_repair_v1
+device: cuda
+seed: 202681001
+checkpoint_path: outputs/gate1_nr/checkpoints/preliminary/best.pt
+batch_size: 2
+ebno_db: 6.0
+bp_iterations: 8
+bridge:
+  rank: 16
+  bank_rank: 24
+  edge_mass: 0.8
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 58001
+detector:
+  version: damped_extrinsic_lmmse_v1
+  iterations: 4
+  damping: 0.5
+  covariance_mode: diagonal
+case:
+  name: repair_smoke_umi_type1_2user_2layer
+  scenario: umi
+  num_users: 2
+  num_layers_per_user: 2
+  num_rx_ant: 8
+  num_prb: 4
+  subcarrier_spacing_khz: 30
+  speed_mps: 3.0
+  carrier_frequency_hz: 3500000000.0
+  delay_spread_s: 1.0e-7
+  dmrs_config_type: 1
+  dmrs_length: 1
+  dmrs_additional_position: 1
+  dmrs_ports: [0, 1, 2, 3]
+  num_cdm_groups_without_data: 2
+  mcs_index: 10
+  mcs_table: 1
+  n_cell_id: 42

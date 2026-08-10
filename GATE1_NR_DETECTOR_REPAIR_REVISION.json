@@ -1,0 +1,19 @@
+{
+  "revision": "gate1_nr_detector_repair_v1",
+  "gate1_revision": "gate1_nr_integration_v1",
+  "required_failure_classification": "GATE1_DETECTOR_REPAIR_REQUIRED",
+  "required_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+  "detector_version": "damped_extrinsic_lmmse_v1",
+  "principle": "spatial LMMSE filtering plus target-extrinsic discrete moment updates and damping",
+  "preserved_mechanisms": [
+    "posterior channel uncertainty",
+    "coupling-ranked graph routing",
+    "analytical and interpretable inference"
+  ],
+  "historical_pgca_agmp_baseline_included": false,
+  "publication_nr_ready": false,
+  "smoke_walltime": "00:15:00",
+  "screen_walltime": "01:00:00",
+  "screen_expected_rows": 2688,
+  "detector_description": "graph-routed spatial LMMSE filtering with target-extrinsic discrete moment updates, candidate-dependent channel uncertainty, and damping"
+}
