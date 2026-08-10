@@ -1,0 +1,11 @@
+{
+  "revision": "gate1_nr_failure_mode_diagnostic_v1",
+  "required_gate1_revision": "gate1_nr_integration_v1",
+  "required_preliminary_classification": "GATE1_NR_PRELIMINARY_PROMISING",
+  "required_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+  "purpose": "Separate detector instability, posterior calibration, operator mismatch, and graph-routing effects before any publication-scale campaign",
+  "publication_nr_ready": false,
+  "pgca_agmp_baseline_included": false,
+  "expected_rows": 2304,
+  "slurm_walltime": "00:45:00"
+}

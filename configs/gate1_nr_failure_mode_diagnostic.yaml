@@ -1,0 +1,113 @@
+name: gate1_nr_failure_mode_diagnostic_v1
+diagnostic_revision: gate1_nr_failure_mode_diagnostic_v1
+gate1_revision: gate1_nr_integration_v1
+required_preliminary_classification: GATE1_NR_PRELIMINARY_PROMISING
+seed: 20270810
+device: cuda:0
+checkpoint:
+  summary_path: outputs/reports/gate1_nr_preliminary_train_summary.json
+  checkpoint_path: outputs/gate1_nr/checkpoints/preliminary/best.pt
+  expected_sha256: ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576
+bridge:
+  rank: 16
+  bank_rank: 24
+  detector_iterations: 4
+  edge_mass: 0.8
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 58001
+calibration:
+  batch_size: 24
+  repetitions: 3
+  temperature_min: 0.05
+  temperature_max: 8.0
+  temperature_points: 81
+  temperature_max_samples: 200000
+  variance_scale_min: 0.05
+  variance_scale_max: 20.0
+evaluation:
+  ebno_db: [-2.0, 2.0, 6.0, 10.0]
+  repetitions: 8
+  batch_size: 16
+  bp_iterations: 20
+  variants:
+    - proposed
+    - graph_off
+    - uncertainty_off_fixed_graph
+    - diagonal_posterior_fixed_graph
+    - mean_only_graph_fixed_cardinality
+    - random_graph_fixed_cardinality
+    - full_graph
+    - untrained_proposed
+    - proposed_iter1
+    - proposed_iter2
+    - proposed_iter3
+    - proposed_temperature_calibrated
+    - uncertainty_off_temperature_calibrated
+    - variance_scaled_proposed
+    - true_channel_iter1
+    - true_channel_iter4
+    - ls_lmmse
+    - perfect_csi_lmmse
+  cases:
+    - name: diag_umi_type1_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+    - name: diag_umi_type2_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 2
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 3
+      dmrs_ports: [4, 5, 0, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+    - name: diag_uma_type1_4user
+      scenario: uma
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [2, 0, 3, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 15.0
+    - name: diag_cdl_a_single_user_2layer
+      scenario: cdl-a
+      num_users: 1
+      num_layers_per_user: 2
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      delay_spread_s: 1.0e-7
