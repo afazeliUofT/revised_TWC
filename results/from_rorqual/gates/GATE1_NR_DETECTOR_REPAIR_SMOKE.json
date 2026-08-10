@@ -1,0 +1,201 @@
+{
+  "case": {
+    "carrier_frequency_hz": 3500000000.0,
+    "delay_spread_s": 1e-07,
+    "dmrs_additional_position": 1,
+    "dmrs_config_type": 1,
+    "dmrs_length": 1,
+    "dmrs_ports": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "mcs_index": 10,
+    "mcs_table": 1,
+    "n_cell_id": 42,
+    "name": "repair_smoke_umi_type1_2user_2layer",
+    "num_cdm_groups_without_data": 2,
+    "num_layers_per_user": 2,
+    "num_prb": 4,
+    "num_rx_ant": 8,
+    "num_users": 2,
+    "scenario": "umi",
+    "speed_mps": 3.0,
+    "subcarrier_spacing_khz": 30
+  },
+  "checks": {
+    "cuda_compute_node": true,
+    "gradient_to_operator": true,
+    "graph_preserved": true,
+    "mathematical_self_test": true,
+    "new_detector_finite": true,
+    "new_detector_shape": true,
+    "nr_ldpc_decode_path": true,
+    "operator_transfer": true,
+    "perfect_csi_lmmse_path": true,
+    "positive_extrinsic_variance": true,
+    "posterior_output_finite": true,
+    "preconditions": true,
+    "sionna_2_0_1": true,
+    "source_contract": true,
+    "true_channel_path": true
+  },
+  "classification": "GATE1_NR_DETECTOR_REPAIR_SMOKE_PASS",
+  "coded_metrics": {
+    "coded_ber": 0.1041666641831398,
+    "coded_bit_nll": 0.2582465410232544,
+    "coded_brier": 0.07827706634998322
+  },
+  "contract": {
+    "case": {
+      "carrier_frequency_hz": 3500000000.0,
+      "delay_spread_s": 1e-07,
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 42,
+      "name": "repair_smoke_umi_type1_2user_2layer",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 2,
+      "num_prb": 4,
+      "num_rx_ant": 8,
+      "num_users": 2,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    },
+    "checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "config_sha256": "cf48db97848c0fffc5aaacba54e5f5b1ba3687ef5cf3f9ffa39f8e41070bf255",
+    "detector": {
+      "covariance_mode": "diagonal",
+      "damping": 0.5,
+      "iterations": 4,
+      "version": "damped_extrinsic_lmmse_v1"
+    },
+    "repair_revision": "gate1_nr_detector_repair_v1",
+    "signature": "a2e4167ede294de356a0b8b6ed4aba3437bf741ad2e9dff1abc77d91c7c01c91",
+    "source_sha256": {
+      "configs/gate1_nr_detector_repair_smoke.yaml": "cf48db97848c0fffc5aaacba54e5f5b1ba3687ef5cf3f9ffa39f8e41070bf255",
+      "scripts/gate1_nr_detector_repair_smoke.py": "3048ab0d6f6b4c04d6fad1f98eec67e29838f50407bc01c45d7f593d19674122",
+      "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+    },
+    "version": "gate1_nr_detector_repair_smoke_v1"
+  },
+  "decoded": {
+    "crc_failure_rate": 0.0,
+    "information_ber": 0.0,
+    "tbler": 0.0
+  },
+  "detector_diagnostics": {
+    "finite": true,
+    "max_belief_variance": 0.9091524481773376,
+    "max_candidate_variance": 4.0,
+    "max_extrinsic_variance": 4.0,
+    "max_filter_gain": 60.304542541503906,
+    "max_hermitian_error": 0.0,
+    "min_belief_variance": 0.07421882450580597,
+    "min_candidate_variance": 0.013904184103012085,
+    "min_extrinsic_variance": 0.01658249832689762,
+    "min_filter_gain": 0.22283057868480682
+  },
+  "detector_version": "damped_extrinsic_lmmse_v1",
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "hostname": "rg32101",
+    "platform": "Linux-5.14.0-687.26.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
+    "sionna": "2.0.1",
+    "slurm_job_id": "18749370",
+    "torch": "2.13.0"
+  },
+  "gradient_report": {
+    "posterior.log_noise_scale": {
+      "finite": true,
+      "norm": 0.01401805505156517,
+      "present": true
+    },
+    "posterior.raw_weights": {
+      "finite": true,
+      "norm": 0.10489755123853683,
+      "present": true
+    }
+  },
+  "graph_edge_density": 0.7513020634651184,
+  "mathematical_self_test": {
+    "checks": {
+      "finite": true,
+      "layer_permutation_equivariance": true,
+      "multi_stream_spatial_lmmse_mean": true,
+      "multi_stream_spatial_lmmse_variance": true,
+      "positive_extrinsic_variance": true,
+      "single_stream_extrinsic_mean": true,
+      "single_stream_extrinsic_variance": true,
+      "zero_self_edges": true
+    },
+    "detector_version": "damped_extrinsic_lmmse_v1",
+    "device": "cuda:0",
+    "multi_stream_mean_max_abs_error": 1.8539440134190954e-05,
+    "multi_stream_variance_max_abs_error": 4.0650367736816406e-05,
+    "passed": true,
+    "permutation_max_abs_error": 1.33514404296875e-05,
+    "scalar_mean_max_abs_error": 1.1926748300084e-07,
+    "scalar_variance_max_abs_error": 1.1265277862548828e-05
+  },
+  "old_true_channel_soft_pic": {
+    "information_ber": 0.00016191709437407553,
+    "tbler": 0.25
+  },
+  "overall_pass": true,
+  "perfect_csi_lmmse": {
+    "crc_failure_rate": 0.0,
+    "crc_shape": [
+      2,
+      2
+    ],
+    "decoded_shape": [
+      2,
+      2,
+      1544
+    ],
+    "information_ber": 0.0,
+    "tbler": 0.0
+  },
+  "preconditions": {
+    "checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "checks": {
+      "checkpoint_file": true,
+      "checkpoint_record": true,
+      "detector_version": true,
+      "failure_classification": true,
+      "failure_diagnostic_complete": true,
+      "failure_next_action": true,
+      "gate1_revision": true,
+      "repair_revision": true
+    },
+    "failure_classification": "GATE1_DETECTOR_REPAIR_REQUIRED",
+    "passed": true,
+    "repair_revision": "gate1_nr_detector_repair_v1"
+  },
+  "publication_nr_ready": false,
+  "repair_revision": "gate1_nr_detector_repair_v1",
+  "screen_ready": true,
+  "timestamp": "2026-08-10 01:07:30 EDT",
+  "true_channel_lmmse_message_passing": {
+    "information_ber": 0.0,
+    "tbler": 0.0
+  },
+  "version": "gate1_nr_detector_repair_smoke_v1"
+}
