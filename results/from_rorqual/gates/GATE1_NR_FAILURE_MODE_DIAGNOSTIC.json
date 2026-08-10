@@ -6,11 +6,11 @@
   "environment": {
     "device": "cuda:0",
     "gpu_name": "NVIDIA H100 80GB HBM3",
-    "hostname": "rg32102",
-    "platform": "Linux-5.14.0-687.29.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "hostname": "rg32101",
+    "platform": "Linux-5.14.0-687.26.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
     "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
     "sionna": "2.0.1",
-    "slurm_job_id": "18743433",
+    "slurm_job_id": "18748625",
     "torch": "2.13.0"
   },
   "evaluation": {
@@ -267,6 +267,6 @@
     "speed_mps": 3.0,
     "subcarrier_spacing_khz": 30
   },
-  "timestamp": "2026-08-09 22:17:35 EDT",
+  "timestamp": "2026-08-10 00:44:39 EDT",
   "version": "gate1_nr_failure_mode_diagnostic_v1"
 }
