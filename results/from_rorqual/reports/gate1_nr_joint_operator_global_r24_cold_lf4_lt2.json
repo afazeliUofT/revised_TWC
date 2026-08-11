@@ -1,0 +1,321 @@
+{
+  "best_checkpoint": "outputs/gate1_nr_joint_operator/checkpoints/global_r24_cold_lf4_lt2/best.pt",
+  "best_checkpoint_sha256": "59a497653cd3f2b56aa8681c12ac57c7fae264f9c17c1e9aab9d451479b6edf7",
+  "best_score": 0.48190969413473334,
+  "best_step": 1199,
+  "candidate": {
+    "bank_rank": 32,
+    "calibration_loss_weight": 0.02,
+    "channel_loss_weight": 0.05,
+    "initialization": "cold",
+    "learning_rate": 0.002,
+    "length_f": 4.0,
+    "length_t": 2.0,
+    "mode": "global",
+    "name": "global_r24_cold_lf4_lt2",
+    "rank": 24,
+    "steps": 1200
+  },
+  "complete": true,
+  "contract": {
+    "candidate": {
+      "bank_rank": 32,
+      "calibration_loss_weight": 0.02,
+      "channel_loss_weight": 0.05,
+      "initialization": "cold",
+      "learning_rate": 0.002,
+      "length_f": 4.0,
+      "length_t": 2.0,
+      "mode": "global",
+      "name": "global_r24_cold_lf4_lt2",
+      "rank": 24,
+      "steps": 1200
+    },
+    "cases": [
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_uma_type1_4user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "config_sha256": "1dc0adf3641f79f7b08e445841bc81ba19d959d4d49159364304bb8538db8f84",
+    "joint_operator_version": "gate1_nr_joint_operator_v1",
+    "old_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "selected_detector": {
+      "covariance_mode": "diagonal",
+      "damping": 0.7,
+      "edge_mass": 0.8,
+      "iterations": 4
+    },
+    "signature": "faa30df1f1092979e97381fd022bc697409c9056aa35c7cd492745f8d0a95173",
+    "source_sha256": {
+      "configs/gate1_nr_joint_operator_capacity.yaml": "1dc0adf3641f79f7b08e445841bc81ba19d959d4d49159364304bb8538db8f84",
+      "scripts/gate1_nr_joint_operator_capacity.py": "85750c232cba9a1f039d171bdc5cddb006f721d5e62a834200e4c3cfc00cf024",
+      "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+      "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+    },
+    "training": {
+      "batch_size": 8,
+      "ebno_db_max": 10.0,
+      "ebno_db_min": -2.0,
+      "grad_clip": 1.0,
+      "save_every": 40,
+      "updates_per_case": 300,
+      "validation_batch_size": 8,
+      "validation_ebno_db": [
+        2.0,
+        6.0,
+        10.0
+      ],
+      "validation_every": 100,
+      "validation_seed": 202681599
+    },
+    "version": "gate1_nr_joint_operator_capacity_v1_1"
+  },
+  "steps": 1200,
+  "trainable_parameters": 25,
+  "training_schedule": {
+    "candidate_total_steps": {
+      "case_specific_r16_warm_lf2_lt1": 1200,
+      "global_r16_warm_lf2_lt1": 1200,
+      "global_r24_cold_lf1_lt0p5": 1200,
+      "global_r24_cold_lf2_lt1": 1200,
+      "global_r24_cold_lf4_lt2": 1200
+    },
+    "equal_case_exposure": true,
+    "expected_total_steps_per_candidate": 1200,
+    "num_cases": 4,
+    "passed": true,
+    "updates_per_case": 300
+  },
+  "updates_per_case": 300,
+  "validation": {
+    "calibration_abs_log": 0.8466331781852494,
+    "mean_channel_nmse": 0.06226855015847832,
+    "mean_coded_ber": 0.13860632137705883,
+    "mean_coded_bit_nll": 0.33469051495194435,
+    "mean_coverage95": 0.9285510083039602,
+    "records": [
+      {
+        "case": "joint_umi_type1_2user_2layer",
+        "channel_nmse": 0.03256092220544815,
+        "coded_ber": 0.1304796040058136,
+        "coded_bit_nll": 0.30002984404563904,
+        "coded_brier": 0.09377726167440414,
+        "coverage95": 0.977586567401886,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 0.49484410881996155
+      },
+      {
+        "case": "joint_umi_type1_2user_2layer",
+        "channel_nmse": 0.0761798769235611,
+        "coded_ber": 0.1245388463139534,
+        "coded_bit_nll": 0.3448590934276581,
+        "coded_brier": 0.09279252588748932,
+        "coverage95": 0.9016655683517456,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 1.3535950183868408
+      },
+      {
+        "case": "joint_umi_type1_2user_2layer",
+        "channel_nmse": 0.10533300787210464,
+        "coded_ber": 0.1165364608168602,
+        "coded_bit_nll": 0.3449177145957947,
+        "coded_brier": 0.08537960797548294,
+        "coverage95": 0.8782891035079956,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 2.046980381011963
+      },
+      {
+        "case": "joint_umi_type2_2user_2layer",
+        "channel_nmse": 0.1357128918170929,
+        "coded_ber": 0.1753336638212204,
+        "coded_bit_nll": 0.4213870167732239,
+        "coded_brier": 0.12555795907974243,
+        "coverage95": 0.8447062373161316,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 2.060084104537964
+      },
+      {
+        "case": "joint_umi_type2_2user_2layer",
+        "channel_nmse": 0.03297461196780205,
+        "coded_ber": 0.1005045548081398,
+        "coded_bit_nll": 0.24412184953689575,
+        "coded_brier": 0.0730786845088005,
+        "coverage95": 0.9630194902420044,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 0.5666449069976807
+      },
+      {
+        "case": "joint_umi_type2_2user_2layer",
+        "channel_nmse": 0.1007714495062828,
+        "coded_ber": 0.130520299077034,
+        "coded_bit_nll": 0.41366925835609436,
+        "coded_brier": 0.09785788506269455,
+        "coverage95": 0.8379109501838684,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 1.921517252922058
+      },
+      {
+        "case": "joint_uma_type1_4user",
+        "channel_nmse": 0.07319919019937515,
+        "coded_ber": 0.121473528444767,
+        "coded_bit_nll": 0.2850840389728546,
+        "coded_brier": 0.08767390251159668,
+        "coverage95": 0.9410536289215088,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 0.9280166625976562
+      },
+      {
+        "case": "joint_uma_type1_4user",
+        "channel_nmse": 0.11127813160419464,
+        "coded_ber": 0.1032579243183136,
+        "coded_bit_nll": 0.28153195977211,
+        "coded_brier": 0.07731244713068008,
+        "coverage95": 0.8621758222579956,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 1.7775402069091797
+      },
+      {
+        "case": "joint_uma_type1_4user",
+        "channel_nmse": 0.04972289130091667,
+        "coded_ber": 0.0368787981569767,
+        "coded_bit_nll": 0.12203516066074371,
+        "coded_brier": 0.03042067401111126,
+        "coverage95": 0.9364759922027588,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 0.8915485739707947
+      },
+      {
+        "case": "joint_cdl_a_single_user_2layer",
+        "channel_nmse": 0.014944655820727348,
+        "coded_ber": 0.217800572514534,
+        "coded_bit_nll": 0.43845880031585693,
+        "coded_brier": 0.1454954892396927,
+        "coverage95": 0.9997287392616272,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 0.22730322182178497
+      },
+      {
+        "case": "joint_cdl_a_single_user_2layer",
+        "channel_nmse": 0.008532267063856125,
+        "coded_ber": 0.193359375,
+        "coded_bit_nll": 0.39473438262939453,
+        "coded_brier": 0.1301964968442917,
+        "coverage95": 1.0,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 0.14535613358020782
+      },
+      {
+        "case": "joint_cdl_a_single_user_2layer",
+        "channel_nmse": 0.006012705620378256,
+        "coded_ber": 0.2125922292470932,
+        "coded_bit_nll": 0.42545706033706665,
+        "coded_brier": 0.1410202980041504,
+        "coverage95": 1.0,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 0.09844066947698593
+      }
+    ],
+    "score": 0.48190969413473334,
+    "worst_case_coded_bit_nll": 0.419550081094106
+  },
+  "version": "gate1_nr_joint_operator_capacity_v1_1",
+  "warm_started": false
+}

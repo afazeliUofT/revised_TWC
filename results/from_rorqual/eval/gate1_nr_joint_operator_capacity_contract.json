@@ -1,0 +1,153 @@
+{
+  "candidate_checkpoints": {
+    "case_specific_r16_warm_lf2_lt1": "67e8e9bc7e293fbb14cd81e7103ba59ab70f3da6f87b0c2f79efacc1210f6136",
+    "global_r16_warm_lf2_lt1": "169241f5af508b0ffa6f3e7fce1027bbcbf8c652e4e7d4544c48ebfadb1bc3ff",
+    "global_r24_cold_lf1_lt0p5": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+    "global_r24_cold_lf2_lt1": "9cfee31d15bf654fa24093efc6f0ab08d0aa03247ad45c3028688b8c6b391d84",
+    "global_r24_cold_lf4_lt2": "59a497653cd3f2b56aa8681c12ac57c7fae264f9c17c1e9aab9d451479b6edf7"
+  },
+  "config_sha256": "1dc0adf3641f79f7b08e445841bc81ba19d959d4d49159364304bb8538db8f84",
+  "evaluation": {
+    "batch_size": 16,
+    "bp_iterations": 20,
+    "cases": [
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_uma_type1_4user",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "uma",
+        "speed_mps": 15.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_cdl_a_single_user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 4,
+        "num_users": 1,
+        "scenario": "cdl-a",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "ebno_db": [
+      -2.0,
+      2.0,
+      6.0,
+      10.0
+    ],
+    "repetitions": 4
+  },
+  "joint_operator_version": "gate1_nr_joint_operator_v1",
+  "old_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+  "selected_detector": {
+    "covariance_mode": "diagonal",
+    "damping": 0.7,
+    "edge_mass": 0.8,
+    "iterations": 4
+  },
+  "signature": "1b5c9aeaa554e4d930cb484b3c37e5c6930a89302cbd649bf20ec92510d9fe0a",
+  "source_sha256": {
+    "configs/gate1_nr_joint_operator_capacity.yaml": "1dc0adf3641f79f7b08e445841bc81ba19d959d4d49159364304bb8538db8f84",
+    "scripts/gate1_nr_joint_operator_capacity.py": "85750c232cba9a1f039d171bdc5cddb006f721d5e62a834200e4c3cfc00cf024",
+    "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "variants": [
+    "joint_global_r16_warm_lf2_lt1",
+    "joint_global_r24_cold_lf1_lt0p5",
+    "joint_global_r24_cold_lf2_lt1",
+    "joint_global_r24_cold_lf4_lt2",
+    "joint_case_specific_r16_warm_lf2_lt1",
+    "old_checkpoint_repaired_detector",
+    "best_global_uncertainty_off",
+    "best_global_random_graph",
+    "best_global_full_graph",
+    "ls_lmmse",
+    "perfect_csi_lmmse"
+  ],
+  "version": "gate1_nr_joint_operator_capacity_v1_1"
+}
