@@ -35,6 +35,14 @@ assert smoke.get('classification') == 'GATE1_NR_JOINT_OPERATOR_SMOKE_PASS', smok
 assert smoke.get('overall_pass') is True, smoke
 assert smoke.get('capacity_diagnostic_ready') is True, smoke
 config=yaml.safe_load(Path('configs/gate1_nr_joint_operator_capacity.yaml').read_text())
+revision=json.loads(Path('GATE1_NR_JOINT_OPERATOR_REVISION.json').read_text())
+assert config.get('capacity_workflow_revision') == 'gate1_nr_joint_operator_capacity_v1_1', config
+assert revision.get('capacity_workflow_revision') == 'gate1_nr_joint_operator_capacity_v1_1', revision
+num_cases=len(config['evaluation']['cases'])
+updates_per_case=int(config['training']['updates_per_case'])
+expected_steps=num_cases*updates_per_case
+assert updates_per_case == 300, updates_per_case
+assert all(int(item['steps']) == expected_steps for item in config['candidates']), config['candidates']
 variants=len(config['candidates']) + 6
 rows=(
     len(config['evaluation']['cases'])
@@ -48,6 +56,10 @@ print('GATE1_NR_JOINT_OPERATOR_CAPACITY_PREFLIGHT_PASS')
 print('CANDIDATES', len(config['candidates']))
 print('VARIANTS', variants)
 print('EXPECTED_ROWS', rows)
+print('CAPACITY_WORKFLOW', config['capacity_workflow_revision'])
+print('UPDATES_PER_CASE', updates_per_case)
+print('TOTAL_STEPS_PER_CANDIDATE', expected_steps)
+print('EQUAL_CASE_EXPOSURE YES')
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_joint_cap | grep -q .; then
   echo 'A brx_joint_cap job is already queued or running.' >&2

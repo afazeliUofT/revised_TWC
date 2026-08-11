@@ -59,7 +59,7 @@ from gate1_nr_joint_operator_common import (  # noqa: E402
     unique_parameters,
 )
 
-CAPACITY_VERSION = "gate1_nr_joint_operator_capacity_v1"
+CAPACITY_VERSION = "gate1_nr_joint_operator_capacity_v1_1"
 REQUIRED_CHECKPOINT_SHA256 = (
     "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576"
 )
@@ -91,6 +91,38 @@ def source_hashes() -> dict[str, str]:
     return result
 
 
+
+def training_schedule_report(config: dict[str, Any]) -> dict[str, Any]:
+    """Verify equal per-case exposure for every capacity candidate.
+
+    A global operator shares one parameter set across cases, while the
+    case-specific diagnostic has one parameter set per case. To avoid
+    undertraining either model, every candidate processes the same number of
+    batches from every case. The case-specific model is still only a diagnostic
+    upper bound and is not a deployment candidate.
+    """
+    num_cases = len(config["evaluation"]["cases"])
+    updates_per_case = int(config["training"]["updates_per_case"])
+    expected_total_steps = num_cases * updates_per_case
+    candidate_steps = {
+        str(item["name"]): int(item["steps"])
+        for item in config["candidates"]
+    }
+    passed = bool(
+        num_cases > 0
+        and updates_per_case > 0
+        and all(value == expected_total_steps for value in candidate_steps.values())
+    )
+    return {
+        "passed": passed,
+        "num_cases": num_cases,
+        "updates_per_case": updates_per_case,
+        "expected_total_steps_per_candidate": expected_total_steps,
+        "candidate_total_steps": candidate_steps,
+        "equal_case_exposure": passed,
+    }
+
+
 def verify_preconditions(config: dict[str, Any]) -> dict[str, Any]:
     smoke_path = ROOT / "outputs/gates/GATE1_NR_JOINT_OPERATOR_SMOKE.json"
     screen_path = ROOT / "outputs/reports/gate1_nr_detector_repair_screen.json"
@@ -103,7 +135,13 @@ def verify_preconditions(config: dict[str, Any]) -> dict[str, Any]:
     screen = json.loads(screen_path.read_text(encoding="utf-8"))
     revision = json.loads(revision_path.read_text(encoding="utf-8"))
     checkpoint_sha = sha256_file(checkpoint_path)
+    schedule = training_schedule_report(config)
     checks = {
+        "capacity_workflow_revision": bool(
+            config.get("capacity_workflow_revision") == CAPACITY_VERSION
+            and revision.get("capacity_workflow_revision") == CAPACITY_VERSION
+        ),
+        "equal_case_exposure": bool(schedule["passed"]),
         "joint_smoke": bool(
             smoke.get("classification") == "GATE1_NR_JOINT_OPERATOR_SMOKE_PASS"
             and smoke.get("overall_pass") is True
@@ -138,6 +176,7 @@ def verify_preconditions(config: dict[str, Any]) -> dict[str, Any]:
         "passed": all(checks.values()),
         "checks": checks,
         "checkpoint_sha256": checkpoint_sha,
+        "training_schedule": schedule,
     }
 
 
@@ -529,6 +568,8 @@ def train_candidate(
         "candidate": spec.__dict__,
         "warm_started": warm_started,
         "steps": spec.steps,
+        "updates_per_case": int(spec.steps // len(cases)),
+        "training_schedule": preconditions["training_schedule"],
         "best_score": float(best["best_score"]),
         "best_step": int(best["step"]),
         "validation": best["validation"],
@@ -1397,6 +1438,7 @@ def main() -> None:
             ).all()
         ),
         "all_candidates_complete": all(item["complete"] for item in summaries),
+        "equal_case_exposure": bool(preconditions["training_schedule"]["passed"]),
         "candidate_modes_present": bool(
             {item["candidate"]["mode"] for item in summaries}
             == {"global", "case_specific"}
@@ -1423,6 +1465,7 @@ def main() -> None:
         },
         "complete": all(software_checks.values()),
         "preconditions": preconditions,
+        "training_schedule": preconditions["training_schedule"],
         "software_checks": software_checks,
         "candidate_summaries": summaries,
         "evaluation": evaluation,

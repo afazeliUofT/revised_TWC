@@ -18,5 +18,10 @@
   "smoke_walltime": "00:15:00",
   "capacity_walltime": "01:00:00",
   "capacity_expected_rows": 704,
-  "publication_nr_ready": false
+  "publication_nr_ready": false,
+  "capacity_workflow_revision": "gate1_nr_joint_operator_capacity_v1_1",
+  "capacity_equal_case_exposure": true,
+  "capacity_updates_per_case": 300,
+  "capacity_total_steps_per_candidate": 1200,
+  "capacity_schedule_rationale": "every global and case-specific candidate receives 300 batches from each of the four cases; the case-specific model remains a diagnostic upper bound"
 }

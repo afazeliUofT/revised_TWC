@@ -23,3 +23,8 @@ The possible scientific outcomes are:
   stochastic operator model.
 
 The historical PGCA/AGMP receiver remains excluded.
+
+
+## Capacity workflow v1.1
+
+The capacity diagnostic uses equal case exposure. Every candidate processes 300 training batches from each of the four NR cases, for 1,200 total updates. This avoids undertraining the case-specific diagnostic and avoids interpreting optimization budget as an operator-capacity limitation. The case-specific model remains a diagnostic upper bound only.
