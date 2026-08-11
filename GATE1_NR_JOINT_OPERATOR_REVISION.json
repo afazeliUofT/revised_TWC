@@ -1,0 +1,22 @@
+{
+  "revision": "gate1_nr_joint_operator_v1",
+  "gate1_revision": "gate1_nr_integration_v1",
+  "required_detector_repair_revision": "gate1_nr_detector_repair_v1",
+  "required_screen_classification": "GATE1_DETECTOR_REPAIR_PARTIAL",
+  "required_selected_variant": "delmmse_sparse_i4_d0p7",
+  "fixed_detector": {
+    "version": "damped_extrinsic_lmmse_v1",
+    "iterations": 4,
+    "damping": 0.7,
+    "edge_mass": 0.8,
+    "covariance_mode": "diagonal"
+  },
+  "purpose": "separate global-sharing and kernel-basis limitations by jointly training the posterior operator through the repaired spatial-LMMSE detector",
+  "global_candidates": 4,
+  "case_specific_diagnostic_candidates": 1,
+  "case_specific_scope": "diagnostic upper bound only; not a deployment or publication method",
+  "smoke_walltime": "00:15:00",
+  "capacity_walltime": "01:00:00",
+  "capacity_expected_rows": 704,
+  "publication_nr_ready": false
+}

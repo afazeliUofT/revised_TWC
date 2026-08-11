@@ -1,0 +1,53 @@
+joint_operator_revision: gate1_nr_joint_operator_v1
+device: cuda
+seed: 202681401
+checkpoint_path: outputs/gate1_nr/checkpoints/preliminary/best.pt
+batch_size: 2
+ebno_db: 4.0
+operator:
+  rank: 16
+  bank_rank: 24
+  length_f: 2.0
+  length_t: 1.0
+  operator_seed: 58001
+training:
+  lr: 0.002
+  channel_loss_weight: 0.05
+  calibration_loss_weight: 0.02
+cases:
+  - name: joint_smoke_umi_type1_2user_2layer
+    scenario: umi
+    num_users: 2
+    num_layers_per_user: 2
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    speed_mps: 3.0
+    carrier_frequency_hz: 3500000000.0
+    delay_spread_s: 1.0e-7
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    dmrs_ports: [0, 1, 2, 3]
+    num_cdm_groups_without_data: 2
+    mcs_index: 10
+    mcs_table: 1
+    n_cell_id: 42
+  - name: joint_smoke_umi_type2_2user_2layer
+    scenario: umi
+    num_users: 2
+    num_layers_per_user: 2
+    num_rx_ant: 8
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    speed_mps: 3.0
+    carrier_frequency_hz: 3500000000.0
+    delay_spread_s: 1.0e-7
+    dmrs_config_type: 2
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    dmrs_ports: [4, 5, 0, 1]
+    num_cdm_groups_without_data: 3
+    mcs_index: 10
+    mcs_table: 1
+    n_cell_id: 42

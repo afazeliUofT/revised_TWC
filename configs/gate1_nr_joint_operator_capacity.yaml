@@ -1,0 +1,154 @@
+joint_operator_revision: gate1_nr_joint_operator_v1
+device: cuda
+seed: 202681501
+checkpoint_path: outputs/gate1_nr/checkpoints/preliminary/best.pt
+internal_deadline_seconds: 3300
+selected_detector:
+  iterations: 4
+  damping: 0.7
+  edge_mass: 0.8
+  covariance_mode: diagonal
+training:
+  batch_size: 8
+  ebno_db_min: -2.0
+  ebno_db_max: 10.0
+  grad_clip: 1.0
+  save_every: 20
+  validation_every: 50
+  validation_batch_size: 8
+  validation_ebno_db: [2.0, 6.0, 10.0]
+  validation_seed: 202681599
+candidates:
+  - name: global_r16_warm_lf2_lt1
+    mode: global
+    rank: 16
+    bank_rank: 24
+    length_f: 2.0
+    length_t: 1.0
+    initialization: old_checkpoint
+    learning_rate: 0.002
+    channel_loss_weight: 0.05
+    calibration_loss_weight: 0.02
+    steps: 300
+  - name: global_r24_cold_lf1_lt0p5
+    mode: global
+    rank: 24
+    bank_rank: 32
+    length_f: 1.0
+    length_t: 0.5
+    initialization: cold
+    learning_rate: 0.002
+    channel_loss_weight: 0.05
+    calibration_loss_weight: 0.02
+    steps: 300
+  - name: global_r24_cold_lf2_lt1
+    mode: global
+    rank: 24
+    bank_rank: 32
+    length_f: 2.0
+    length_t: 1.0
+    initialization: cold
+    learning_rate: 0.002
+    channel_loss_weight: 0.05
+    calibration_loss_weight: 0.02
+    steps: 300
+  - name: global_r24_cold_lf4_lt2
+    mode: global
+    rank: 24
+    bank_rank: 32
+    length_f: 4.0
+    length_t: 2.0
+    initialization: cold
+    learning_rate: 0.002
+    channel_loss_weight: 0.05
+    calibration_loss_weight: 0.02
+    steps: 300
+  - name: case_specific_r16_warm_lf2_lt1
+    mode: case_specific
+    rank: 16
+    bank_rank: 24
+    length_f: 2.0
+    length_t: 1.0
+    initialization: old_checkpoint
+    learning_rate: 0.002
+    channel_loss_weight: 0.05
+    calibration_loss_weight: 0.02
+    steps: 300
+evaluation:
+  batch_size: 16
+  bp_iterations: 20
+  ebno_db: [-2.0, 2.0, 6.0, 10.0]
+  repetitions: 4
+  cases:
+    - name: joint_umi_type1_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1, 2, 3]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: joint_umi_type2_2user_2layer
+      scenario: umi
+      num_users: 2
+      num_layers_per_user: 2
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 2
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [4, 5, 0, 1]
+      num_cdm_groups_without_data: 3
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: joint_uma_type1_4user
+      scenario: uma
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 15.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [2, 0, 3, 1]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
+    - name: joint_cdl_a_single_user_2layer
+      scenario: cdl-a
+      num_users: 1
+      num_layers_per_user: 2
+      num_rx_ant: 4
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 42
