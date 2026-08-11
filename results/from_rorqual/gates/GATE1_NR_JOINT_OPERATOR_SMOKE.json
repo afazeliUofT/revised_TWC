@@ -1,0 +1,262 @@
+{
+  "capacity_diagnostic_ready": true,
+  "checkpoint_roundtrip_max_abs_error": 0.0,
+  "checks": {
+    "checkpoint_roundtrip": true,
+    "cuda_compute_node": true,
+    "each_case_has_gradient": true,
+    "mixed_case_gradient": true,
+    "nr_ldpc_paths": true,
+    "optimizer_updates_shared_operator": true,
+    "posterior_outputs_finite": true,
+    "preconditions": true,
+    "pure_torch_shared_parameter_self_test": true,
+    "selected_detector_contract": true,
+    "shared_parameter_identity": true,
+    "sionna_2_0_1": true,
+    "source_contract": true
+  },
+  "classification": "GATE1_NR_JOINT_OPERATOR_SMOKE_PASS",
+  "combined_loss": 0.22807356715202332,
+  "contract": {
+    "cases": [
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_smoke_umi_type1_2user_2layer",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "carrier_frequency_hz": 3500000000.0,
+        "delay_spread_s": 1e-07,
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 2,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 42,
+        "name": "joint_smoke_umi_type2_2user_2layer",
+        "num_cdm_groups_without_data": 3,
+        "num_layers_per_user": 2,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 2,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "config_sha256": "e4b6dc749286484b947c997837c1de7872e82049cc96287bd06c50ecdde9d097",
+    "detector": {
+      "damping": 0.7,
+      "edge_mass": 0.8,
+      "iterations": 4
+    },
+    "joint_operator_version": "gate1_nr_joint_operator_v1",
+    "signature": "e3b422bcb33e0baf0f6778d13c7a8db13196517b097e78403766db7e48eff7f4",
+    "source_sha256": {
+      "configs/gate1_nr_joint_operator_smoke.yaml": "e4b6dc749286484b947c997837c1de7872e82049cc96287bd06c50ecdde9d097",
+      "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+      "scripts/gate1_nr_joint_operator_smoke.py": "f29eae7ef3ecad65ae04dd158ed818fb37f5556851ada5bd8605c263affa3ff8",
+      "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+    },
+    "version": "gate1_nr_joint_operator_smoke_v1"
+  },
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "platform": "Linux-5.14.0-687.31.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
+    "sionna": "2.0.1",
+    "torch": "2.13.0"
+  },
+  "joint_operator_version": "gate1_nr_joint_operator_v1",
+  "mixed_gradient": {
+    "all_finite": true,
+    "all_present": true,
+    "entries": [
+      {
+        "finite": true,
+        "index": 0,
+        "norm": 0.08959518373012543,
+        "present": true,
+        "shape": [
+          16
+        ]
+      },
+      {
+        "finite": true,
+        "index": 1,
+        "norm": 0.0018612276762723923,
+        "present": true,
+        "shape": []
+      }
+    ],
+    "total_norm": 0.08961451398126229
+  },
+  "overall_pass": true,
+  "parameters_changed": [
+    true,
+    true
+  ],
+  "per_case_gradients": [
+    {
+      "all_finite": true,
+      "all_present": true,
+      "case": "joint_smoke_umi_type1_2user_2layer",
+      "entries": [
+        {
+          "finite": true,
+          "index": 0,
+          "norm": 0.09021951258182526,
+          "present": true,
+          "shape": [
+            16
+          ]
+        },
+        {
+          "finite": true,
+          "index": 1,
+          "norm": 0.018007464706897736,
+          "present": true,
+          "shape": []
+        }
+      ],
+      "loss": 0.4189243018627167,
+      "total_norm": 0.09199907192832052
+    },
+    {
+      "all_finite": true,
+      "all_present": true,
+      "case": "joint_smoke_umi_type2_2user_2layer",
+      "entries": [
+        {
+          "finite": true,
+          "index": 0,
+          "norm": 0.0890568420290947,
+          "present": true,
+          "shape": [
+            16
+          ]
+        },
+        {
+          "finite": true,
+          "index": 1,
+          "norm": 0.022168705239892006,
+          "present": true,
+          "shape": []
+        }
+      ],
+      "loss": 0.35708943009376526,
+      "total_norm": 0.09177457493341139
+    }
+  ],
+  "post_update_records": [
+    {
+      "case": "joint_smoke_umi_type1_2user_2layer",
+      "coded": {
+        "coded_ber": 0.1416015625,
+        "coded_bit_nll": 0.3302522897720337,
+        "coded_brier": 0.10190173238515854
+      },
+      "decoded": {
+        "crc_failure_rate": 0.5,
+        "information_ber": 0.010038860142230988,
+        "tbler": 0.5
+      },
+      "edge_density": 0.6483651399612427,
+      "finite": true,
+      "posterior": {
+        "channel_nmse": 0.10035526007413864,
+        "coverage95": 0.9568413496017456,
+        "normalized_error_mean": 0.7485719323158264
+      }
+    },
+    {
+      "case": "joint_smoke_umi_type2_2user_2layer",
+      "coded": {
+        "coded_ber": 0.2088216096162796,
+        "coded_bit_nll": 0.5243332982063293,
+        "coded_brier": 0.14983528852462769
+      },
+      "decoded": {
+        "crc_failure_rate": 0.75,
+        "information_ber": 0.09391191601753235,
+        "tbler": 0.75
+      },
+      "edge_density": 0.7036313414573669,
+      "finite": true,
+      "posterior": {
+        "channel_nmse": 0.28119006752967834,
+        "coverage95": 0.8022732138633728,
+        "normalized_error_mean": 2.2540664672851562
+      }
+    }
+  ],
+  "preconditions": {
+    "checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "checks": {
+      "checkpoint_sha256": true,
+      "detector_version": true,
+      "gate1_revision": true,
+      "joint_revision": true,
+      "repair_revision": true,
+      "screen_classification": true,
+      "screen_complete": true,
+      "screen_next_action": true,
+      "screen_rows": true,
+      "selected_variant": true
+    },
+    "passed": true,
+    "screen_classification": "GATE1_DETECTOR_REPAIR_PARTIAL",
+    "selected_variant": "delmmse_sparse_i4_d0p7"
+  },
+  "publication_nr_ready": false,
+  "pure_torch_self_test": {
+    "gradient_finite": true,
+    "noise_identity": true,
+    "optimizer_changed_parameter": true,
+    "passed": true,
+    "raw_identity": true,
+    "unique_parameter_count": 2
+  },
+  "shared_parameter_report": {
+    "noise_scale_ids_identical": true,
+    "raw_weight_ids_identical": true,
+    "raw_weight_shape": [
+      16
+    ],
+    "unique_trainable_parameters": 17
+  },
+  "timestamp": "2026-08-10 23:10:57 EDT",
+  "version": "gate1_nr_joint_operator_smoke_v1"
+}

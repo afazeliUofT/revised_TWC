@@ -1,0 +1,16 @@
+preconditions: PASS
+pure_torch_shared_parameter_self_test: PASS
+cuda_compute_node: PASS
+sionna_2_0_1: PASS
+selected_detector_contract: PASS
+shared_parameter_identity: PASS
+each_case_has_gradient: PASS
+mixed_case_gradient: PASS
+optimizer_updates_shared_operator: PASS
+posterior_outputs_finite: PASS
+nr_ldpc_paths: PASS
+checkpoint_roundtrip: PASS
+source_contract: PASS
+CLASSIFICATION: GATE1_NR_JOINT_OPERATOR_SMOKE_PASS
+CAPACITY_DIAGNOSTIC_READY: YES
+PUBLICATION_NR_READY: NO

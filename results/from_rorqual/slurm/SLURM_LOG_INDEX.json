@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 546,
+    "mtime_epoch": 1786417860.0,
+    "name": "brx_joint_smoke-18812202.out",
+    "original_size_bytes": 546,
+    "truncated": false
+  },
+  {
+    "copied_size_bytes": 126,
+    "mtime_epoch": 1786417850.0,
+    "name": "brx_joint_smoke-18812202.err",
+    "original_size_bytes": 126,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 15078,
     "mtime_epoch": 1786340679.0,
     "name": "brx_lmep_screen-18751181.out",
@@ -123,20 +137,6 @@
     "mtime_epoch": 1786254827.0,
     "name": "brx_optuna-18693165.err",
     "original_size_bytes": 2881,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 999,
-    "mtime_epoch": 1786251737.0,
-    "name": "brx_smoke-18692147.out",
-    "original_size_bytes": 999,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 127,
-    "mtime_epoch": 1786251726.0,
-    "name": "brx_smoke-18692147.err",
-    "original_size_bytes": 127,
     "truncated": false
   }
 ]
