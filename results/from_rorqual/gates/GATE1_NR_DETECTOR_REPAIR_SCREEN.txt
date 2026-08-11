@@ -1,0 +1,15 @@
+complete_rows: PASS
+all_metrics_finite: PASS
+all_variants_present: PASS
+paired_seed_batches: PASS
+selection_holdout_disjoint: PASS
+true_channel_one_step_matches_lmmse: PASS
+true_channel_iterative_repair_beats_old_pic: PASS
+true_channel_iterations_not_harmful: PASS
+posterior_detector_improves_old_pic: PASS
+posterior_detector_within_0p10_of_ls: FAIL
+no_high_snr_reversal: PASS
+SELECTED_VARIANT: delmmse_sparse_i4_d0p7
+CLASSIFICATION: GATE1_DETECTOR_REPAIR_PARTIAL
+NEXT_ACTION: JOINTLY_TUNE_POSTERIOR_OPERATOR_AND_LMMSE_MESSAGE_DETECTOR
+PUBLICATION_NR_READY: NO
