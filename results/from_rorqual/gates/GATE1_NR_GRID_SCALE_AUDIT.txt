@@ -1,0 +1,12 @@
+complete_rows: PASS
+all_core_metrics_finite: PASS
+four_prb_coordinate_equivalence: PASS
+four_prb_output_equivalence: PASS
+wide_grid_tbler_improves: FAIL
+wide_grid_nll_improves: FAIL
+wide_grid_nmse_improves: FAIL
+wide_grid_calibration_improves: FAIL
+physical_no_strict_reversal: FAIL
+CLASSIFICATION: GRID_SCALE_COORDINATE_HYPOTHESIS_NOT_SUPPORTED
+NEXT_ACTION: EXPAND_OR_LOCALIZE_POSTERIOR_KERNEL_BASIS
+PUBLICATION_NR_READY: NO

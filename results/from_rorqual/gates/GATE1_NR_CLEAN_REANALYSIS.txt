@@ -1,0 +1,13 @@
+complete_rows: PASS
+unique_rows: PASS
+frozen_improves_old_checkpoint: PASS
+uncertainty_improves_tbler: PASS
+loaded_only_coupling_beats_random: PASS
+all_cases_within_0p05_of_ls: FAIL
+strict_no_case_high_snr_reversal: FAIL
+all_cases_coverage_ge_0p85: FAIL
+grid_scale_exception_detected: YES
+umi_uma_delay_spread_field_not_applied: YES
+CLASSIFICATION: CLEAN_GENERALIZATION_SUPPORTED_WITH_GRID_SCALE_EXCEPTION
+NEXT_ACTION: RUN_GRID_SCALE_COORDINATE_AUDIT_BEFORE_PUBLICATION_SCALE
+PUBLICATION_NR_READY: NO

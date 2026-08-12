@@ -1,0 +1,143 @@
+{
+  "case_table_csv": "outputs/reports/gate1_nr_clean_generalization_reanalysis_cases.csv",
+  "classification": "CLEAN_GENERALIZATION_SUPPORTED_WITH_GRID_SCALE_EXCEPTION",
+  "complete": true,
+  "next_action": "RUN_GRID_SCALE_COORDINATE_AUDIT_BEFORE_PUBLICATION_SCALE",
+  "original_report_qualifications": {
+    "high_snr_reversal_check_allowed_plus_0p03": true,
+    "loaded_only_label_was_not_actually_loaded_only": true,
+    "posterior_check_used_pooled_mean_or_median": true,
+    "within_0p05_of_ls_was_a_pooled_mean_check": true
+  },
+  "paired_comparisons": {
+    "all_multistream_holdout_frozen_minus_random_tbler": {
+      "ci95_high": -0.001313999409575338,
+      "ci95_low": -0.004125815846755365,
+      "mean": -0.0027199076281653515,
+      "pairs": 180
+    },
+    "holdout_frozen_minus_ls_tbler": {
+      "ci95_high": 0.046679134461111015,
+      "ci95_low": 0.03260327314635828,
+      "mean": 0.03964120380373465,
+      "pairs": 180
+    },
+    "holdout_frozen_minus_old_tbler": {
+      "ci95_high": -0.20201956588839867,
+      "ci95_low": -0.24167256603159462,
+      "mean": -0.22184606595999665,
+      "pairs": 180
+    },
+    "holdout_frozen_minus_uncertainty_off_nll": {
+      "ci95_high": -0.4808325836308302,
+      "ci95_low": -0.6901036010146966,
+      "mean": -0.5854680923227634,
+      "pairs": 180
+    },
+    "holdout_frozen_minus_uncertainty_off_tbler": {
+      "ci95_high": -0.04556064444144044,
+      "ci95_low": -0.06502963441253232,
+      "mean": -0.05529513942698638,
+      "pairs": 180
+    },
+    "loaded_only_frozen_minus_random_tbler": {
+      "ci95_high": -0.007992624961241503,
+      "ci95_low": -0.018396266576742717,
+      "mean": -0.01319444576899211,
+      "pairs": 30
+    }
+  },
+  "publication_nr_ready": false,
+  "raw_evidence": {
+    "expected_rows": 4800,
+    "path": "outputs/eval/gate1_nr_clean_generalization.csv",
+    "rows": 4800,
+    "unique_rows": 4800
+  },
+  "scientific_checks": {
+    "all_cases_coverage_ge_0p85": false,
+    "all_cases_normalized_error_le_2": false,
+    "all_cases_within_0p05_of_ls": false,
+    "frozen_improves_old_checkpoint": true,
+    "grid_scale_exception_detected": true,
+    "loaded_only_coupling_beats_random": true,
+    "strict_no_case_high_snr_reversal": false,
+    "uncertainty_improves_nll": true,
+    "uncertainty_improves_tbler": true
+  },
+  "semantic_warnings": [
+    {
+      "case": "clean_holdout_uma_t1_ds300_4u",
+      "configured_delay_spread_s": 3e-07,
+      "confirmed_by_source_audit": true,
+      "issue": "delay_spread_s is not passed to Sionna UMi/UMa in build_nr_context; this is not a controlled delay-spread holdout",
+      "recommended_label": "new-seed/port-permutation UMa holdout"
+    }
+  ],
+  "software_checks": {
+    "all_variants_present": true,
+    "complete_rows": true,
+    "paired_seed_batches": true,
+    "unique_rows": true
+  },
+  "version": "gate1_nr_clean_reanalysis_v1",
+  "worst_cases": {
+    "largest_14db_reversal": {
+      "case": "clean_holdout_umi_t1_8prb_4u",
+      "coverage95_min": 0.7168460488319397,
+      "coverage_ge_0p85": false,
+      "frozen_10db_tbler": 0.0984375,
+      "frozen_14db_tbler": 0.134375,
+      "frozen_high_snr_tbler": 0.11614583333333334,
+      "frozen_minus_ls": 0.1078125,
+      "group": "grid_holdout",
+      "ls_high_snr_tbler": 0.008333333333333333,
+      "normalized_error_le_2": false,
+      "normalized_error_max": 3.873920440673828,
+      "num_prb": 8,
+      "num_streams": 4,
+      "perfect_high_snr_tbler": 0.0010416666666666667,
+      "reversal_14_minus_10": 0.0359375,
+      "strict_no_reversal": false,
+      "within_0p05_of_ls": false
+    },
+    "largest_ls_gap": {
+      "case": "clean_holdout_umi_t1_8prb_4u",
+      "coverage95_min": 0.7168460488319397,
+      "coverage_ge_0p85": false,
+      "frozen_10db_tbler": 0.0984375,
+      "frozen_14db_tbler": 0.134375,
+      "frozen_high_snr_tbler": 0.11614583333333334,
+      "frozen_minus_ls": 0.1078125,
+      "group": "grid_holdout",
+      "ls_high_snr_tbler": 0.008333333333333333,
+      "normalized_error_le_2": false,
+      "normalized_error_max": 3.873920440673828,
+      "num_prb": 8,
+      "num_streams": 4,
+      "perfect_high_snr_tbler": 0.0010416666666666667,
+      "reversal_14_minus_10": 0.0359375,
+      "strict_no_reversal": false,
+      "within_0p05_of_ls": false
+    },
+    "lowest_coverage": {
+      "case": "clean_holdout_umi_t1_8prb_4u",
+      "coverage95_min": 0.7168460488319397,
+      "coverage_ge_0p85": false,
+      "frozen_10db_tbler": 0.0984375,
+      "frozen_14db_tbler": 0.134375,
+      "frozen_high_snr_tbler": 0.11614583333333334,
+      "frozen_minus_ls": 0.1078125,
+      "group": "grid_holdout",
+      "ls_high_snr_tbler": 0.008333333333333333,
+      "normalized_error_le_2": false,
+      "normalized_error_max": 3.873920440673828,
+      "num_prb": 8,
+      "num_streams": 4,
+      "perfect_high_snr_tbler": 0.0010416666666666667,
+      "reversal_14_minus_10": 0.0359375,
+      "strict_no_reversal": false,
+      "within_0p05_of_ls": false
+    }
+  }
+}
