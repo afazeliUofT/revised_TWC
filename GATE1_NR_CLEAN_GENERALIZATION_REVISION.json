@@ -1,0 +1,24 @@
+{
+  "revision": "gate1_nr_clean_generalization_v1",
+  "required_capacity_version": "gate1_nr_joint_operator_capacity_v1_1",
+  "required_capacity_classification": "GATE1_JOINT_OPERATOR_SUPPORTED",
+  "frozen_global_candidate": "global_r24_cold_lf1_lt0p5",
+  "frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+  "old_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+  "fixed_detector": {
+    "version": "damped_extrinsic_lmmse_v1",
+    "iterations": 4,
+    "damping": 0.7,
+    "edge_mass": 0.8,
+    "covariance_mode": "diagonal"
+  },
+  "scope": "frozen-checkpoint new-seed replication and expanded NR generalization diagnostic",
+  "cases": 12,
+  "snr_points": 5,
+  "repetitions": 10,
+  "variants": 8,
+  "expected_rows": 4800,
+  "slurm_walltime": "01:30:00",
+  "historical_pgca_agmp_baseline_included": false,
+  "publication_nr_ready": false
+}
