@@ -1,0 +1,21 @@
+{
+  "revision": "gate1_nr_grid_scale_audit_v1",
+  "required_clean_classification": "GATE1_CLEAN_GENERALIZATION_SUPPORTED",
+  "required_clean_rows": 4800,
+  "required_frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+  "scope": "supplemental conservative reanalysis plus no-retraining allocation-coordinate audit",
+  "coordinate_hypothesis": "allocation-normalized frequency coordinates alter the physical prior when PRB width changes",
+  "reference_grid": {
+    "num_prb": 4,
+    "effective_subcarriers": 48,
+    "subcarrier_spacing_khz": 30
+  },
+  "cases": 3,
+  "snr_points": 3,
+  "repetitions": 10,
+  "variants": 4,
+  "expected_rows": 360,
+  "slurm_walltime": "00:35:00",
+  "retraining": false,
+  "publication_nr_ready": false
+}

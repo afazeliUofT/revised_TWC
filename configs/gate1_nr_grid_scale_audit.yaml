@@ -1,0 +1,98 @@
+grid_scale_revision: gate1_nr_grid_scale_audit_v1
+device: cuda
+seed: 202682501
+internal_deadline_seconds: 1900
+frozen_candidate:
+  name: global_r24_cold_lf1_lt0p5
+  mode: global
+  rank: 24
+  bank_rank: 32
+  length_f: 1.0
+  length_t: 0.5
+  initialization: cold
+  learning_rate: 0.002
+  channel_loss_weight: 0.05
+  calibration_loss_weight: 0.02
+  steps: 1200
+  checkpoint_path: outputs/gate1_nr_joint_operator/checkpoints/global_r24_cold_lf1_lt0p5/best.pt
+  checkpoint_sha256: 4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980
+selected_detector:
+  iterations: 4
+  damping: 0.7
+  edge_mass: 0.8
+  covariance_mode: diagonal
+coordinate_systems:
+  allocation_normalized:
+    description: Existing allocation-width normalization
+  reference_physical:
+    description: Fixed physical spacing referenced to a 4-PRB, 30-kHz grid
+    reference_num_subcarriers: 48
+    reference_scs_khz: 30.0
+evaluation:
+  batch_size: 16
+  bp_iterations: 20
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 10
+  variants:
+    - frozen_allocation_normalized
+    - frozen_reference_physical
+    - ls_lmmse
+    - perfect_csi_lmmse
+  cases:
+    - name: grid_audit_umi_t1_4prb_4u
+      group: reference_grid
+      scenario: umi
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1, 2, 3]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 61
+    - name: grid_audit_umi_t1_8prb_4u
+      group: wider_grid
+      scenario: umi
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 8
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1, 2, 3]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 62
+    - name: grid_audit_umi_t1_12prb_4u
+      group: wider_grid
+      scenario: umi
+      num_users: 4
+      num_layers_per_user: 1
+      num_rx_ant: 8
+      num_prb: 12
+      subcarrier_spacing_khz: 30
+      speed_mps: 3.0
+      carrier_frequency_hz: 3500000000.0
+      delay_spread_s: 1.0e-7
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      dmrs_ports: [0, 1, 2, 3]
+      num_cdm_groups_without_data: 2
+      mcs_index: 10
+      mcs_table: 1
+      n_cell_id: 63
