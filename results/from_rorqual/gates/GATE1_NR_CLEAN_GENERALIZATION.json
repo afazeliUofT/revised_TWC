@@ -1,0 +1,707 @@
+{
+  "aggregate_csv": "outputs/eval/gate1_nr_clean_generalization_aggregate.csv",
+  "classification": "GATE1_CLEAN_GENERALIZATION_SUPPORTED",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "platform": "Linux-5.14.0-687.31.1.el9_8.x86_64-x86_64-Intel-R-_Xeon-R-_Gold_6448Y-with-glibc2.37",
+    "python": "3.11.4 (main, Nov  4 2023, 03:43:13) [GCC 12.3.1 20230526]",
+    "sionna": "2.0.1",
+    "torch": "2.13.0"
+  },
+  "evaluation": {
+    "complete": true,
+    "contract": {
+      "config_sha256": "1f293404c4cb9199b3e9ed09387e8a24aa03b515af0a1c763509fece21412a39",
+      "evaluation": {
+        "batch_size": 16,
+        "bp_iterations": 20,
+        "cases": [
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "group": "seen_new_seed",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_seen_umi_t1_2u2l",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 2,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 2,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              4,
+              5,
+              0,
+              1
+            ],
+            "group": "seen_new_seed",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_seen_umi_t2_2u2l",
+            "num_cdm_groups_without_data": 3,
+            "num_layers_per_user": 2,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 2,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "group": "seen_new_seed",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_seen_uma_t1_4u",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "uma",
+            "speed_mps": 15.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              1
+            ],
+            "group": "seen_new_seed",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_seen_cdl_a_1u2l",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 2,
+            "num_prb": 4,
+            "num_rx_ant": 4,
+            "num_users": 1,
+            "scenario": "cdl-a",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 2,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "group": "loaded_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_holdout_umi_t2_3u2l_6s",
+            "num_cdm_groups_without_data": 3,
+            "num_layers_per_user": 2,
+            "num_prb": 4,
+            "num_rx_ant": 12,
+            "num_users": 3,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 2,
+            "dmrs_length": 2,
+            "dmrs_ports": [
+              0,
+              6,
+              1,
+              7
+            ],
+            "group": "dmrs_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 42,
+            "name": "clean_holdout_umi_t2_len2_4u",
+            "num_cdm_groups_without_data": 3,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "group": "mobility_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 43,
+            "name": "clean_holdout_umi_t1_fast_4u",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 30.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 3e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "group": "delay_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 44,
+            "name": "clean_holdout_uma_t1_ds300_4u",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "uma",
+            "speed_mps": 15.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 3e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0
+            ],
+            "group": "channel_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 45,
+            "name": "clean_holdout_cdl_c_1u1l",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 4,
+            "num_users": 1,
+            "scenario": "cdl-c",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0
+            ],
+            "group": "channel_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 46,
+            "name": "clean_holdout_cdl_d_1u1l",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 4,
+            "num_users": 1,
+            "scenario": "cdl-d",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "group": "grid_holdout",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 47,
+            "name": "clean_holdout_umi_t1_8prb_4u",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 8,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "carrier_frequency_hz": 3500000000.0,
+            "delay_spread_s": 1e-07,
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              2,
+              1,
+              3
+            ],
+            "group": "mcs_holdout",
+            "mcs_index": 4,
+            "mcs_table": 1,
+            "n_cell_id": 48,
+            "name": "clean_holdout_umi_t1_qpsk_4u",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 4,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          }
+        ],
+        "ebno_db": [
+          -2.0,
+          2.0,
+          6.0,
+          10.0,
+          14.0
+        ],
+        "repetitions": 10,
+        "variants": [
+          "frozen_global",
+          "old_checkpoint_repaired_detector",
+          "uncertainty_off_fixed_graph",
+          "random_graph_fixed_cardinality",
+          "full_graph",
+          "graph_off",
+          "ls_lmmse",
+          "perfect_csi_lmmse"
+        ]
+      },
+      "frozen_candidate": {
+        "bank_rank": 32,
+        "calibration_loss_weight": 0.02,
+        "channel_loss_weight": 0.05,
+        "checkpoint_path": "outputs/gate1_nr_joint_operator/checkpoints/global_r24_cold_lf1_lt0p5/best.pt",
+        "checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+        "initialization": "cold",
+        "learning_rate": 0.002,
+        "length_f": 1.0,
+        "length_t": 0.5,
+        "mode": "global",
+        "name": "global_r24_cold_lf1_lt0p5",
+        "rank": 24,
+        "steps": 1200
+      },
+      "frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+      "old_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+      "selected_detector": {
+        "covariance_mode": "diagonal",
+        "damping": 0.7,
+        "edge_mass": 0.8,
+        "iterations": 4
+      },
+      "signature": "ad210371460522178c70da487b0f0d429ae2e9c7d0e65615f6c65de434f9c3dd",
+      "source_sha256": {
+        "configs/gate1_nr_clean_generalization.yaml": "1f293404c4cb9199b3e9ed09387e8a24aa03b515af0a1c763509fece21412a39",
+        "scripts/gate1_nr_clean_generalization.py": "a77f7dda26911c46f73eabd5ef575c2a1251160c283e48bb1fa56e0818200a09",
+        "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+        "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+        "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+        "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+        "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+      },
+      "version": "gate1_nr_clean_generalization_v1"
+    },
+    "expected_rows": 4800,
+    "raw_csv": "outputs/eval/gate1_nr_clean_generalization.csv",
+    "rows": 4800,
+    "unique_rows": 4800
+  },
+  "frozen_model_scope": "single frozen checkpoint selected before these evaluation seeds and expanded cases; no retraining or holdout-driven tuning",
+  "high_snr_metrics": {
+    "frozen_holdout_10db_tbler": 0.04253472251196702,
+    "frozen_holdout_14db_tbler": 0.055034722511967026,
+    "frozen_holdout_6db_tbler": 0.062413194899757704,
+    "frozen_holdout_high_snr_tbler": 0.053327546641230586,
+    "holdout_coverage95_mean": 0.945772050023079,
+    "holdout_normalized_error_median": 0.8322589695453644,
+    "ls_holdout_high_snr_tbler": 0.013686342837495936,
+    "old_holdout_high_snr_tbler": 0.27517361260122725,
+    "perfect_holdout_high_snr_tbler": 0.003067129705515169
+  },
+  "next_action": "DESIGN_PUBLICATION_SCALE_CAMPAIGN_AND_COMPLEXITY_AUDIT",
+  "paired_comparisons_frozen_minus_comparator": {
+    "full_graph_tbler": {
+      "ci95_high": 0.001424671676248579,
+      "ci95_low": -0.0004408755731154832,
+      "mean": 0.0004918980515665479,
+      "pairs": 180
+    },
+    "graph_off_tbler": {
+      "ci95_high": -0.004130820016053466,
+      "ci95_low": -0.008137698930183568,
+      "mean": -0.006134259473118517,
+      "pairs": 180
+    },
+    "ls_lmmse_tbler": {
+      "ci95_high": 0.046679134461111015,
+      "ci95_low": 0.03260327314635828,
+      "mean": 0.03964120380373465,
+      "pairs": 180
+    },
+    "old_checkpoint_tbler": {
+      "ci95_high": -0.20201956588839867,
+      "ci95_low": -0.24167256603159462,
+      "mean": -0.22184606595999665,
+      "pairs": 180
+    },
+    "perfect_csi_lmmse_tbler": {
+      "ci95_high": 0.05828193794981398,
+      "ci95_low": 0.04223889592161684,
+      "mean": 0.05026041693571541,
+      "pairs": 180
+    },
+    "random_graph_tbler": {
+      "ci95_high": -0.001313999409575338,
+      "ci95_low": -0.004125815846755365,
+      "mean": -0.0027199076281653515,
+      "pairs": 180
+    },
+    "uncertainty_nll": {
+      "ci95_high": -0.4808325836308302,
+      "ci95_low": -0.6901036010146966,
+      "mean": -0.5854680923227634,
+      "pairs": 180
+    },
+    "uncertainty_tbler": {
+      "ci95_high": -0.04556064444144044,
+      "ci95_low": -0.06502963441253232,
+      "mean": -0.05529513942698638,
+      "pairs": 180
+    }
+  },
+  "plots": [
+    "outputs/plots/gate1_clean_clean_holdout_cdl_c_1u1l_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_cdl_d_1u1l_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_uma_t1_ds300_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_umi_t1_8prb_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_umi_t1_fast_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_umi_t1_qpsk_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_umi_t2_3u2l_6s_tbler.png",
+    "outputs/plots/gate1_clean_clean_holdout_umi_t2_len2_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_seen_cdl_a_1u2l_tbler.png",
+    "outputs/plots/gate1_clean_clean_seen_uma_t1_4u_tbler.png",
+    "outputs/plots/gate1_clean_clean_seen_umi_t1_2u2l_tbler.png",
+    "outputs/plots/gate1_clean_clean_seen_umi_t2_2u2l_tbler.png",
+    "outputs/plots/gate1_clean_posterior_calibration.png"
+  ],
+  "preconditions": {
+    "capacity_classification": "GATE1_JOINT_OPERATOR_SUPPORTED",
+    "capacity_commit_scope": "frozen global checkpoint; no test-set tuning",
+    "checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+    "checks": {
+      "candidate_checkpoint_file": true,
+      "candidate_checkpoint_record": true,
+      "candidate_complete": true,
+      "candidate_name": true,
+      "capacity_best_global": true,
+      "capacity_classification": true,
+      "capacity_complete": true,
+      "capacity_equal_exposure": true,
+      "capacity_rows": true,
+      "capacity_version": true,
+      "capacity_workflow": true,
+      "expected_rows": true,
+      "joint_revision": true,
+      "old_checkpoint": true,
+      "selected_detector": true
+    },
+    "old_checkpoint_sha256": "ca3243386e3d0511236a3c2c68f0396df9d05b7dc7f4118a8748d150613d3576",
+    "passed": true
+  },
+  "preflight": {
+    "case_reports": [
+      {
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "seen_new_seed",
+        "mcs_index": 10,
+        "name": "clean_seen_umi_t1_2u2l",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 2
+      },
+      {
+        "dmrs_ports": [
+          4,
+          5,
+          0,
+          1
+        ],
+        "group": "seen_new_seed",
+        "mcs_index": 10,
+        "name": "clean_seen_umi_t2_2u2l",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 2
+      },
+      {
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "group": "seen_new_seed",
+        "mcs_index": 10,
+        "name": "clean_seen_uma_t1_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      },
+      {
+        "dmrs_ports": [
+          0,
+          1
+        ],
+        "group": "seen_new_seed",
+        "mcs_index": 10,
+        "name": "clean_seen_cdl_a_1u2l",
+        "num_streams": 2,
+        "passed": true,
+        "pusch_config_count": 1
+      },
+      {
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "group": "loaded_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_umi_t2_3u2l_6s",
+        "num_streams": 6,
+        "passed": true,
+        "pusch_config_count": 3
+      },
+      {
+        "dmrs_ports": [
+          0,
+          6,
+          1,
+          7
+        ],
+        "group": "dmrs_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_umi_t2_len2_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      },
+      {
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "mobility_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_umi_t1_fast_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      },
+      {
+        "dmrs_ports": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "group": "delay_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_uma_t1_ds300_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      },
+      {
+        "dmrs_ports": [
+          0
+        ],
+        "group": "channel_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_cdl_c_1u1l",
+        "num_streams": 1,
+        "passed": true,
+        "pusch_config_count": 1
+      },
+      {
+        "dmrs_ports": [
+          0
+        ],
+        "group": "channel_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_cdl_d_1u1l",
+        "num_streams": 1,
+        "passed": true,
+        "pusch_config_count": 1
+      },
+      {
+        "dmrs_ports": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "group": "grid_holdout",
+        "mcs_index": 10,
+        "name": "clean_holdout_umi_t1_8prb_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      },
+      {
+        "dmrs_ports": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "group": "mcs_holdout",
+        "mcs_index": 4,
+        "name": "clean_holdout_umi_t1_qpsk_4u",
+        "num_streams": 4,
+        "passed": true,
+        "pusch_config_count": 4
+      }
+    ],
+    "checks": {
+      "all_pusch_configs_valid": true,
+      "expected_rows": true,
+      "preconditions": true,
+      "source_contract": true,
+      "unique_cases": true,
+      "unique_variants": true
+    },
+    "expected_rows": 4800,
+    "passed": true,
+    "source_sha256": {
+      "configs/gate1_nr_clean_generalization.yaml": "1f293404c4cb9199b3e9ed09387e8a24aa03b515af0a1c763509fece21412a39",
+      "scripts/gate1_nr_clean_generalization.py": "a77f7dda26911c46f73eabd5ef575c2a1251160c283e48bb1fa56e0818200a09",
+      "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+      "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+    },
+    "variants": [
+      "frozen_global",
+      "old_checkpoint_repaired_detector",
+      "uncertainty_off_fixed_graph",
+      "random_graph_fixed_cardinality",
+      "full_graph",
+      "graph_off",
+      "ls_lmmse",
+      "perfect_csi_lmmse"
+    ]
+  },
+  "publication_nr_ready": false,
+  "scientific_checks": {
+    "coupling_beats_random_loaded": true,
+    "frozen_improves_old_checkpoint": true,
+    "graph_beats_graph_off": true,
+    "no_high_snr_reversal": true,
+    "posterior_not_grossly_miscalibrated": true,
+    "sparse_not_worse_than_full_by_0p01": true,
+    "uncertainty_improves_nll": true,
+    "uncertainty_improves_tbler": true,
+    "within_0p05_of_ls_on_holdout": true
+  },
+  "software_checks": {
+    "all_core_metrics_finite": true,
+    "all_variants_present": true,
+    "complete_rows": true,
+    "crc_consistency": true,
+    "fixed_graph_cardinality_exact": true,
+    "paired_seed_batches": true,
+    "source_contract": true
+  },
+  "timestamp": "2026-08-12 11:34:57 EDT",
+  "version": "gate1_nr_clean_generalization_v1"
+}
