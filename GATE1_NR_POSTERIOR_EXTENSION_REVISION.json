@@ -1,0 +1,24 @@
+{
+  "revision": "gate1_nr_posterior_extension_v1",
+  "date": "2026-08-13",
+  "required_ancestor_commit": "fcef35f0573b31b4e462d0618217f769ad59d348",
+  "required_factorial_classification": "GATE1_POSTERIOR_FACTORIAL_TRAINING_EXTENSION_REQUIRED",
+  "winner": "physical_context_multiscale_r64",
+  "winner_checkpoint_sha256": "7f6545afdcfb581b36b2a5f9cb4f8814981717056d018d0cd4a18f4e4ce7d9e6",
+  "scientific_contract": {
+    "extend_only_winner": true,
+    "additional_updates_per_training_grid": 800,
+    "additional_total_updates": 1600,
+    "training_grids_prb": [4, 8],
+    "fresh_12prb_holdout_used_for_training": false,
+    "fresh_12prb_holdout_used_for_validation_or_selection": false,
+    "fresh_12prb_holdout_evaluated_after_training_complete": true,
+    "single_predeclared_extension_only": true,
+    "if_not_near_ls_next_step": "one_principled_data_aided_posterior_update"
+  },
+  "evaluation_rows": 648,
+  "job_name": "brx_post_ext",
+  "slurm_walltime": "01:00:00",
+  "internal_deadline_minutes": 52,
+  "publication_nr_ready": false
+}

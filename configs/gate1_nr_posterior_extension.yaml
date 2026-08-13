@@ -1,0 +1,148 @@
+revision: gate1_nr_posterior_extension_v1
+seed: 2026082401
+operator_seed: 58001
+required_factorial_classification: GATE1_POSTERIOR_FACTORIAL_TRAINING_EXTENSION_REQUIRED
+winner_name: physical_context_multiscale_r64
+winner_checkpoint_path: outputs/gate1_nr_posterior_factorial/checkpoints/physical_context_multiscale_r64/best.pt
+winner_checkpoint_sha256: 7f6545afdcfb581b36b2a5f9cb4f8814981717056d018d0cd4a18f4e4ce7d9e6
+winner_spec:
+  name: physical_context_multiscale_r64
+  coordinate_mode: reference_physical
+  model_type: multiscale
+  rank: 64
+  bank_rank: 64
+  context_conditioned: true
+  learning_rate: 0.002
+  channel_loss_weight: 0.05
+  calibration_loss_weight: 0.05
+  steps: 1600
+  scales:
+  - rank: 16
+    length_f: 0.5
+    length_t: 0.25
+  - rank: 16
+    length_f: 1.0
+    length_t: 0.5
+  - rank: 16
+    length_f: 2.0
+    length_t: 1.0
+  - rank: 16
+    length_f: 4.0
+    length_t: 2.0
+selected_detector:
+  iterations: 4
+  damping: 0.7
+  edge_mass: 0.8
+  covariance_mode: diagonal
+training:
+  batch_size: 8
+  validation_batch_size: 16
+  ebno_db_min: -2.0
+  ebno_db_max: 14.0
+  validation_ebno_db: [2.0, 6.0, 10.0, 14.0]
+  validation_seed: 2026082499
+  validation_every: 100
+  save_every: 40
+  grad_clip: 1.0
+  weight_decay: 0.0001
+  extension_updates_per_grid: 800
+  total_extension_steps: 1600
+  learning_rate_start: 0.001
+  learning_rate_end: 0.0002
+training_cases:
+- name: extension_train_umi_4prb
+  scenario: umi
+  num_users: 4
+  num_rx_ant: 8
+  num_layers_per_user: 1
+  num_prb: 4
+  subcarrier_spacing_khz: 30
+  dmrs_config_type: 1
+  dmrs_length: 1
+  dmrs_additional_position: 1
+  num_cdm_groups_without_data: 2
+  dmrs_ports: [0, 1, 2, 3]
+  mcs_index: 10
+  mcs_table: 1
+  speed_mps: 3.0
+  n_cell_id: 81
+- name: extension_train_umi_8prb
+  scenario: umi
+  num_users: 4
+  num_rx_ant: 8
+  num_layers_per_user: 1
+  num_prb: 8
+  subcarrier_spacing_khz: 30
+  dmrs_config_type: 1
+  dmrs_length: 1
+  dmrs_additional_position: 1
+  num_cdm_groups_without_data: 2
+  dmrs_ports: [0, 1, 2, 3]
+  mcs_index: 10
+  mcs_table: 1
+  speed_mps: 3.0
+  n_cell_id: 82
+evaluation:
+  batch_size: 16
+  bp_iterations: 20
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 12
+  variants:
+  - extended_winner
+  - original_winner
+  - extended_uncertainty_off
+  - ls_estimate_repaired
+  - ls_lmmse
+  - perfect_csi_lmmse
+  cases:
+  - name: extension_eval_umi_4prb
+    group: trained_grid_new_seed
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 111
+  - name: extension_eval_umi_8prb
+    group: trained_grid_new_seed
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 8
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 112
+  - name: extension_holdout_umi_12prb
+    group: fresh_untouched_grid_holdout
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 12
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 113
