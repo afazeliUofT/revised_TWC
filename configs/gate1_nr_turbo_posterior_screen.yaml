@@ -1,0 +1,102 @@
+revision: gate1_nr_turbo_posterior_v1
+seed: 2026082701
+operator_seed: 58001
+bp_iterations: 20
+selection:
+  batch_size: 16
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 4
+  cases:
+  - name: turbo_select_umi_4prb
+    group: selection_trained_grid
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 141
+  - name: turbo_select_umi_8prb
+    group: selection_trained_grid
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 8
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 142
+holdout:
+  batch_size: 16
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 12
+  cases:
+  - name: turbo_holdout_umi_12prb
+    group: fresh_untouched_grid_holdout
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 12
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 143
+candidates:
+- name: turbo_f05_r0125
+  information_damping: 0.125
+  data_fraction: 0.05
+  min_observations: 16
+  max_observations: 64
+- name: turbo_f05_r025
+  information_damping: 0.25
+  data_fraction: 0.05
+  min_observations: 16
+  max_observations: 64
+- name: turbo_f05_r05
+  information_damping: 0.5
+  data_fraction: 0.05
+  min_observations: 16
+  max_observations: 64
+- name: turbo_f10_r0125
+  information_damping: 0.125
+  data_fraction: 0.10
+  min_observations: 16
+  max_observations: 96
+- name: turbo_f10_r025
+  information_damping: 0.25
+  data_fraction: 0.10
+  min_observations: 16
+  max_observations: 96
+- name: turbo_f10_r05
+  information_damping: 0.5
+  data_fraction: 0.10
+  min_observations: 16
+  max_observations: 96
+oracle_setting:
+  name: oracle_symbol_turbo
+  information_damping: 1.0
+  data_fraction: 0.10
+  min_observations: 16
+  max_observations: 96
