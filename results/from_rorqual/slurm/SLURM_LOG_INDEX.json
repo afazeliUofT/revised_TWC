@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 35524,
+    "mtime_epoch": 1786643159.0,
+    "name": "brx_post_ext-18969758.out",
+    "original_size_bytes": 35524,
+    "truncated": false
+  },
+  {
+    "copied_size_bytes": 127,
+    "mtime_epoch": 1786642964.0,
+    "name": "brx_post_ext-18969758.err",
+    "original_size_bytes": 127,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 831,
     "mtime_epoch": 1786642341.0,
     "name": "brx_post_fact-18968931.out",
@@ -122,20 +136,6 @@
     "copied_size_bytes": 127,
     "mtime_epoch": 1786338447.0,
     "name": "brx_lmep_smoke-18749370.err",
-    "original_size_bytes": 127,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 1040,
-    "mtime_epoch": 1786337081.0,
-    "name": "brx_nr_fdiag-18748625.out",
-    "original_size_bytes": 1040,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 127,
-    "mtime_epoch": 1786337073.0,
-    "name": "brx_nr_fdiag-18748625.err",
     "original_size_bytes": 127,
     "truncated": false
   }

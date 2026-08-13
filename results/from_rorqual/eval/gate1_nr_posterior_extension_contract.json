@@ -1,0 +1,115 @@
+{
+  "config_sha256": "67c4c862831888bb28a2f0c7602de15994821ede25dbae72bc28941edc706d73",
+  "evaluation": {
+    "batch_size": 16,
+    "bp_iterations": 20,
+    "cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "trained_grid_new_seed",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 111,
+        "name": "extension_eval_umi_4prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "trained_grid_new_seed",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 112,
+        "name": "extension_eval_umi_8prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 8,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "fresh_untouched_grid_holdout",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 113,
+        "name": "extension_holdout_umi_12prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 12,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "ebno_db": [
+      6.0,
+      10.0,
+      14.0
+    ],
+    "repetitions": 12,
+    "variants": [
+      "extended_winner",
+      "original_winner",
+      "extended_uncertainty_off",
+      "ls_estimate_repaired",
+      "ls_lmmse",
+      "perfect_csi_lmmse"
+    ]
+  },
+  "extended_checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+  "fresh_12prb_holdout_policy": {
+    "evaluated_after_training_complete": true,
+    "used_in_training": false,
+    "used_in_validation": false
+  },
+  "original_checkpoint_sha256": "7f6545afdcfb581b36b2a5f9cb4f8814981717056d018d0cd4a18f4e4ce7d9e6",
+  "signature": "0f170a939cf98db45299b765dc650973ba1245d8dbd5e409de55cfadc6e6ca82",
+  "source_sha256": {
+    "configs/gate1_nr_posterior_extension.yaml": "67c4c862831888bb28a2f0c7602de15994821ede25dbae72bc28941edc706d73",
+    "scripts/gate1_nr_posterior_extension.py": "e05e390c70466114e91023ea3201736fb6d058fcc8648ed8c464cb07433a1d26",
+    "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+    "scripts/gate1_nr_posterior_factorial_screen.py": "40460d4e016b9c5f0acd60a8f845fe9f0bea52190cbadea1cd7bc25acfeab28d",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "version": "gate1_nr_posterior_extension_v1"
+}
