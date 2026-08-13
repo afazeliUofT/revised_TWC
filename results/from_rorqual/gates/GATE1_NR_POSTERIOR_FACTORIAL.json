@@ -1836,7 +1836,7 @@
     "device": "cuda:0",
     "gpu_name": "NVIDIA H100 80GB HBM3",
     "python": "3.11.4",
-    "slurm_job_id": "18959879",
+    "slurm_job_id": "18968931",
     "torch": "2.13.0"
   },
   "evaluation": {
@@ -2088,7 +2088,7 @@
     "winner_training_converged": false,
     "winner_within_0p02_of_ls": false
   },
-  "timestamp_epoch": 1786631269.8076332,
+  "timestamp_epoch": 1786642335.6397982,
   "training_summaries": [
     {
       "best_checkpoint": "outputs/gate1_nr_posterior_factorial/checkpoints/alloc_single_r24/best.pt",
