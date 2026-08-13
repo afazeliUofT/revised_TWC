@@ -1,5 +1,19 @@
 [
   {
+    "copied_size_bytes": 72,
+    "mtime_epoch": 1786585356.0,
+    "name": "brx_post_smoke-18931519.out",
+    "original_size_bytes": 72,
+    "truncated": false
+  },
+  {
+    "copied_size_bytes": 332379,
+    "mtime_epoch": 1786585354.0,
+    "name": "brx_post_smoke-18931519.err",
+    "original_size_bytes": 332379,
+    "truncated": false
+  },
+  {
     "copied_size_bytes": 13666,
     "mtime_epoch": 1786562073.0,
     "name": "brx_grid_audit-18915074.out",
@@ -122,20 +136,6 @@
     "copied_size_bytes": 127,
     "mtime_epoch": 1786323695.0,
     "name": "brx_nr_evid-18741276.err",
-    "original_size_bytes": 127,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 670,
-    "mtime_epoch": 1786308646.0,
-    "name": "brx_nr_smoke-18731986.out",
-    "original_size_bytes": 670,
-    "truncated": false
-  },
-  {
-    "copied_size_bytes": 127,
-    "mtime_epoch": 1786308639.0,
-    "name": "brx_nr_smoke-18731986.err",
     "original_size_bytes": 127,
     "truncated": false
   }
