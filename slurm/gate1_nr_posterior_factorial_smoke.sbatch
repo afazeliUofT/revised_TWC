@@ -12,6 +12,8 @@ set -euo pipefail
 cd "${PROJECT_ROOT:-/home/rsadve1/links/scratch/revised_TWC}"
 source .venv/bin/activate
 export PYTHONPATH="$PWD/src:$PWD/scripts:${PYTHONPATH:-}"
+# Make any remaining CUDA indexing failure point to its exact source line.
+export CUDA_LAUNCH_BLOCKING=1
 set +e
 python scripts/gate1_nr_posterior_factorial_smoke.py \
   --config configs/gate1_nr_posterior_factorial_smoke.yaml \

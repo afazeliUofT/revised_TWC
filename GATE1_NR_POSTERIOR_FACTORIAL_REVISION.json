@@ -1,6 +1,6 @@
 {
   "revision": "gate1_nr_posterior_factorial_v1",
-  "date": "2026-08-12",
+  "date": "2026-08-13",
   "required_base_commit": "61e2353f249556252063a309ba74a267dd79855f",
   "required_grid_audit_classification": "GRID_SCALE_COORDINATE_HYPOTHESIS_NOT_SUPPORTED",
   "required_grid_audit_rows": 360,
@@ -21,7 +21,10 @@
     ]
   },
   "training_contract": {
-    "training_prb": [4, 8],
+    "training_prb": [
+      4,
+      8
+    ],
     "updates_per_training_grid_per_candidate": 800,
     "total_updates_per_candidate": 1600,
     "common_random_streams_across_candidates": true,
@@ -46,5 +49,16 @@
   "screen_job_name": "brx_post_fact",
   "screen_slurm_walltime": "01:30:00",
   "screen_internal_deadline_minutes": 82,
-  "publication_nr_ready": false
+  "publication_nr_ready": false,
+  "ls_alignment_patch": "gate1_nr_posterior_factorial_ls_alignment_v1",
+  "failed_smoke_job_repaired": "18931519",
+  "ls_factorization_contract": {
+    "sionna_effective_grid_checked_first": true,
+    "full_fft_fallback_range_checked": true,
+    "error_variance_broadcast_checked": true,
+    "data_index_range_checked_on_cpu": true,
+    "detector_uses_local_data_indices": true,
+    "cuda_launch_blocking_in_smoke": true,
+    "standard_sionna_ls_lmmse_unchanged": true
+  }
 }

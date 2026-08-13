@@ -56,3 +56,20 @@ does not use data bits or the instantaneous channel.
   a localized delay-Doppler basis.
 
 The gate is diagnostic. It does not make the manuscript publication-ready.
+
+
+## LS-estimator alignment repair
+
+The factorization control now treats Sionna's PUSCH LS output as an effective-grid
+estimate first, which matches Sionna's channel-estimator interface. A full-FFT
+fallback is retained only when the returned width differs from the effective
+grid. All effective-subcarrier and data-RE indices are range-checked on CPU
+before a CUDA gather. The LS estimate and covariance are then sliced once to the
+data REs, and the repaired detector uses a local `0,...,D-1` index. This is
+mathematically equivalent to full-grid indexing on the data REs and removes the
+previous asynchronous double-indexing ambiguity.
+
+The H100 smoke runs with `CUDA_LAUNCH_BLOCKING=1` and reports the raw LS tensor
+shape, detected layout, aligned grid length, and index bounds for every smoke
+case. The publication screen remains blocked unless both the pure-Torch alignment
+self-test and the real Sionna effective-grid test pass.

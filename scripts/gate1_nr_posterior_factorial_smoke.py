@@ -40,6 +40,7 @@ from gate1_nr_posterior_factorial_common import (
     extract_candidate_state,
     load_candidate_state,
     ls_repaired_forward,
+    ls_alignment_self_test,
     model_report,
     package_signature,
     pure_torch_multiscale_self_test,
@@ -134,6 +135,7 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
     manifest = manifest_report()
     pre = preconditions()
     pure = pure_torch_multiscale_self_test()
+    ls_alignment_self = ls_alignment_self_test()
     spec = FactorialCandidate.from_mapping(config["candidate"])
     cases = [NRCase.from_mapping(item) for item in config["cases"]]
     contexts = [build_nr_context(case, device) for case in cases]
@@ -204,6 +206,8 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
         )
         ls_receiver = standard_receiver(context, perfect_csi=False, return_crc=True)
         ls_output = ls_repaired_forward(ls_receiver, context, detector, batch)
+        if device.type == "cuda":
+            torch.cuda.synchronize(device)
         ls_decoded = decode_bridge(
             context.transmitter,
             ls_output,
@@ -236,6 +240,10 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
                     torch.all(output["posterior"].var_diag > 0).item()
                 ),
                 "ls_control_shape": list(ls_output["posterior"].mean.shape),
+                "ls_grid_alignment": ls_output["ls_grid_alignment_report"],
+                "ls_detector_local_data_indexing": bool(
+                    ls_output["ls_detector_local_data_indexing"]
+                ),
                 "model": model_report(spec, bridge),
             }
         )
@@ -283,6 +291,7 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
         "manifest": manifest["passed"],
         "preconditions": pre["passed"],
         "pure_torch_multiscale": pure["passed"],
+        "ls_alignment_self_test": ls_alignment_self["passed"],
         "cuda_compute_node": device.type == "cuda" and torch.cuda.is_available(),
         "sionna_2_0_1": getattr(sionna, "__version__", "") == "2.0.1",
         "selected_detector_contract": all(
@@ -302,6 +311,14 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
         "each_case_positive_variance": all(item["positive_variance"] for item in per_case),
         "ls_estimator_factorization_path": all(
             len(item["ls_control_shape"]) == 4 for item in per_case
+        ),
+        "ls_estimator_effective_grid_alignment": all(
+            item["ls_grid_alignment"].get("passed") is True
+            and item["ls_grid_alignment"].get(
+                "effective_grid_checked_before_fft"
+            ) is True
+            and item["ls_detector_local_data_indexing"] is True
+            for item in per_case
         ),
         "mixed_case_gradients": all(
             item["present"] and item["finite"] and item["norm"] > 0.0
@@ -333,6 +350,7 @@ def run(config: dict[str, Any], device: torch.device) -> dict[str, Any]:
         "manifest": manifest,
         "preconditions": pre,
         "pure_torch_self_test": pure,
+        "ls_alignment_self_test": ls_alignment_self,
         "candidate": spec.as_dict(),
         "shared_parameter_identity": shared_ids,
         "per_grid_gradient_report": per_case_gradients,

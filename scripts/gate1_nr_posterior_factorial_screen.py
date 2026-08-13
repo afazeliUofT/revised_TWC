@@ -56,6 +56,7 @@ from gate1_nr_posterior_factorial_common import (
 EXPECTED_ROWS = 792
 REQUIRED_SMOKE_CLASSIFICATION = "GATE1_NR_POSTERIOR_FACTORIAL_SMOKE_PASS"
 REQUIRED_GRID_CLASSIFICATION = "GRID_SCALE_COORDINATE_HYPOTHESIS_NOT_SUPPORTED"
+REQUIRED_LS_ALIGNMENT_PATCH = "gate1_nr_posterior_factorial_ls_alignment_v1"
 REQUIRED_CHECKPOINT_SHA256 = (
     "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980"
 )
@@ -123,6 +124,10 @@ def preconditions(config: dict[str, Any]) -> dict[str, Any]:
             smoke.get("classification") == REQUIRED_SMOKE_CLASSIFICATION
             and smoke.get("overall_pass") is True
             and smoke.get("screen_ready") is True
+            and smoke.get("checks", {}).get("ls_alignment_self_test") is True
+            and smoke.get("checks", {}).get(
+                "ls_estimator_effective_grid_alignment"
+            ) is True
         ),
         "grid_audit": bool(
             grid.get("complete") is True
@@ -136,6 +141,9 @@ def preconditions(config: dict[str, Any]) -> dict[str, Any]:
         "revision": bool(
             config.get("revision") == POSTERIOR_FACTORIAL_VERSION
             and revision.get("revision") == POSTERIOR_FACTORIAL_VERSION
+        ),
+        "ls_alignment_patch": bool(
+            revision.get("ls_alignment_patch") == REQUIRED_LS_ALIGNMENT_PATCH
         ),
         "candidate_factorial": bool(
             len(candidates) == 6

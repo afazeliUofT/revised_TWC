@@ -4,6 +4,7 @@ from __future__ import annotations
 """Common components for the fair coordinate-by-kernel posterior screen."""
 
 from dataclasses import dataclass, replace
+from types import SimpleNamespace
 import hashlib
 import json
 import math
@@ -14,7 +15,12 @@ from typing import Any, Iterable, Sequence
 import numpy as np
 import torch
 
-from bayesroute.models import LowRankPosteriorOperator, PosteriorOutput
+from bayesroute.models import (
+    LowRankPosteriorOperator,
+    PosteriorOutput,
+    coupling_matrix,
+    coupling_selection_mask,
+)
 from bayesroute.multiscale_posterior import (
     MULTISCALE_POSTERIOR_VERSION,
     MultiScalePosteriorOperator,
@@ -40,6 +46,7 @@ from gate1_nr_joint_operator_common import (
 
 
 POSTERIOR_FACTORIAL_VERSION = "gate1_nr_posterior_factorial_v1"
+LS_ALIGNMENT_PATCH_VERSION = "gate1_nr_posterior_factorial_ls_alignment_v1"
 REFERENCE_NUM_SUBCARRIERS = 48
 REFERENCE_SCS_KHZ = 30.0
 
@@ -392,53 +399,186 @@ def model_report(spec: FactorialCandidate, bridge: NRBayesRouteBridge) -> dict[s
     }
 
 
-def ls_posterior_from_receiver(
-    receiver: Any,
+
+def _cpu_index_bounds(
+    index: torch.Tensor,
+    upper: int,
+    *,
+    name: str,
+) -> tuple[int, int]:
+    """Validate an index tensor on CPU before any CUDA gather is launched."""
+    values = torch.as_tensor(index.detach().cpu(), dtype=torch.long).reshape(-1)
+    if values.numel() == 0:
+        raise RuntimeError(f"{name} must not be empty")
+    lower = int(values.min().item())
+    maximum = int(values.max().item())
+    if lower < 0 or maximum >= int(upper):
+        raise RuntimeError(
+            f"{name} out of range: min={lower}, max={maximum}, upper={upper}"
+        )
+    return lower, maximum
+
+
+def _broadcast_ls_error_variance(
+    err_var: torch.Tensor,
+    target_shape: torch.Size,
+    *,
+    device: torch.device,
+) -> torch.Tensor:
+    value = torch.as_tensor(err_var, device=device).real.to(torch.float32)
+    try:
+        return torch.broadcast_to(value, target_shape).clone()
+    except RuntimeError as exc:
+        raise RuntimeError(
+            "Sionna LS error variance is not broadcast-compatible with the "
+            f"channel estimate: err_var={tuple(value.shape)}, h_hat={tuple(target_shape)}"
+        ) from exc
+
+
+def _align_sionna_ls_grid(
+    h_hat: torch.Tensor,
+    err_var: torch.Tensor,
     context: Any,
-    batch: Any,
-) -> PosteriorOutput:
-    """Expose Sionna's LS estimate for a detector-factorization control."""
-    estimator = getattr(receiver, "_channel_estimator", None)
-    if estimator is None:
-        raise RuntimeError("Standard LS receiver has no channel estimator")
-    h_hat, err_var = estimator(batch.raw_y, batch.noise_var)
-    effective = context.grid.effective_subcarrier_ind
-    if int(h_hat.shape[-1]) == int(context.grid.fft_size):
-        h_hat = torch.index_select(h_hat, -1, effective)
-        err_var = torch.index_select(err_var, -1, effective)
-    elif int(h_hat.shape[-1]) != int(context.grid.num_effective_subcarriers):
-        raise RuntimeError(f"Unexpected LS channel width: {tuple(h_hat.shape)}")
+    data_idx: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor, dict[str, Any]]:
+    """Align Sionna's LS output with BayesRoute's exact effective grid.
+
+    Sionna's OFDM channel estimator normally returns the *effective* grid
+    after removing nulled subcarriers.  Some estimator implementations may
+    instead return the full FFT grid.  The previous control checked the FFT
+    width first, which could re-index an already-effective tensor and launch
+    an asynchronous CUDA out-of-bounds gather.  This function identifies the
+    effective layout first, validates every index on CPU, and records the
+    complete shape contract before any detector call.
+    """
     if h_hat.ndim != 7 or int(h_hat.shape[1]) != 1:
         raise RuntimeError(f"Unexpected LS estimate shape: {tuple(h_hat.shape)}")
+    if not torch.is_complex(h_hat):
+        raise RuntimeError("Sionna LS channel estimate must be complex")
+
+    raw_h_shape = [int(x) for x in h_hat.shape]
+    raw_err_shape = [int(x) for x in torch.as_tensor(err_var).shape]
     batch_size = int(h_hat.shape[0])
     num_rx = int(h_hat.shape[2])
     num_users = int(h_hat.shape[3])
     num_layers = int(h_hat.shape[4])
+    num_symbols = int(h_hat.shape[5])
+    observed_width = int(h_hat.shape[6])
+    expected_width = int(context.grid.num_effective_subcarriers)
+    fft_size = int(context.grid.fft_size)
+    expected_symbols = int(context.grid.num_ofdm_symbols)
+    expected_streams = int(context.grid.num_streams)
+
+    if num_symbols != expected_symbols:
+        raise RuntimeError(
+            f"LS OFDM-symbol count {num_symbols} != bridge count {expected_symbols}"
+        )
+    if num_users * num_layers != expected_streams:
+        raise RuntimeError(
+            "LS user/layer dimensions disagree with the bridge: "
+            f"users={num_users}, layers={num_layers}, streams={expected_streams}"
+        )
+
+    err_var = _broadcast_ls_error_variance(
+        err_var, h_hat.shape, device=h_hat.device
+    )
+    layout: str
+    effective_bounds: tuple[int, int] | None = None
+
+    # Effective-grid output is the documented Sionna estimator behavior and
+    # must be checked before the full-FFT alternative, especially when the two
+    # widths happen to be numerically equal.
+    if observed_width == expected_width:
+        layout = "effective_grid_as_returned"
+    elif observed_width == fft_size:
+        effective = torch.as_tensor(
+            context.grid.effective_subcarrier_ind,
+            dtype=torch.long,
+        ).reshape(-1)
+        if int(effective.numel()) != expected_width:
+            raise RuntimeError(
+                "effective_subcarrier_ind length does not match the bridge grid"
+            )
+        effective_bounds = _cpu_index_bounds(
+            effective, observed_width, name="effective_subcarrier_ind"
+        )
+        effective_device = effective.to(h_hat.device)
+        h_hat = torch.index_select(h_hat, -1, effective_device)
+        err_var = torch.index_select(err_var, -1, effective_device)
+        layout = "full_fft_selected_to_effective_grid"
+    else:
+        raise RuntimeError(
+            "Unexpected Sionna LS frequency width: "
+            f"observed={observed_width}, effective={expected_width}, fft={fft_size}"
+        )
+
+    if int(h_hat.shape[-1]) != expected_width:
+        raise RuntimeError("LS effective-grid alignment produced the wrong width")
+    expected_grid_length = expected_symbols * expected_width
+    data_bounds = _cpu_index_bounds(
+        data_idx, expected_grid_length, name="data_idx"
+    )
+
     mean = h_hat[:, 0].permute(0, 2, 3, 1, 4, 5).reshape(
         batch_size,
-        num_users * num_layers,
+        expected_streams,
         num_rx,
-        -1,
-    )
+        expected_grid_length,
+    ).contiguous()
     variance = err_var[:, 0].permute(0, 2, 3, 1, 4, 5).reshape(
         batch_size,
-        num_users * num_layers,
+        expected_streams,
         num_rx,
-        -1,
+        expected_grid_length,
+    ).contiguous()
+    if mean.shape[-1] != expected_grid_length or variance.shape != mean.shape:
+        raise RuntimeError("LS flattening contract failed")
+    if not torch.isfinite(mean).all().item():
+        raise RuntimeError("LS channel estimate contains non-finite values")
+    if not torch.isfinite(variance).all().item():
+        raise RuntimeError("LS error variance contains non-finite values")
+
+    report = {
+        "version": LS_ALIGNMENT_PATCH_VERSION,
+        "passed": True,
+        "layout": layout,
+        "raw_h_hat_shape": raw_h_shape,
+        "raw_err_var_shape": raw_err_shape,
+        "broadcast_err_var_shape": [int(x) for x in err_var.shape],
+        "aligned_mean_shape": [int(x) for x in mean.shape],
+        "expected_grid_length": int(expected_grid_length),
+        "observed_frequency_width": int(observed_width),
+        "effective_frequency_width": int(expected_width),
+        "fft_size": int(fft_size),
+        "effective_index_bounds": (
+            list(effective_bounds) if effective_bounds is not None else None
+        ),
+        "data_index_bounds": list(data_bounds),
+        "effective_grid_checked_before_fft": True,
+        "cpu_index_validation": True,
+    }
+    return mean.to(torch.complex64), variance.real.clamp_min(1e-8), report
+
+
+def ls_posterior_from_receiver(
+    receiver: Any,
+    context: Any,
+    batch: Any,
+) -> tuple[PosteriorOutput, dict[str, Any]]:
+    """Expose and safely align Sionna's LS estimate for factorization tests."""
+    estimator = getattr(receiver, "_channel_estimator", None)
+    if estimator is None:
+        raise RuntimeError("Standard LS receiver has no channel estimator")
+    h_hat, err_var = estimator(batch.raw_y, batch.noise_var)
+    mean, variance, report = _align_sionna_ls_grid(
+        h_hat, err_var, context, batch.data_idx
     )
     var_diag = variance.mean(dim=(0, 2)).real.clamp_min(1e-8)
-    n = int(var_diag.shape[0])
-    local_cov = torch.zeros(
-        n,
-        n,
-        int(var_diag.shape[-1]),
-        dtype=torch.complex64,
-        device=mean.device,
-    )
-    index = torch.arange(n, device=mean.device)
-    local_cov[index, index] = var_diag.to(torch.complex64)
-    return PosteriorOutput(
-        mean=mean.to(torch.complex64),
+    # Avoid device-side advanced-index assignment.  [N,R] -> [R,N,N] -> [N,N,R].
+    local_cov = torch.diag_embed(var_diag.transpose(0, 1).to(torch.complex64))
+    local_cov = local_cov.permute(1, 2, 0).contiguous()
+    posterior = PosteriorOutput(
+        mean=mean,
         var_diag=var_diag,
         local_cov=local_cov,
         latent_cov=torch.zeros(1, 1, dtype=torch.complex64, device=mean.device),
@@ -446,6 +586,7 @@ def ls_posterior_from_receiver(
             batch.noise_var, dtype=torch.float32, device=mean.device
         ),
     )
+    return posterior, report
 
 
 def ls_repaired_forward(
@@ -454,13 +595,35 @@ def ls_repaired_forward(
     detector: torch.nn.Module,
     batch: Any,
 ) -> dict[str, Any]:
-    posterior = ls_posterior_from_receiver(receiver, context, batch)
-    _, graph = posterior_graph(posterior, batch)
+    """Run the repaired detector on Sionna LS estimates with local data indexing."""
+    posterior, alignment = ls_posterior_from_receiver(
+        receiver, context, batch
+    )
+    data_idx = torch.as_tensor(
+        batch.data_idx, dtype=torch.long, device=posterior.mean.device
+    ).reshape(-1)
+    # Bounds were checked on CPU by _align_sionna_ls_grid.  Slice once and let
+    # both graph construction and detection use a local [0,D) index.  This
+    # removes the old double-indexing ambiguity while remaining mathematically
+    # identical on the data REs.
+    mean_data = torch.index_select(posterior.mean, -1, data_idx)
+    covariance_data = torch.index_select(posterior.local_cov, -1, data_idx)
+    y_data = torch.index_select(batch.y, -1, data_idx)
+    local_idx = torch.arange(
+        int(data_idx.numel()), dtype=torch.long, device=posterior.mean.device
+    )
+    kappa = coupling_matrix(
+        mean_data.detach(),
+        covariance_data.detach(),
+        local_idx,
+        batch.noise_var.detach(),
+    )
+    graph = coupling_selection_mask(kappa, float(SELECTED_EDGE_MASS))
     output = detector(
-        batch.y,
-        posterior.mean,
-        posterior.local_cov,
-        batch.data_idx,
+        y_data,
+        mean_data,
+        covariance_data,
+        local_idx,
         batch.noise_var,
         graph,
         covariance_mode=SELECTED_COVARIANCE_MODE,
@@ -470,8 +633,108 @@ def ls_repaired_forward(
     result["reference_graph_mask"] = graph
     result["graph_mask"] = graph
     result["edge_density"] = graph.float().mean()
-    result["graph_mode"] = "ls_posterior"
+    result["graph_mode"] = "ls_posterior_data_local"
+    result["ls_grid_alignment_report"] = alignment
+    result["ls_detector_local_data_indexing"] = True
     return result
+
+
+def ls_alignment_self_test() -> dict[str, Any]:
+    """Pure-Torch tests for effective/full-grid alignment and range rejection."""
+    class DummyEstimator:
+        def __init__(self, h_hat: torch.Tensor, err_var: torch.Tensor) -> None:
+            self.h_hat = h_hat
+            self.err_var = err_var
+
+        def __call__(self, _y: torch.Tensor, _no: torch.Tensor):
+            return self.h_hat, self.err_var
+
+    def make_context(*, fft_size: int, effective_width: int, effective: list[int]):
+        return SimpleNamespace(
+            grid=SimpleNamespace(
+                num_effective_subcarriers=effective_width,
+                fft_size=fft_size,
+                num_ofdm_symbols=2,
+                num_streams=2,
+                effective_subcarrier_ind=torch.tensor(effective, dtype=torch.long),
+            )
+        )
+
+    batch = SimpleNamespace(
+        raw_y=torch.zeros(1),
+        noise_var=torch.tensor(0.2),
+        data_idx=torch.tensor([0, 3, 7], dtype=torch.long),
+    )
+    effective_h = torch.randn(2, 1, 3, 2, 1, 2, 4, dtype=torch.complex64)
+    # Deliberately invalid full-grid indices prove that effective-width output
+    # is accepted before any attempt to apply effective_subcarrier_ind.
+    context_effective = make_context(
+        fft_size=4, effective_width=4, effective=[10, 11, 12, 13]
+    )
+    posterior_effective, report_effective = ls_posterior_from_receiver(
+        SimpleNamespace(
+            _channel_estimator=DummyEstimator(effective_h, torch.tensor(0.1))
+        ),
+        context_effective,
+        batch,
+    )
+
+    full_h = torch.randn(2, 1, 3, 2, 1, 2, 6, dtype=torch.complex64)
+    full_err = torch.full_like(full_h.real, 0.15)
+    context_full = make_context(
+        fft_size=6, effective_width=4, effective=[1, 2, 4, 5]
+    )
+    posterior_full, report_full = ls_posterior_from_receiver(
+        SimpleNamespace(_channel_estimator=DummyEstimator(full_h, full_err)),
+        context_full,
+        batch,
+    )
+
+    range_rejected = False
+    bad_batch = SimpleNamespace(
+        raw_y=batch.raw_y,
+        noise_var=batch.noise_var,
+        data_idx=torch.tensor([0, 8], dtype=torch.long),
+    )
+    try:
+        ls_posterior_from_receiver(
+            SimpleNamespace(
+                _channel_estimator=DummyEstimator(effective_h, torch.tensor(0.1))
+            ),
+            context_effective,
+            bad_batch,
+        )
+    except RuntimeError as exc:
+        range_rejected = "data_idx out of range" in str(exc)
+
+    checks = {
+        "effective_layout_first": (
+            report_effective["layout"] == "effective_grid_as_returned"
+        ),
+        "scalar_error_variance_broadcast": (
+            report_effective["broadcast_err_var_shape"]
+            == list(effective_h.shape)
+        ),
+        "full_fft_selection": (
+            report_full["layout"] == "full_fft_selected_to_effective_grid"
+        ),
+        "aligned_grid_lengths": (
+            posterior_effective.mean.shape[-1] == 8
+            and posterior_full.mean.shape[-1] == 8
+        ),
+        "local_covariance_shapes": (
+            posterior_effective.local_cov.shape == (2, 2, 8)
+            and posterior_full.local_cov.shape == (2, 2, 8)
+        ),
+        "out_of_range_data_rejected": range_rejected,
+    }
+    return {
+        "version": LS_ALIGNMENT_PATCH_VERSION,
+        "checks": checks,
+        "effective_report": report_effective,
+        "full_fft_report": report_full,
+        "passed": all(checks.values()),
+    }
 
 
 def pure_torch_multiscale_self_test() -> dict[str, Any]:

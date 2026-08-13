@@ -38,6 +38,7 @@ def digest(path):
     return h.hexdigest()
 revision=json.loads(Path('GATE1_NR_POSTERIOR_FACTORIAL_REVISION.json').read_text())
 assert revision.get('revision') == 'gate1_nr_posterior_factorial_v1', revision
+assert revision.get('ls_alignment_patch') == 'gate1_nr_posterior_factorial_ls_alignment_v1', revision
 checked=0
 for raw in Path('GATE1_NR_POSTERIOR_FACTORIAL_MANIFEST.sha256').read_text().splitlines():
     if not raw.strip():
@@ -59,6 +60,7 @@ print('GATE1_NR_POSTERIOR_FACTORIAL_SMOKE_PREFLIGHT_PASS')
 print('MANIFEST_FILES', checked)
 print('GRID_AUDIT', grid['classification'])
 print('FROZEN_CHECKPOINT', digest(checkpoint))
+print('LS_ALIGNMENT_PATCH', revision['ls_alignment_patch'])
 REMOTE_PY
 if squeue -h -u rsadve1 -n brx_post_smoke | grep -q .; then
   echo 'A brx_post_smoke job is already queued or running.' >&2

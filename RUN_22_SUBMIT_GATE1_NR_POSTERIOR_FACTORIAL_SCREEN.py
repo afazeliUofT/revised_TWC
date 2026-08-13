@@ -34,7 +34,10 @@ smoke=json.loads(Path('outputs/gates/GATE1_NR_POSTERIOR_FACTORIAL_SMOKE.json').r
 assert smoke.get('classification') == 'GATE1_NR_POSTERIOR_FACTORIAL_SMOKE_PASS', smoke
 assert smoke.get('overall_pass') is True, smoke
 assert smoke.get('screen_ready') is True, smoke
+assert smoke.get('checks',{{}}).get('ls_alignment_self_test') is True, smoke
+assert smoke.get('checks',{{}}).get('ls_estimator_effective_grid_alignment') is True, smoke
 print('GATE1_NR_POSTERIOR_FACTORIAL_SMOKE_PASS')
+print('LS_ESTIMATOR_ALIGNMENT_PASS')
 REMOTE_PY
 python scripts/gate1_nr_posterior_factorial_screen.py \
   --config configs/gate1_nr_posterior_factorial_screen.yaml \
