@@ -1,0 +1,495 @@
+{
+  "candidate": {
+    "bank_rank": 64,
+    "calibration_loss_weight": 0.05,
+    "channel_loss_weight": 0.05,
+    "context_conditioned": true,
+    "coordinate_mode": "reference_physical",
+    "learning_rate": 0.002,
+    "model_type": "multiscale",
+    "name": "physical_context_multiscale_r64",
+    "rank": 64,
+    "scales": [
+      {
+        "length_f": 0.5,
+        "length_t": 0.25,
+        "rank": 16
+      },
+      {
+        "length_f": 1.0,
+        "length_t": 0.5,
+        "rank": 16
+      },
+      {
+        "length_f": 2.0,
+        "length_t": 1.0,
+        "rank": 16
+      },
+      {
+        "length_f": 4.0,
+        "length_t": 2.0,
+        "rank": 16
+      }
+    ],
+    "steps": 1600
+  },
+  "checkpoint_roundtrip": {
+    "max_abs_logit_error": 0.0,
+    "passed": true
+  },
+  "checks": {
+    "checkpoint_roundtrip": true,
+    "cuda_compute_node": true,
+    "each_case_positive_variance": true,
+    "each_case_posterior_finite": true,
+    "each_grid_has_gradient": true,
+    "ls_alignment_self_test": true,
+    "ls_estimator_effective_grid_alignment": true,
+    "ls_estimator_factorization_path": true,
+    "manifest": true,
+    "mixed_case_gradients": true,
+    "nr_ldpc_paths": true,
+    "optimizer_updates_all_parameters": true,
+    "preconditions": true,
+    "pure_torch_multiscale": true,
+    "selected_detector_contract": true,
+    "shared_parameter_identity": true,
+    "sionna_2_0_1": true
+  },
+  "classification": "GATE1_NR_POSTERIOR_FACTORIAL_SMOKE_PASS",
+  "contract_signature": "33e2882f3c4aa0d749951f08066266aca0c0a9da0fb99df0e9a67c20d11e4fed",
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "sionna": "2.0.1",
+    "torch": "2.13.0"
+  },
+  "gradient_report": [
+    {
+      "finite": true,
+      "index": 0,
+      "norm": 0.10782177746295929,
+      "present": true,
+      "shape": [
+        64
+      ]
+    },
+    {
+      "finite": true,
+      "index": 1,
+      "norm": 0.00843195803463459,
+      "present": true,
+      "shape": []
+    },
+    {
+      "finite": true,
+      "index": 2,
+      "norm": 0.1674896478652954,
+      "present": true,
+      "shape": [
+        4
+      ]
+    },
+    {
+      "finite": true,
+      "index": 3,
+      "norm": 0.6348458528518677,
+      "present": true,
+      "shape": [
+        4,
+        13
+      ]
+    }
+  ],
+  "ls_alignment_self_test": {
+    "checks": {
+      "aligned_grid_lengths": true,
+      "effective_layout_first": true,
+      "full_fft_selection": true,
+      "local_covariance_shapes": true,
+      "out_of_range_data_rejected": true,
+      "scalar_error_variance_broadcast": true
+    },
+    "effective_report": {
+      "aligned_mean_shape": [
+        2,
+        2,
+        3,
+        8
+      ],
+      "broadcast_err_var_shape": [
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        4
+      ],
+      "cpu_index_validation": true,
+      "data_index_bounds": [
+        0,
+        7
+      ],
+      "effective_frequency_width": 4,
+      "effective_grid_checked_before_fft": true,
+      "effective_index_bounds": null,
+      "expected_grid_length": 8,
+      "fft_size": 4,
+      "layout": "effective_grid_as_returned",
+      "observed_frequency_width": 4,
+      "passed": true,
+      "raw_err_var_shape": [],
+      "raw_h_hat_shape": [
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        4
+      ],
+      "version": "gate1_nr_posterior_factorial_ls_alignment_v1"
+    },
+    "full_fft_report": {
+      "aligned_mean_shape": [
+        2,
+        2,
+        3,
+        8
+      ],
+      "broadcast_err_var_shape": [
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        4
+      ],
+      "cpu_index_validation": true,
+      "data_index_bounds": [
+        0,
+        7
+      ],
+      "effective_frequency_width": 4,
+      "effective_grid_checked_before_fft": true,
+      "effective_index_bounds": [
+        1,
+        5
+      ],
+      "expected_grid_length": 8,
+      "fft_size": 6,
+      "layout": "full_fft_selected_to_effective_grid",
+      "observed_frequency_width": 6,
+      "passed": true,
+      "raw_err_var_shape": [
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        6
+      ],
+      "raw_h_hat_shape": [
+        2,
+        1,
+        3,
+        2,
+        1,
+        2,
+        6
+      ],
+      "version": "gate1_nr_posterior_factorial_ls_alignment_v1"
+    },
+    "passed": true,
+    "version": "gate1_nr_posterior_factorial_ls_alignment_v1"
+  },
+  "manifest": {
+    "checked": 16,
+    "mismatches": [],
+    "passed": true
+  },
+  "optimizer_updated": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "overall_pass": true,
+  "per_case": [
+    {
+      "case": "factorial_smoke_umi_4prb",
+      "coded": {
+        "coded_ber": 0.110243059694767,
+        "coded_bit_nll": 0.33176344633102417,
+        "coded_brier": 0.09943371266126633
+      },
+      "decoded_tbler": 0.25,
+      "loss": 0.33176344633102417,
+      "ls_control_shape": [
+        2,
+        4,
+        8,
+        672
+      ],
+      "ls_detector_local_data_indexing": true,
+      "ls_estimate_repaired_tbler": 0.0,
+      "ls_grid_alignment": {
+        "aligned_mean_shape": [
+          2,
+          4,
+          8,
+          672
+        ],
+        "broadcast_err_var_shape": [
+          2,
+          1,
+          8,
+          4,
+          1,
+          14,
+          48
+        ],
+        "cpu_index_validation": true,
+        "data_index_bounds": [
+          0,
+          671
+        ],
+        "effective_frequency_width": 48,
+        "effective_grid_checked_before_fft": true,
+        "effective_index_bounds": null,
+        "expected_grid_length": 672,
+        "fft_size": 48,
+        "layout": "effective_grid_as_returned",
+        "observed_frequency_width": 48,
+        "passed": true,
+        "raw_err_var_shape": [
+          1,
+          1,
+          1,
+          4,
+          1,
+          14,
+          48
+        ],
+        "raw_h_hat_shape": [
+          2,
+          1,
+          8,
+          4,
+          1,
+          14,
+          48
+        ],
+        "version": "gate1_nr_posterior_factorial_ls_alignment_v1"
+      },
+      "model": {
+        "context_conditioned": true,
+        "context_dim": 13,
+        "coordinate_mode": "reference_physical",
+        "model_type": "multiscale",
+        "num_scales": 4,
+        "rank": 64,
+        "scale_gains": [
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "trainable_parameters": 121,
+        "version": "context_psd_multiscale_v1"
+      },
+      "num_prb": 4,
+      "positive_variance": true,
+      "posterior": {
+        "channel_nmse": 0.15701830387115479,
+        "coverage95": 0.9988064169883728,
+        "normalized_error_mean": 0.2481715977191925
+      },
+      "posterior_finite": true,
+      "standard_ls_lmmse_tbler": 0.0
+    },
+    {
+      "case": "factorial_smoke_umi_8prb",
+      "coded": {
+        "coded_ber": 0.1810980886220932,
+        "coded_bit_nll": 0.39573976397514343,
+        "coded_brier": 0.12794919312000275
+      },
+      "decoded_tbler": 0.875,
+      "loss": 0.39573976397514343,
+      "ls_control_shape": [
+        2,
+        4,
+        8,
+        1344
+      ],
+      "ls_detector_local_data_indexing": true,
+      "ls_estimate_repaired_tbler": 0.0,
+      "ls_grid_alignment": {
+        "aligned_mean_shape": [
+          2,
+          4,
+          8,
+          1344
+        ],
+        "broadcast_err_var_shape": [
+          2,
+          1,
+          8,
+          4,
+          1,
+          14,
+          96
+        ],
+        "cpu_index_validation": true,
+        "data_index_bounds": [
+          0,
+          1343
+        ],
+        "effective_frequency_width": 96,
+        "effective_grid_checked_before_fft": true,
+        "effective_index_bounds": null,
+        "expected_grid_length": 1344,
+        "fft_size": 96,
+        "layout": "effective_grid_as_returned",
+        "observed_frequency_width": 96,
+        "passed": true,
+        "raw_err_var_shape": [
+          1,
+          1,
+          1,
+          4,
+          1,
+          14,
+          96
+        ],
+        "raw_h_hat_shape": [
+          2,
+          1,
+          8,
+          4,
+          1,
+          14,
+          96
+        ],
+        "version": "gate1_nr_posterior_factorial_ls_alignment_v1"
+      },
+      "model": {
+        "context_conditioned": true,
+        "context_dim": 13,
+        "coordinate_mode": "reference_physical",
+        "model_type": "multiscale",
+        "num_scales": 4,
+        "rank": 64,
+        "scale_gains": [
+          0.50540691614151,
+          0.4981846809387207,
+          0.4981846809387207,
+          0.4981846809387207
+        ],
+        "trainable_parameters": 121,
+        "version": "context_psd_multiscale_v1"
+      },
+      "num_prb": 8,
+      "positive_variance": true,
+      "posterior": {
+        "channel_nmse": 0.2822324335575104,
+        "coverage95": 0.9892714023590088,
+        "normalized_error_mean": 0.5721204280853271
+      },
+      "posterior_finite": true,
+      "standard_ls_lmmse_tbler": 0.0
+    }
+  ],
+  "per_grid_gradient_report": [
+    {
+      "all_finite": true,
+      "all_present": true,
+      "case": "factorial_smoke_umi_4prb",
+      "parameter_norms": [
+        0.047732025384902954,
+        0.0018548647640272975,
+        0.08841608464717865,
+        0.33225053548812866
+      ],
+      "total_norm": 0.347116132046788
+    },
+    {
+      "all_finite": true,
+      "all_present": true,
+      "case": "factorial_smoke_umi_8prb",
+      "parameter_norms": [
+        0.06345820426940918,
+        0.01028682291507721,
+        0.08302325010299683,
+        0.32284316420555115
+      ],
+      "total_norm": 0.33948981007786
+    }
+  ],
+  "preconditions": {
+    "checks": {
+      "checkpoint_hash": true,
+      "checkpoint_present": true,
+      "grid_audit_classification": true,
+      "grid_audit_complete": true,
+      "grid_audit_rows": true
+    },
+    "passed": true
+  },
+  "publication_nr_ready": false,
+  "pure_torch_self_test": {
+    "context_changes_scale_gains": true,
+    "first_report": {
+      "context_conditioned": true,
+      "context_dim": 13,
+      "num_scales": 4,
+      "rank": 16,
+      "scale_gains": [
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "trainable_parameters": 73,
+      "version": "context_psd_multiscale_v1"
+    },
+    "gradients_nonzero_finite": true,
+    "passed": true,
+    "posterior_finite": true,
+    "posterior_psd": true,
+    "second_report": {
+      "context_conditioned": true,
+      "context_dim": 13,
+      "num_scales": 4,
+      "rank": 16,
+      "scale_gains": [
+        0.5054068565368652,
+        0.4981846809387207,
+        0.4981846809387207,
+        0.4981846809387207
+      ],
+      "trainable_parameters": 73,
+      "version": "context_psd_multiscale_v1"
+    },
+    "shared_parameters": {
+      "context_map": true,
+      "feature_weights": true,
+      "noise": true,
+      "scale_bias": true
+    },
+    "unique_parameter_tensors": 4
+  },
+  "screen_ready": true,
+  "shared_parameter_identity": {
+    "context_to_scale": true,
+    "log_noise_scale": true,
+    "raw_feature_weights": true,
+    "raw_scale_bias": true
+  },
+  "version": "gate1_nr_posterior_factorial_v1"
+}
