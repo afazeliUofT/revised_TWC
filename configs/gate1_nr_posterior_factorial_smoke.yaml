@@ -1,0 +1,71 @@
+revision: gate1_nr_posterior_factorial_v1
+seed: 2026082101
+batch_size: 2
+ebno_db: 6.0
+bp_iterations: 6
+operator_seed: 58001
+candidate:
+  name: physical_context_multiscale_r64
+  coordinate_mode: reference_physical
+  model_type: multiscale
+  rank: 64
+  bank_rank: 64
+  context_conditioned: true
+  learning_rate: 0.002
+  channel_loss_weight: 0.05
+  calibration_loss_weight: 0.05
+  steps: 1600
+  scales:
+  - rank: 16
+    length_f: 0.5
+    length_t: 0.25
+  - rank: 16
+    length_f: 1.0
+    length_t: 0.5
+  - rank: 16
+    length_f: 2.0
+    length_t: 1.0
+  - rank: 16
+    length_f: 4.0
+    length_t: 2.0
+cases:
+- name: factorial_smoke_umi_4prb
+  scenario: umi
+  num_users: 4
+  num_rx_ant: 8
+  num_layers_per_user: 1
+  num_prb: 4
+  subcarrier_spacing_khz: 30
+  dmrs_config_type: 1
+  dmrs_length: 1
+  dmrs_additional_position: 1
+  num_cdm_groups_without_data: 2
+  dmrs_ports:
+  - 0
+  - 1
+  - 2
+  - 3
+  mcs_index: 10
+  mcs_table: 1
+  speed_mps: 3.0
+  n_cell_id: 71
+- name: factorial_smoke_umi_8prb
+  scenario: umi
+  num_users: 4
+  num_rx_ant: 8
+  num_layers_per_user: 1
+  num_prb: 8
+  subcarrier_spacing_khz: 30
+  dmrs_config_type: 1
+  dmrs_length: 1
+  dmrs_additional_position: 1
+  num_cdm_groups_without_data: 2
+  dmrs_ports:
+  - 0
+  - 1
+  - 2
+  - 3
+  mcs_index: 10
+  mcs_table: 1
+  speed_mps: 3.0
+  n_cell_id: 72

@@ -1,0 +1,50 @@
+{
+  "revision": "gate1_nr_posterior_factorial_v1",
+  "date": "2026-08-12",
+  "required_base_commit": "61e2353f249556252063a309ba74a267dd79855f",
+  "required_grid_audit_classification": "GRID_SCALE_COORDINATE_HYPOTHESIS_NOT_SUPPORTED",
+  "required_grid_audit_rows": 360,
+  "required_frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+  "scientific_purpose": "Fairly separate missing wide-grid training, coordinate choice, posterior-basis capacity, posterior context conditioning, and detector-estimator interface effects before any publication-scale campaign.",
+  "architecture_changes": {
+    "detector_changed": false,
+    "selected_detector": "damped_extrinsic_lmmse_v1_i4_d0p7_diagonal",
+    "posterior_candidates": 6,
+    "coordinate_modes": [
+      "allocation_normalized",
+      "reference_physical"
+    ],
+    "posterior_families": [
+      "single_scale_rank24",
+      "multiscale_rank64",
+      "context_conditioned_multiscale_rank64"
+    ]
+  },
+  "training_contract": {
+    "training_prb": [4, 8],
+    "updates_per_training_grid_per_candidate": 800,
+    "total_updates_per_candidate": 1600,
+    "common_random_streams_across_candidates": true,
+    "fixed_validation_streams": true,
+    "resume_safe": true,
+    "training_convergence_reported": true
+  },
+  "evaluation_contract": {
+    "untouched_holdout_prb": 12,
+    "candidate_selection_uses_holdout": false,
+    "expected_rows": 792,
+    "paired_seeds": true,
+    "baseline_controls": [
+      "frozen_old_global",
+      "winner_uncertainty_off",
+      "ls_estimate_repaired",
+      "ls_lmmse",
+      "perfect_csi_lmmse"
+    ]
+  },
+  "smoke_job_name": "brx_post_smoke",
+  "screen_job_name": "brx_post_fact",
+  "screen_slurm_walltime": "01:30:00",
+  "screen_internal_deadline_minutes": 82,
+  "publication_nr_ready": false
+}
