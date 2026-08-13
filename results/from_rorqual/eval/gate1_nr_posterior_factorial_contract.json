@@ -1,0 +1,109 @@
+{
+  "candidate_checkpoints": {
+    "alloc_context_multiscale_r64": "9d2f10440c0c7d2a94130e7968f32d76f2245532df7ebdfc99fb93187c3beb7d",
+    "alloc_multiscale_r64": "b0d0e038e0bc6a887cf353b133274c6c0ef6a3218a4a4625dc4554ccddb91ce0",
+    "alloc_single_r24": "fccb8865a94aacfd66558f04d8334b233676b3d9657bdfaefe97c9363e00c4fc",
+    "physical_context_multiscale_r64": "7f6545afdcfb581b36b2a5f9cb4f8814981717056d018d0cd4a18f4e4ce7d9e6",
+    "physical_multiscale_r64": "4928987af92d054554e44adb9206eb65b55c4977b6696768bccff6f3e71bcea9",
+    "physical_single_r24": "d814ee2576ec3fced5b1c206d5200d1f91e4bbdf58ef0dacabee4a86536a8eb1"
+  },
+  "config_sha256": "ab3d84218bde554958459e649241d5932911b4d97aad34f3a4bf7e6a0adc8bce",
+  "evaluation": {
+    "batch_size": 16,
+    "bp_iterations": 20,
+    "cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "trained_grid",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 91,
+        "name": "factorial_eval_umi_4prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "trained_grid",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 92,
+        "name": "factorial_eval_umi_8prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 8,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "untouched_grid_holdout",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 93,
+        "name": "factorial_holdout_umi_12prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 12,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "ebno_db": [
+      6.0,
+      10.0,
+      14.0
+    ],
+    "repetitions": 8
+  },
+  "frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+  "signature": "afc653e584e820f63a54e136c868a3ede322172e37c08c6e883f351fe5796791",
+  "source_sha256": {
+    "configs/gate1_nr_posterior_factorial_screen.yaml": "ab3d84218bde554958459e649241d5932911b4d97aad34f3a4bf7e6a0adc8bce",
+    "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+    "scripts/gate1_nr_posterior_factorial_screen.py": "40460d4e016b9c5f0acd60a8f845fe9f0bea52190cbadea1cd7bc25acfeab28d",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "version": "gate1_nr_posterior_factorial_v1",
+  "winner": "physical_context_multiscale_r64"
+}

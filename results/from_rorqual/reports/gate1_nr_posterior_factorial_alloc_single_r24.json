@@ -1,0 +1,270 @@
+{
+  "best_checkpoint": "outputs/gate1_nr_posterior_factorial/checkpoints/alloc_single_r24/best.pt",
+  "best_checkpoint_sha256": "fccb8865a94aacfd66558f04d8334b233676b3d9657bdfaefe97c9363e00c4fc",
+  "best_score": 0.3425007787836133,
+  "best_step": 1599,
+  "candidate": {
+    "bank_rank": 32,
+    "calibration_loss_weight": 0.05,
+    "channel_loss_weight": 0.05,
+    "context_conditioned": false,
+    "coordinate_mode": "allocation_normalized",
+    "learning_rate": 0.002,
+    "model_type": "single",
+    "name": "alloc_single_r24",
+    "rank": 24,
+    "scales": [],
+    "steps": 1600
+  },
+  "complete": true,
+  "contract": {
+    "candidate": {
+      "bank_rank": 32,
+      "calibration_loss_weight": 0.05,
+      "channel_loss_weight": 0.05,
+      "context_conditioned": false,
+      "coordinate_mode": "allocation_normalized",
+      "learning_rate": 0.002,
+      "model_type": "single",
+      "name": "alloc_single_r24",
+      "rank": 24,
+      "scales": [],
+      "steps": 1600
+    },
+    "config_sha256": "ab3d84218bde554958459e649241d5932911b4d97aad34f3a4bf7e6a0adc8bce",
+    "frozen_checkpoint_sha256": "4f71c7a0a925005d676687e90c5a241668cfcfed21503e2874c3528721c66980",
+    "grid_audit_classification": "GRID_SCALE_COORDINATE_HYPOTHESIS_NOT_SUPPORTED",
+    "selected_detector": {
+      "covariance_mode": "diagonal",
+      "damping": 0.7,
+      "edge_mass": 0.8,
+      "iterations": 4
+    },
+    "signature": "d2b7edf532475a858df22dcad4899a498144bbb2a6287bce55e889a0cb827ecc",
+    "source_sha256": {
+      "configs/gate1_nr_posterior_factorial_screen.yaml": "ab3d84218bde554958459e649241d5932911b4d97aad34f3a4bf7e6a0adc8bce",
+      "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+      "scripts/gate1_nr_posterior_factorial_screen.py": "40460d4e016b9c5f0acd60a8f845fe9f0bea52190cbadea1cd7bc25acfeab28d",
+      "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+      "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+      "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+      "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+      "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+    },
+    "training": {
+      "batch_size": 8,
+      "ebno_db_max": 14.0,
+      "ebno_db_min": -2.0,
+      "grad_clip": 1.0,
+      "save_every": 40,
+      "updates_per_training_grid": 800,
+      "validation_batch_size": 8,
+      "validation_ebno_db": [
+        2.0,
+        6.0,
+        10.0,
+        14.0
+      ],
+      "validation_every": 100,
+      "validation_seed": 2026082299,
+      "weight_decay": 0.0001
+    },
+    "training_cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 81,
+        "name": "factorial_train_umi_4prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 4,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 82,
+        "name": "factorial_train_umi_8prb",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 8,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "version": "gate1_nr_posterior_factorial_v1"
+  },
+  "model": {
+    "context_conditioned": false,
+    "coordinate_mode": "allocation_normalized",
+    "model_type": "single",
+    "rank": 24,
+    "trainable_parameters": 25
+  },
+  "steps": 1600,
+  "tail_validation_improvement": 0.008815528817171403,
+  "tail_validation_tolerance": 0.002,
+  "training_converged": false,
+  "updates_per_training_grid": 800,
+  "validation": {
+    "calibration_abs_log": 0.38945085057127093,
+    "mean_channel_nmse": 0.10433454625308514,
+    "mean_coded_bit_nll": 0.22576947044581175,
+    "records": [
+      {
+        "case": "factorial_train_umi_4prb",
+        "channel_nmse": 0.11692775040864944,
+        "coded_ber": 0.123046875,
+        "coded_bit_nll": 0.2837311327457428,
+        "coded_brier": 0.08835058659315109,
+        "coverage95": 0.9626532793045044,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 0.6906247735023499,
+        "num_prb": 4
+      },
+      {
+        "case": "factorial_train_umi_4prb",
+        "channel_nmse": 0.06347447633743286,
+        "coded_ber": 0.0790066197514534,
+        "coded_bit_nll": 0.199819877743721,
+        "coded_brier": 0.05879911407828331,
+        "coverage95": 0.982530415058136,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 0.49608591198921204,
+        "num_prb": 4
+      },
+      {
+        "case": "factorial_train_umi_4prb",
+        "channel_nmse": 0.07999169081449509,
+        "coded_ber": 0.0557590052485466,
+        "coded_bit_nll": 0.16213065385818481,
+        "coded_brier": 0.04230454936623573,
+        "coverage95": 0.9422743320465088,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 0.7974012494087219,
+        "num_prb": 4
+      },
+      {
+        "case": "factorial_train_umi_4prb",
+        "channel_nmse": 0.04389139264822006,
+        "coded_ber": 0.0233018659055233,
+        "coded_bit_nll": 0.07156992703676224,
+        "coded_brier": 0.018705302849411964,
+        "coverage95": 0.9768337607383728,
+        "ebno_db": 14.0,
+        "normalized_error_mean": 0.46784278750419617,
+        "num_prb": 4
+      },
+      {
+        "case": "factorial_train_umi_8prb",
+        "channel_nmse": 0.15200267732143402,
+        "coded_ber": 0.154812291264534,
+        "coded_bit_nll": 0.3473012447357178,
+        "coded_brier": 0.10917903482913971,
+        "coverage95": 0.9019232988357544,
+        "ebno_db": 2.0,
+        "normalized_error_mean": 1.1657941341400146,
+        "num_prb": 8
+      },
+      {
+        "case": "factorial_train_umi_8prb",
+        "channel_nmse": 0.12860073149204254,
+        "coded_ber": 0.092542864382267,
+        "coded_bit_nll": 0.23944313824176788,
+        "coded_brier": 0.06895022839307785,
+        "coverage95": 0.889604389667511,
+        "ebno_db": 6.0,
+        "normalized_error_mean": 1.2308765649795532,
+        "num_prb": 8
+      },
+      {
+        "case": "factorial_train_umi_8prb",
+        "channel_nmse": 0.09042332321405411,
+        "coded_ber": 0.0635308176279068,
+        "coded_bit_nll": 0.1775403767824173,
+        "coded_brier": 0.04820304363965988,
+        "coverage95": 0.9254726767539978,
+        "ebno_db": 10.0,
+        "normalized_error_mean": 0.9687979221343994,
+        "num_prb": 8
+      },
+      {
+        "case": "factorial_train_umi_8prb",
+        "channel_nmse": 0.15936432778835297,
+        "coded_ber": 0.0929633229970932,
+        "coded_bit_nll": 0.3246194124221802,
+        "coded_brier": 0.07270589470863342,
+        "coverage95": 0.8599311113357544,
+        "ebno_db": 14.0,
+        "normalized_error_mean": 1.9456448554992676,
+        "num_prb": 8
+      }
+    ],
+    "score": 0.3425007787836133,
+    "worst_coded_bit_nll": 0.3473012447357178
+  },
+  "validation_history": [
+    {
+      "score": 0.7947158520930859,
+      "step": 0
+    },
+    {
+      "score": 0.5943857848226217,
+      "step": 200
+    },
+    {
+      "score": 0.4719155346966441,
+      "step": 400
+    },
+    {
+      "score": 0.399950364751881,
+      "step": 600
+    },
+    {
+      "score": 0.3713668848160842,
+      "step": 800
+    },
+    {
+      "score": 0.3585971947516034,
+      "step": 1000
+    },
+    {
+      "score": 0.3513163076007847,
+      "step": 1200
+    },
+    {
+      "score": 0.3463055575712762,
+      "step": 1400
+    },
+    {
+      "score": 0.3425007787836133,
+      "step": 1599
+    }
+  ],
+  "version": "gate1_nr_posterior_factorial_v1"
+}
