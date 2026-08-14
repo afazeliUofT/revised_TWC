@@ -1,0 +1,383 @@
+{
+  "aggregate_csv": "outputs/eval/gate1_nr_turbo_posterior_aggregate.csv",
+  "classification": "GATE1_POSTERIOR_BASIS_LOCALIZATION_REQUIRED",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "slurm_job_id": "18989051",
+    "torch": "2.13.0"
+  },
+  "evaluation": {
+    "complete": true,
+    "expected_rows": 492,
+    "rows": 492,
+    "unique_rows": 492
+  },
+  "holdout": {
+    "complete": true,
+    "contract": {
+      "cases": [
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "fresh_untouched_grid_holdout",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 143,
+          "name": "turbo_holdout_umi_12prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 12,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        }
+      ],
+      "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+      "config_sha256": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+      "ebno_db": [
+        6.0,
+        10.0,
+        14.0
+      ],
+      "holdout_used_for_selection": false,
+      "phase": "fresh_12prb_holdout",
+      "repetitions": 12,
+      "selection_contract_signature": "618eed32652fb47ad31fe39c80dcd5b1196e8f6c4e1316ec0b3290e54f0ae6a0",
+      "selection_csv_sha256": "153b69082a014f53460ef3b46fcb6e15d0b07359a7ae56770ebba9e011fc1e83",
+      "signature": "0478d015de19b0a2f8a532574327c49a27e32dc0dd727279935a424b3b13d41b",
+      "source_sha256": {
+        "configs/gate1_nr_turbo_posterior_screen.yaml": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+        "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+        "scripts/gate1_nr_turbo_posterior_screen.py": "75f362b720c52de083082c98e0780a7168dc2fb7119948ea3ff8d806fed11ebd",
+        "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+        "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+        "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+        "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+        "src/bayesroute/turbo_posterior.py": "f016aa8e7def9266108fd2b148f778d4d3514c7fcc6e6c20a8e3573a266df251"
+      },
+      "variants": [
+        "winner_turbo",
+        "pilot_only_extended",
+        "winner_uncertainty_off",
+        "oracle_symbol_turbo",
+        "ls_estimate_repaired",
+        "ls_lmmse",
+        "perfect_csi_lmmse"
+      ],
+      "version": "gate1_nr_turbo_posterior_v1",
+      "winner": "turbo_f05_r0125",
+      "winner_setting": {
+        "data_fraction": 0.05,
+        "information_damping": 0.125,
+        "max_observations": 64,
+        "min_observations": 16,
+        "name": "turbo_f05_r0125"
+      }
+    },
+    "expected_rows": 252,
+    "rows": 252,
+    "unique_rows": 252
+  },
+  "metrics": {
+    "ls_12prb_tbler": 0.008680555555555556,
+    "ls_repaired_12prb_tbler": 0.008680555555555556,
+    "oracle_turbo_12prb_tbler": 0.06684027777777778,
+    "perfect_12prb_tbler": 0.0,
+    "pilot_only_12prb_tbler": 0.06640625,
+    "winner_12prb_10db_tbler": 0.0703125,
+    "winner_12prb_14db_tbler": 0.08072916666666667,
+    "winner_12prb_channel_nmse": 0.08593447175290846,
+    "winner_12prb_coverage95": 0.8831702387995191,
+    "winner_12prb_normalized_error": 1.5208539399835799,
+    "winner_12prb_tbler": 0.06987847222222222
+  },
+  "next_action": "REPLACE_GLOBAL_RFF_WITH_LOCALIZED_DELAY_DOPPLER_POSTERIOR",
+  "paired_comparisons": {
+    "ls_repaired_minus_ls_tbler": {
+      "ci95_high": 0.0012637724353548876,
+      "ci95_low": -0.0012637724353548876,
+      "mean": 0.0,
+      "pairs": 36
+    },
+    "oracle_minus_pilot_tbler": {
+      "ci95_high": 0.005244024545798211,
+      "ci95_low": -0.004375968990242655,
+      "mean": 0.00043402777777777775,
+      "pairs": 36
+    },
+    "winner_minus_ls_repaired_tbler": {
+      "ci95_high": 0.07568314158530931,
+      "ci95_low": 0.04671269174802401,
+      "mean": 0.061197916666666664,
+      "pairs": 36
+    },
+    "winner_minus_ls_tbler": {
+      "ci95_high": 0.07551679855872016,
+      "ci95_low": 0.04687903477461317,
+      "mean": 0.061197916666666664,
+      "pairs": 36
+    },
+    "winner_minus_pilot_tbler": {
+      "ci95_high": 0.006034631427755703,
+      "ci95_low": 0.0009098130166887417,
+      "mean": 0.003472222222222222,
+      "pairs": 36
+    },
+    "winner_minus_uncertainty_off_tbler": {
+      "ci95_high": -0.04892833232863955,
+      "ci95_low": -0.08735638989358266,
+      "mean": -0.0681423611111111,
+      "pairs": 36
+    }
+  },
+  "plots": [
+    "outputs/plots/gate1_turbo_posterior_selection.png",
+    "outputs/plots/gate1_turbo_posterior_12prb_tbler.png"
+  ],
+  "preconditions": {
+    "checkpoint": "outputs/gate1_nr_posterior_extension/checkpoints/best.pt",
+    "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+    "checks": {
+      "checkpoint_hash": true,
+      "extension_classification": true,
+      "extension_complete": true,
+      "extension_next_action": true,
+      "extension_rows": true,
+      "fresh_holdout": true,
+      "recorded_checkpoint_hash": true,
+      "training_converged": true,
+      "winner": true
+    },
+    "classification": "GATE1_TURBO_REFINEMENT_REQUIRED",
+    "extension_metrics": {
+      "extended_12prb_10db_tbler": 0.046875,
+      "extended_12prb_14db_tbler": 0.0703125,
+      "extended_12prb_channel_nmse": 0.08240823013087109,
+      "extended_12prb_coverage95": 0.8975932482216094,
+      "extended_12prb_normalized_error": 1.3053083535697725,
+      "extended_12prb_tbler": 0.05555555555555555,
+      "extended_4prb_tbler": 0.012586805555555556,
+      "extended_8prb_tbler": 0.04123263888888889,
+      "ls_12prb_tbler": 0.0030381944444444445,
+      "ls_repaired_12prb_tbler": 0.0030381944444444445,
+      "original_12prb_tbler": 0.06076388888888889,
+      "perfect_12prb_tbler": 0.0
+    },
+    "next_action": "ADD_ONE_PRINCIPLED_DATA_AIDED_POSTERIOR_UPDATE",
+    "passed": true,
+    "report": "outputs/reports/gate1_nr_posterior_extension.json"
+  },
+  "publication_nr_ready": false,
+  "scientific_checks": {
+    "coverage_reasonable": false,
+    "ls_factorized_matches_standard": true,
+    "no_high_snr_reversal": false,
+    "normalized_error_reasonable": false,
+    "oracle_soft_data_has_value": false,
+    "uncertainty_helps_after_turbo": true,
+    "winner_beats_ls": false,
+    "winner_improves_pilot_only": false,
+    "winner_within_0p01_of_ls": false
+  },
+  "selection": {
+    "complete": true,
+    "contract": {
+      "candidates": [
+        {
+          "data_fraction": 0.05,
+          "information_damping": 0.125,
+          "max_observations": 64,
+          "min_observations": 16,
+          "name": "turbo_f05_r0125"
+        },
+        {
+          "data_fraction": 0.05,
+          "information_damping": 0.25,
+          "max_observations": 64,
+          "min_observations": 16,
+          "name": "turbo_f05_r025"
+        },
+        {
+          "data_fraction": 0.05,
+          "information_damping": 0.5,
+          "max_observations": 64,
+          "min_observations": 16,
+          "name": "turbo_f05_r05"
+        },
+        {
+          "data_fraction": 0.1,
+          "information_damping": 0.125,
+          "max_observations": 96,
+          "min_observations": 16,
+          "name": "turbo_f10_r0125"
+        },
+        {
+          "data_fraction": 0.1,
+          "information_damping": 0.25,
+          "max_observations": 96,
+          "min_observations": 16,
+          "name": "turbo_f10_r025"
+        },
+        {
+          "data_fraction": 0.1,
+          "information_damping": 0.5,
+          "max_observations": 96,
+          "min_observations": 16,
+          "name": "turbo_f10_r05"
+        }
+      ],
+      "cases": [
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "selection_trained_grid",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 141,
+          "name": "turbo_select_umi_4prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 4,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        },
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "selection_trained_grid",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 142,
+          "name": "turbo_select_umi_8prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 8,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        }
+      ],
+      "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+      "config_sha256": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+      "ebno_db": [
+        6.0,
+        10.0,
+        14.0
+      ],
+      "holdout_prb_used": false,
+      "phase": "selection_4prb_8prb_only",
+      "repetitions": 4,
+      "signature": "618eed32652fb47ad31fe39c80dcd5b1196e8f6c4e1316ec0b3290e54f0ae6a0",
+      "source_sha256": {
+        "configs/gate1_nr_turbo_posterior_screen.yaml": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+        "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+        "scripts/gate1_nr_turbo_posterior_screen.py": "75f362b720c52de083082c98e0780a7168dc2fb7119948ea3ff8d806fed11ebd",
+        "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+        "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+        "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+        "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+        "src/bayesroute/turbo_posterior.py": "f016aa8e7def9266108fd2b148f778d4d3514c7fcc6e6c20a8e3573a266df251"
+      },
+      "variants": [
+        "turbo_f05_r0125",
+        "turbo_f05_r025",
+        "turbo_f05_r05",
+        "turbo_f10_r0125",
+        "turbo_f10_r025",
+        "turbo_f10_r05",
+        "pilot_only_extended",
+        "oracle_symbol_turbo",
+        "ls_lmmse",
+        "perfect_csi_lmmse"
+      ],
+      "version": "gate1_nr_turbo_posterior_v1"
+    },
+    "expected_rows": 240,
+    "rows": 240,
+    "unique_rows": 240
+  },
+  "selection_ranking": [
+    {
+      "selection_coded_bit_nll": 0.1343074908169607,
+      "selection_objective": 0.04447579120751471,
+      "selection_tbler": 0.026041666666666668,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f05_r0125"
+    },
+    {
+      "selection_coded_bit_nll": 0.13914682405690348,
+      "selection_objective": 0.04667088286951185,
+      "selection_tbler": 0.027994791666666668,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f10_r0125"
+    },
+    {
+      "selection_coded_bit_nll": 0.13971392344683406,
+      "selection_objective": 0.046699237839008374,
+      "selection_tbler": 0.027994791666666668,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f05_r025"
+    },
+    {
+      "selection_coded_bit_nll": 0.14802487722287572,
+      "selection_objective": 0.04776582719447711,
+      "selection_tbler": 0.028645833333333332,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f10_r025"
+    },
+    {
+      "selection_coded_bit_nll": 0.14869477072109774,
+      "selection_objective": 0.04845036353605489,
+      "selection_tbler": 0.029296875,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f05_r05"
+    },
+    {
+      "selection_coded_bit_nll": 0.1620032953408857,
+      "selection_objective": 0.052370998100377625,
+      "selection_tbler": 0.032552083333333336,
+      "selection_worst_condition_tbler": 0.046875,
+      "variant": "turbo_f10_r05"
+    }
+  ],
+  "version": "gate1_nr_turbo_posterior_v1",
+  "winner": "turbo_f05_r0125",
+  "winner_setting": {
+    "data_fraction": 0.05,
+    "information_damping": 0.125,
+    "max_observations": 64,
+    "min_observations": 16,
+    "name": "turbo_f05_r0125"
+  }
+}

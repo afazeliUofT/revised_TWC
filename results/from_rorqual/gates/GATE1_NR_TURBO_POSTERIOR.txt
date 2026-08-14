@@ -1,0 +1,17 @@
+complete_rows: PASS
+selection_holdout_disjoint: PASS
+holdout_used_for_selection: NO
+training_required: NO
+winner_improves_pilot_only: FAIL
+uncertainty_helps_after_turbo: PASS
+winner_beats_ls: FAIL
+winner_within_0p01_of_ls: FAIL
+ls_factorized_matches_standard: PASS
+oracle_soft_data_has_value: FAIL
+no_high_snr_reversal: FAIL
+coverage_reasonable: FAIL
+normalized_error_reasonable: FAIL
+WINNER: turbo_f05_r0125
+CLASSIFICATION: GATE1_POSTERIOR_BASIS_LOCALIZATION_REQUIRED
+NEXT_ACTION: REPLACE_GLOBAL_RFF_WITH_LOCALIZED_DELAY_DOPPLER_POSTERIOR
+PUBLICATION_NR_READY: NO

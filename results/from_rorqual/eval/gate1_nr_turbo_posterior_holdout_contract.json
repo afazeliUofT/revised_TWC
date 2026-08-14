@@ -1,0 +1,69 @@
+{
+  "cases": [
+    {
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "group": "fresh_untouched_grid_holdout",
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 143,
+      "name": "turbo_holdout_umi_12prb",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 1,
+      "num_prb": 12,
+      "num_rx_ant": 8,
+      "num_users": 4,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    }
+  ],
+  "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+  "config_sha256": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+  "ebno_db": [
+    6.0,
+    10.0,
+    14.0
+  ],
+  "holdout_used_for_selection": false,
+  "phase": "fresh_12prb_holdout",
+  "repetitions": 12,
+  "selection_contract_signature": "618eed32652fb47ad31fe39c80dcd5b1196e8f6c4e1316ec0b3290e54f0ae6a0",
+  "selection_csv_sha256": "153b69082a014f53460ef3b46fcb6e15d0b07359a7ae56770ebba9e011fc1e83",
+  "signature": "0478d015de19b0a2f8a532574327c49a27e32dc0dd727279935a424b3b13d41b",
+  "source_sha256": {
+    "configs/gate1_nr_turbo_posterior_screen.yaml": "5a877383ec1778a143e9eadbcc0a5368eb5bfd6ded496619fa6ed82ab3ac6ca9",
+    "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+    "scripts/gate1_nr_turbo_posterior_screen.py": "75f362b720c52de083082c98e0780a7168dc2fb7119948ea3ff8d806fed11ebd",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+    "src/bayesroute/turbo_posterior.py": "f016aa8e7def9266108fd2b148f778d4d3514c7fcc6e6c20a8e3573a266df251"
+  },
+  "variants": [
+    "winner_turbo",
+    "pilot_only_extended",
+    "winner_uncertainty_off",
+    "oracle_symbol_turbo",
+    "ls_estimate_repaired",
+    "ls_lmmse",
+    "perfect_csi_lmmse"
+  ],
+  "version": "gate1_nr_turbo_posterior_v1",
+  "winner": "turbo_f05_r0125",
+  "winner_setting": {
+    "data_fraction": 0.05,
+    "information_damping": 0.125,
+    "max_observations": 64,
+    "min_observations": 16,
+    "name": "turbo_f05_r0125"
+  }
+}
