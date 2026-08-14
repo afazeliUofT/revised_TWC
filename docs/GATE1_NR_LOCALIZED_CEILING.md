@@ -23,3 +23,25 @@ Decision contract:
 
 The maximum nominal basis rank is 128. The 12-PRB holdout is not used for basis
 selection. No training or hyperparameter optimization is performed.
+
+## Batch-dependent oracle covariance compatibility
+
+The oracle projection controls produce a valid batch-dependent covariance with
+shape `[B,N,N,R]`. The established coupling routine accepts one `[N,N,R]`
+covariance at a time. Patch `gate1_nr_localized_ceiling_batch_graph_v1`
+evaluates the unchanged coupling formula independently for each batch item and
+concatenates the graphs. It never averages oracle covariance across channel
+realizations. A `B=5, N=4` regression test exercises the exact failure mode and
+checks equality with explicit one-sample calls before a Slurm job can be
+submitted.
+
+## Batch-dependent oracle covariance compatibility
+
+The oracle projection controls produce a valid batch-dependent covariance with
+shape `[B,N,N,R]`. The established coupling routine accepts one `[N,N,R]`
+covariance at a time. Patch `gate1_nr_localized_ceiling_batch_graph_v1`
+evaluates the unchanged coupling formula independently for each batch item and
+concatenates the graphs. It never averages oracle covariance across channel
+realizations. A `B=5, N=4` regression test exercises the exact failure mode and
+checks equality with explicit one-sample calls before a Slurm job can be
+submitted.

@@ -1,15 +1,28 @@
 {
-  "revision": "gate1_nr_localized_ceiling_v1",
   "base_evidence_commit": "8411785e656314beec5b61e4b1030929d0761a06",
+  "batch_dependent_graph_patch": "gate1_nr_localized_ceiling_batch_graph_v1",
+  "candidate_count": 4,
+  "expected_rows": 540,
+  "failed_job_discarded": "19005435",
+  "graph_contract": {
+    "batch_covariance_averaging": false,
+    "batch_covariance_handling": "exact per-sample use of established coupling formula",
+    "oracle_batch_covariance_shape": "[B,N,N,R]",
+    "regression_test_batch_size": 5,
+    "regression_test_streams": 4,
+    "shared_covariance_shape": "[N,N,R]"
+  },
+  "hard_abandon_classification": "GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING",
+  "holdout_prb": 12,
+  "holdout_rows": 288,
+  "maximum_nominal_rank": 128,
   "prior_classification": "GATE1_LOCALIZED_DELAY_DOPPLER_POSTERIOR_JUSTIFIED",
   "purpose": "Final bounded-rank oracle go/no-go for beating LS+LMMSE before any localized-posterior training",
-  "training_required": false,
-  "selection_prb": [4, 8],
-  "holdout_prb": 12,
-  "candidate_count": 4,
-  "maximum_nominal_rank": 128,
+  "revision": "gate1_nr_localized_ceiling_v1",
+  "selection_prb": [
+    4,
+    8
+  ],
   "selection_rows": 252,
-  "holdout_rows": 288,
-  "expected_rows": 540,
-  "hard_abandon_classification": "GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING"
+  "training_required": false
 }

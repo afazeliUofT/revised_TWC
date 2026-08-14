@@ -24,6 +24,13 @@ def main() -> None:
 cd {root}
 source .venv/bin/activate
 export PYTHONPATH="$PWD/src:$PWD/scripts:${{PYTHONPATH:-}}"
+python - <<'REMOTE_PY'
+import json
+from pathlib import Path
+revision=json.loads(Path("GATE1_NR_LOCALIZED_CEILING_REVISION.json").read_text())
+assert revision.get("batch_dependent_graph_patch") == "gate1_nr_localized_ceiling_batch_graph_v1", revision
+print("GATE1_NR_LOCALIZED_CEILING_GRAPH_PATCH_PASS", revision["batch_dependent_graph_patch"])
+REMOTE_PY
 python scripts/gate1_nr_localized_ceiling.py --config configs/gate1_nr_localized_ceiling.yaml --preflight-only --device cpu
 if squeue -h -u rsadve1 -n brx_local_ceil | grep -q .; then
   echo 'A brx_local_ceil job is already queued or running.' >&2
@@ -34,6 +41,7 @@ sbatch slurm/gate1_nr_localized_ceiling.sbatch
 '''
     run(["ssh", args.remote, script])
     print("GATE1_NR_LOCALIZED_CEILING_SUBMITTED_OR_RESUMED")
+    print("BATCH_GRAPH_PATCH gate1_nr_localized_ceiling_batch_graph_v1")
     print("EXPECTED_ROWS 540")
     print("TRAINING_REQUIRED NO")
     print("HARD_ABANDON_GATE YES")

@@ -17,6 +17,7 @@ import os
 import platform
 import time
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any, Sequence
 
 import matplotlib.pyplot as plt
@@ -60,6 +61,7 @@ from gate1_nr_turbo_posterior_common import (
 )
 
 VERSION = "gate1_nr_localized_ceiling_v1"
+BATCH_GRAPH_PATCH_VERSION = "gate1_nr_localized_ceiling_batch_graph_v1"
 PRIOR_REPORT = ROOT / "outputs/reports/gate1_nr_turbo_basis_audit.json"
 RAW_SELECTION = ROOT / "outputs/eval/gate1_nr_localized_ceiling_selection.csv"
 RAW_HOLDOUT = ROOT / "outputs/eval/gate1_nr_localized_ceiling_holdout.csv"
@@ -76,6 +78,7 @@ SOURCE_FILES = [
     "configs/gate1_nr_localized_ceiling.yaml",
     "scripts/gate1_nr_localized_ceiling.py",
     "src/bayesroute/localized_delay_doppler.py",
+    "src/bayesroute/models.py",
     "scripts/gate1_nr_turbo_posterior_common.py",
     "scripts/gate1_nr_posterior_factorial_common.py",
     "scripts/gate1_nr_joint_operator_common.py",
@@ -177,6 +180,203 @@ def diagonal_local_covariance(var_diag: torch.Tensor) -> torch.Tensor:
     return local
 
 
+def _slice_batch_tensor(
+    value: torch.Tensor | float,
+    index: int,
+    batch_size: int,
+    *,
+    keep_batch_dim: bool,
+    device: torch.device,
+) -> torch.Tensor:
+    tensor = torch.as_tensor(value, device=device)
+    if tensor.ndim > 0 and int(tensor.shape[0]) == int(batch_size):
+        return tensor[index:index + 1] if keep_batch_dim else tensor[index]
+    return tensor
+
+
+def posterior_graph_batch_aware(
+    posterior: PosteriorOutput,
+    batch: Any,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Build the standard coupling graph for shared or batch-local covariance.
+
+    The common :func:`posterior_graph` contract uses ``local_cov[N,N,R]``.
+    Oracle projection controls in this gate have a different, valid detector
+    contract: ``local_cov[B,N,N,R]``.  For the latter, evaluate the unchanged
+    common coupling formula independently for every batch item and concatenate
+    the resulting ``[1,D,N,N]`` tensors.  This preserves the exact established
+    coupling semantics and avoids silently averaging oracle uncertainty across
+    independent channel realizations.
+    """
+    covariance = posterior.local_cov
+    if covariance.ndim == 3:
+        return posterior_graph(posterior, batch)
+    if covariance.ndim != 4:
+        raise ValueError(
+            "local_cov must have shape [N,N,R] or [B,N,N,R]"
+        )
+
+    batch_size = int(posterior.mean.shape[0])
+    if int(covariance.shape[0]) != batch_size:
+        raise ValueError(
+            "Batch-dependent local covariance has a wrong batch dimension"
+        )
+    if covariance.shape[1] != covariance.shape[2]:
+        raise ValueError(
+            "Batch-dependent local covariance must be square in stream indices"
+        )
+    if int(covariance.shape[1]) != int(posterior.mean.shape[1]):
+        raise ValueError(
+            "Batch-dependent local covariance disagrees with posterior streams"
+        )
+
+    kappa_items: list[torch.Tensor] = []
+    graph_items: list[torch.Tensor] = []
+    for index in range(batch_size):
+        if posterior.var_diag.ndim == 3:
+            if int(posterior.var_diag.shape[0]) != batch_size:
+                raise ValueError(
+                    "Batch-dependent marginal variance has a wrong batch dimension"
+                )
+            sample_var_diag = posterior.var_diag[index]
+        elif posterior.var_diag.ndim == 2:
+            sample_var_diag = posterior.var_diag
+        else:
+            raise ValueError(
+                "var_diag must have shape [N,R] or [B,N,R]"
+            )
+        sample_posterior = PosteriorOutput(
+            mean=posterior.mean[index:index + 1],
+            var_diag=sample_var_diag,
+            local_cov=covariance[index],
+            latent_cov=posterior.latent_cov,
+            effective_noise=_slice_batch_tensor(
+                posterior.effective_noise,
+                index,
+                batch_size,
+                keep_batch_dim=True,
+                device=posterior.mean.device,
+            ),
+        )
+        sample_batch = SimpleNamespace(
+            data_idx=batch.data_idx,
+            noise_var=_slice_batch_tensor(
+                batch.noise_var,
+                index,
+                batch_size,
+                keep_batch_dim=True,
+                device=posterior.mean.device,
+            ),
+        )
+        kappa, graph = posterior_graph(sample_posterior, sample_batch)
+        kappa_items.append(kappa)
+        graph_items.append(graph)
+
+    kappa = torch.cat(kappa_items, dim=0)
+    graph = torch.cat(graph_items, dim=0)
+    expected = (
+        batch_size,
+        int(batch.data_idx.numel()),
+        int(posterior.mean.shape[1]),
+        int(posterior.mean.shape[1]),
+    )
+    if tuple(kappa.shape) != expected or tuple(graph.shape) != expected:
+        raise RuntimeError(
+            f"Batch-aware coupling graph shape mismatch: "
+            f"kappa={tuple(kappa.shape)}, graph={tuple(graph.shape)}, "
+            f"expected={expected}"
+        )
+    return kappa, graph
+
+
+def batch_dependent_posterior_graph_self_test(
+    device: torch.device | str = "cpu",
+) -> dict[str, Any]:
+    """Regression test for the original B>N batch-covariance failure."""
+    dev = torch.device(device)
+    torch.manual_seed(31017)
+    batch_size, n_streams, n_rx, n_re = 5, 4, 3, 11
+    data_idx = torch.tensor([0, 2, 4, 7, 10], dtype=torch.long, device=dev)
+    mean = (
+        torch.randn(batch_size, n_streams, n_rx, n_re, device=dev)
+        + 1j * torch.randn(batch_size, n_streams, n_rx, n_re, device=dev)
+    ).to(torch.complex64) / math.sqrt(2.0)
+    variance = 0.01 + 0.05 * torch.rand(
+        batch_size, n_streams, n_re, device=dev
+    )
+    posterior = PosteriorOutput(
+        mean=mean,
+        var_diag=variance,
+        local_cov=diagonal_local_covariance(variance),
+        latent_cov=torch.zeros(1, 1, dtype=torch.complex64, device=dev),
+        effective_noise=torch.full((batch_size,), 0.2, device=dev),
+    )
+    batch = SimpleNamespace(
+        data_idx=data_idx,
+        noise_var=torch.full((batch_size,), 0.2, device=dev),
+    )
+    kappa, graph = posterior_graph_batch_aware(posterior, batch)
+
+    reference_kappa: list[torch.Tensor] = []
+    reference_graph: list[torch.Tensor] = []
+    for index in range(batch_size):
+        sample = PosteriorOutput(
+            mean=mean[index:index + 1],
+            var_diag=variance[index],
+            local_cov=posterior.local_cov[index],
+            latent_cov=posterior.latent_cov,
+            effective_noise=posterior.effective_noise[index:index + 1],
+        )
+        sample_batch = SimpleNamespace(
+            data_idx=data_idx,
+            noise_var=batch.noise_var[index:index + 1],
+        )
+        item_kappa, item_graph = posterior_graph(sample, sample_batch)
+        reference_kappa.append(item_kappa)
+        reference_graph.append(item_graph)
+    expected_kappa = torch.cat(reference_kappa, dim=0)
+    expected_graph = torch.cat(reference_graph, dim=0)
+    diagonal = torch.diagonal(graph, dim1=-2, dim2=-1)
+    detector_batch = SimpleNamespace(
+        y=(
+            torch.randn(batch_size, n_rx, n_re, device=dev)
+            + 1j * torch.randn(batch_size, n_rx, n_re, device=dev)
+        ).to(torch.complex64) / math.sqrt(2.0),
+        h=mean,
+        data_idx=data_idx,
+        noise_var=batch.noise_var,
+    )
+    detector = make_repaired_detector(2).to(dev)
+    detector_output = output_from_posterior(
+        None, detector, detector_batch, posterior, {}
+    )
+    checks = {
+        "batch_exceeds_stream_count": batch_size > n_streams,
+        "kappa_shape": tuple(kappa.shape)
+        == (batch_size, int(data_idx.numel()), n_streams, n_streams),
+        "graph_shape": tuple(graph.shape) == tuple(kappa.shape),
+        "kappa_finite": bool(torch.isfinite(kappa).all().item()),
+        "graph_has_no_self_edges": not bool(diagonal.any().item()),
+        "exact_common_formula_equivalence": bool(
+            torch.allclose(kappa, expected_kappa, rtol=0.0, atol=0.0)
+            and torch.equal(graph, expected_graph)
+        ),
+        "detector_graph_shape": tuple(detector_output["graph_mask"].shape)
+        == tuple(graph.shape),
+        "detector_logits_finite": bool(
+            torch.isfinite(detector_output["bit_logits"]).all().item()
+        ),
+    }
+    return {
+        "version": BATCH_GRAPH_PATCH_VERSION,
+        "passed": all(checks.values()),
+        "checks": checks,
+        "batch_size": batch_size,
+        "n_streams": n_streams,
+        "kappa_shape": list(kappa.shape),
+    }
+
+
 def oracle_projection_posterior(
     *,
     truth: torch.Tensor,
@@ -225,7 +425,7 @@ def output_from_posterior(
     posterior: PosteriorOutput,
     diagnostics: dict[str, Any],
 ) -> dict[str, Any]:
-    _, graph = posterior_graph(posterior, batch)
+    _, graph = posterior_graph_batch_aware(posterior, batch)
     output = repaired_forward(
         bridge,
         detector,
@@ -819,6 +1019,11 @@ def main() -> None:
     math_report = mathematical_self_test("cpu")
     if math_report.get("passed") is not True:
         raise RuntimeError(f"Localized basis self-test failed: {math_report}")
+    graph_report = batch_dependent_posterior_graph_self_test("cpu")
+    if graph_report.get("passed") is not True:
+        raise RuntimeError(
+            f"Batch-dependent posterior graph self-test failed: {graph_report}"
+        )
     if args.preflight_only:
         basis_reports = []
         for prb in (4, 8, 12):
@@ -839,6 +1044,9 @@ def main() -> None:
                     "effective_rank": basis_report["effective_rank"],
                 })
         print("GATE1_NR_LOCALIZED_CEILING_PREFLIGHT_PASS")
+        print("BATCH_DEPENDENT_POSTERIOR_GRAPH_PASS")
+        print("BATCH_GRAPH_PATCH", BATCH_GRAPH_PATCH_VERSION)
+        print("BATCH_GRAPH_TEST_SHAPE", graph_report["kappa_shape"])
         print("PRIOR_CLASSIFICATION", pre["classification"])
         print("LOCALIZED_DD_VERSION", LOCALIZED_DD_VERSION)
         print("CANDIDATES", len(specs))
@@ -884,9 +1092,12 @@ def main() -> None:
         "all_core_metrics_finite": bool(np.isfinite(pd.to_numeric(combined["tbler"], errors="coerce")).all()),
         "rank_cap_respected": max(item.nominal_rank for item in specs) <= 128,
         "training_not_required": True,
+        "batch_dependent_posterior_graph": graph_report.get("passed") is True,
     }
     report = {
         "version": VERSION,
+        "batch_graph_patch": BATCH_GRAPH_PATCH_VERSION,
+        "batch_graph_self_test": graph_report,
         "complete": True,
         "classification": scientific["classification"],
         "next_action": scientific["next_action"],
