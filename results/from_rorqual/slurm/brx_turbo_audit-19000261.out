@@ -1,0 +1,54 @@
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 0, "rows_committed": 11, "completed_rows": 11, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 1, "rows_committed": 11, "completed_rows": 22, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 2, "rows_committed": 11, "completed_rows": 33, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 3, "rows_committed": 11, "completed_rows": 44, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 4, "rows_committed": 11, "completed_rows": 55, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 6.0, "rep": 5, "rows_committed": 11, "completed_rows": 66, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 0, "rows_committed": 11, "completed_rows": 77, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 1, "rows_committed": 11, "completed_rows": 88, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 2, "rows_committed": 11, "completed_rows": 99, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 3, "rows_committed": 11, "completed_rows": 110, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 4, "rows_committed": 11, "completed_rows": 121, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_4prb", "num_prb": 4, "ebno_db": 14.0, "rep": 5, "rows_committed": 11, "completed_rows": 132, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 0, "rows_committed": 11, "completed_rows": 143, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 1, "rows_committed": 11, "completed_rows": 154, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 2, "rows_committed": 11, "completed_rows": 165, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 3, "rows_committed": 11, "completed_rows": 176, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 4, "rows_committed": 11, "completed_rows": 187, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 6.0, "rep": 5, "rows_committed": 11, "completed_rows": 198, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 0, "rows_committed": 11, "completed_rows": 209, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 1, "rows_committed": 11, "completed_rows": 220, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 2, "rows_committed": 11, "completed_rows": 231, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 3, "rows_committed": 11, "completed_rows": 242, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 4, "rows_committed": 11, "completed_rows": 253, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_8prb", "num_prb": 8, "ebno_db": 14.0, "rep": 5, "rows_committed": 11, "completed_rows": 264, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 0, "rows_committed": 11, "completed_rows": 275, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 1, "rows_committed": 11, "completed_rows": 286, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 2, "rows_committed": 11, "completed_rows": 297, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 3, "rows_committed": 11, "completed_rows": 308, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 4, "rows_committed": 11, "completed_rows": 319, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 6.0, "rep": 5, "rows_committed": 11, "completed_rows": 330, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 0, "rows_committed": 11, "completed_rows": 341, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 1, "rows_committed": 11, "completed_rows": 352, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 2, "rows_committed": 11, "completed_rows": 363, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 3, "rows_committed": 11, "completed_rows": 374, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 4, "rows_committed": 11, "completed_rows": 385, "expected_rows": 396}
+{"case": "turbo_basis_audit_umi_12prb", "num_prb": 12, "ebno_db": 14.0, "rep": 5, "rows_committed": 11, "completed_rows": 396, "expected_rows": 396}
+complete_rows: PASS
+unique_rows: PASS
+all_variants_present: PASS
+all_core_metrics_finite: PASS
+training_required: FAIL
+observation_equation_consistent: PASS
+true_channel_repaired_matches_perfect: PASS
+corrected_oracle_update_improves_pilot_12prb: PASS
+space_filling_selection_improves_current_oracle_12prb: FAIL
+effective_noise_improves_raw_noise_update_12prb: FAIL
+covariance_overcontraction_detected_12prb: PASS
+best_global_basis_within_0p01_of_ls_12prb: FAIL
+global_basis_projection_nmse_12prb_le_0p03: FAIL
+global_basis_signal_residual_12prb_le_0p03: FAIL
+CLASSIFICATION: GATE1_LOCALIZED_DELAY_DOPPLER_POSTERIOR_JUSTIFIED
+NEXT_ACTION: IMPLEMENT_LOCALIZED_DELAY_DOPPLER_POSTERIOR_AND_RETRAIN_ON_4_8_PRB_HOLD_OUT_12_PRB
+PUBLICATION_NR_READY: NO
+Prepared /lustre10/scratch/rsadve1/revised_TWC/outputs/github_artifacts

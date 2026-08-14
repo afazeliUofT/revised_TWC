@@ -1,0 +1,315 @@
+{
+  "classification": "GATE1_LOCALIZED_DELAY_DOPPLER_POSTERIOR_JUSTIFIED",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "slurm_job_id": "19000814",
+    "torch": "2.13.0"
+  },
+  "evaluation": {
+    "aggregate_csv": "outputs/eval/gate1_nr_turbo_basis_audit_aggregate.csv",
+    "complete": true,
+    "contract": {
+      "cases": [
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "trained_grid_new_seed",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 151,
+          "name": "turbo_basis_audit_umi_4prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 4,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        },
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "trained_grid_new_seed",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 152,
+          "name": "turbo_basis_audit_umi_8prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 8,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        },
+        {
+          "dmrs_additional_position": 1,
+          "dmrs_config_type": 1,
+          "dmrs_length": 1,
+          "dmrs_ports": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "group": "fresh_grid_holdout",
+          "mcs_index": 10,
+          "mcs_table": 1,
+          "n_cell_id": 153,
+          "name": "turbo_basis_audit_umi_12prb",
+          "num_cdm_groups_without_data": 2,
+          "num_layers_per_user": 1,
+          "num_prb": 12,
+          "num_rx_ant": 8,
+          "num_users": 4,
+          "scenario": "umi",
+          "speed_mps": 3.0,
+          "subcarrier_spacing_khz": 30
+        }
+      ],
+      "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+      "config_sha256": "254368e1fade26318a9217d293fc8c25c470b91d9dffcdb2c33ce5a5e6822d85",
+      "ebno_db": [
+        6.0,
+        14.0
+      ],
+      "repetitions": 6,
+      "signature": "c020072c73d534394b9f9f597069f84715eb7c1480ec9b305fa47221b0333194",
+      "source_sha256": {
+        "configs/gate1_nr_turbo_basis_audit.yaml": "254368e1fade26318a9217d293fc8c25c470b91d9dffcdb2c33ce5a5e6822d85",
+        "scripts/gate1_nr_turbo_basis_audit.py": "e985022505783adb18f739e7e075026f4de7d7d2b0489c8978b13963d116210a",
+        "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+        "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+        "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+        "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+        "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa",
+        "src/bayesroute/turbo_posterior.py": "f016aa8e7def9266108fd2b148f778d4d3514c7fcc6e6c20a8e3573a266df251"
+      },
+      "training_required": false,
+      "variants": [
+        "pilot_only",
+        "current_oracle_topk_raw_rho1",
+        "spread_oracle_raw_rho1",
+        "spread_oracle_effective_rho1",
+        "spread_oracle_effective_rho0125",
+        "spread_oracle_effective_mean_only",
+        "spread_oracle_effective_cov_only",
+        "best_in_global_basis_calibrated",
+        "true_channel_repaired",
+        "ls_lmmse",
+        "perfect_csi_lmmse"
+      ],
+      "version": "gate1_nr_turbo_basis_audit_v1"
+    },
+    "expected_rows": 396,
+    "raw_csv": "outputs/eval/gate1_nr_turbo_basis_audit.csv",
+    "rows": 396,
+    "unique_rows": 396
+  },
+  "math_self_test": {
+    "checks": {
+      "batched_projection_shapes": true,
+      "finite": true,
+      "fractional_covariance_matches_information_form": true,
+      "fractional_mean_matches_information_form": true,
+      "posterior_covariance_psd": true,
+      "posterior_trace_not_increased": true,
+      "reliability_selection_exact": true,
+      "zero_information_returns_same_covariance": true,
+      "zero_information_returns_same_mean": true
+    },
+    "covariance_max_abs_error": 5.960617386335798e-07,
+    "maximum_trace_change": -3.008864402770996,
+    "mean_max_abs_error": 1.0728836059570312e-06,
+    "minimum_eigenvalue": 0.3306795078899804,
+    "passed": true,
+    "selected_indices": [
+      [
+        1,
+        3
+      ]
+    ],
+    "version": "fractional_soft_data_gaussian_update_v1"
+  },
+  "metrics": {
+    "best_global_basis_12prb_tbler": 0.020833333333333332,
+    "cov_only_12prb_tbler": 0.078125,
+    "current_oracle_12prb_tbler": 0.057291666666666664,
+    "effective_to_raw_noise_ratio": 1.0314172903696697,
+    "ls_12prb_tbler": 0.010416666666666666,
+    "mean_only_12prb_tbler": 0.059895833333333336,
+    "observation_noise_ratio": 0.9996003359556198,
+    "perfect_12prb_tbler": 0.0,
+    "pilot_12prb_tbler": 0.057291666666666664,
+    "projection_nmse_12prb": 0.044848394890626225,
+    "projection_signal_residual_12prb": 0.045352756200979095,
+    "spread_effective_12prb_tbler": 0.08854166666666667,
+    "spread_effective_weak_12prb_tbler": 0.046875
+  },
+  "next_action": "IMPLEMENT_LOCALIZED_DELAY_DOPPLER_POSTERIOR_AND_RETRAIN_ON_4_8_PRB_HOLD_OUT_12_PRB",
+  "paired_comparisons": {
+    "best_basis_minus_ls_12prb_tbler": {
+      "ci95_high": 0.02019274193374178,
+      "ci95_low": 0.0006405913995915537,
+      "mean": 0.010416666666666666,
+      "pairs": 12
+    },
+    "cov_only_minus_pilot_12prb_tbler": {
+      "ci95_high": 0.04527352150102111,
+      "ci95_low": -0.003606854834354443,
+      "mean": 0.020833333333333332,
+      "pairs": 12
+    },
+    "current_oracle_minus_pilot_12prb_tbler": {
+      "ci95_high": 0.011973198045688402,
+      "ci95_low": -0.011973198045688402,
+      "mean": 0.0,
+      "pairs": 12
+    },
+    "effective_minus_raw_12prb_tbler": {
+      "ci95_high": 0.012936999438632395,
+      "ci95_low": -0.0025203327719657293,
+      "mean": 0.005208333333333333,
+      "pairs": 12
+    },
+    "mean_only_minus_full_update_12prb_tbler": {
+      "ci95_high": -0.004023026027157511,
+      "ci95_low": -0.05326864063950915,
+      "mean": -0.028645833333333332,
+      "pairs": 12
+    },
+    "mean_only_minus_pilot_12prb_tbler": {
+      "ci95_high": 0.02048062315990135,
+      "ci95_low": -0.015272289826568015,
+      "mean": 0.0026041666666666665,
+      "pairs": 12
+    },
+    "spread_effective_minus_pilot_12prb_tbler": {
+      "ci95_high": 0.060578225801225336,
+      "ci95_low": 0.001921774198774668,
+      "mean": 0.03125,
+      "pairs": 12
+    },
+    "spread_effective_weak_minus_pilot_12prb_tbler": {
+      "ci95_high": -0.0006405913995915537,
+      "ci95_low": -0.02019274193374178,
+      "mean": -0.010416666666666666,
+      "pairs": 12
+    },
+    "spread_minus_current_12prb_tbler": {
+      "ci95_high": 0.05973014118803337,
+      "ci95_low": -0.007646807854700028,
+      "mean": 0.026041666666666668,
+      "pairs": 12
+    },
+    "spread_raw_minus_pilot_12prb_tbler": {
+      "ci95_high": 0.057530646391889526,
+      "ci95_low": -0.005447313058556193,
+      "mean": 0.026041666666666668,
+      "pairs": 12
+    },
+    "true_channel_minus_perfect_12prb_tbler": {
+      "ci95_high": 0.0,
+      "ci95_low": 0.0,
+      "mean": 0.0,
+      "pairs": 12
+    }
+  },
+  "per_prb_metrics": {
+    "12": {
+      "basis_projection_nmse": 0.044848394890626225,
+      "basis_signal_residual_ratio": 0.045352756200979095,
+      "best_global_basis_tbler": 0.020833333333333332,
+      "corrected_oracle_weak_tbler": 0.046875,
+      "ls_tbler": 0.010416666666666666,
+      "perfect_tbler": 0.0,
+      "pilot_tbler": 0.057291666666666664
+    },
+    "4": {
+      "basis_projection_nmse": 0.014337710143687779,
+      "basis_signal_residual_ratio": 0.014372024723949474,
+      "best_global_basis_tbler": 0.0,
+      "corrected_oracle_weak_tbler": 0.013020833333333334,
+      "ls_tbler": 0.010416666666666666,
+      "perfect_tbler": 0.0,
+      "pilot_tbler": 0.013020833333333334
+    },
+    "8": {
+      "basis_projection_nmse": 0.025185102053607467,
+      "basis_signal_residual_ratio": 0.025163940154015966,
+      "best_global_basis_tbler": 0.013020833333333334,
+      "corrected_oracle_weak_tbler": 0.041666666666666664,
+      "ls_tbler": 0.013020833333333334,
+      "perfect_tbler": 0.0,
+      "pilot_tbler": 0.041666666666666664
+    }
+  },
+  "plots": [
+    "outputs/plots/gate1_turbo_basis_audit_4prb_tbler.png",
+    "outputs/plots/gate1_turbo_basis_audit_8prb_tbler.png",
+    "outputs/plots/gate1_turbo_basis_audit_12prb_tbler.png",
+    "outputs/plots/gate1_turbo_basis_projection_nmse.png"
+  ],
+  "preconditions": {
+    "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+    "checks": {
+      "holdout_unused_for_selection": true,
+      "turbo_classification": true,
+      "turbo_complete": true,
+      "turbo_next_action": true,
+      "turbo_rows": true,
+      "turbo_unique_rows": true,
+      "winner": true
+    },
+    "classification": "GATE1_POSTERIOR_BASIS_LOCALIZATION_REQUIRED",
+    "metrics": {
+      "ls_12prb_tbler": 0.008680555555555556,
+      "ls_repaired_12prb_tbler": 0.008680555555555556,
+      "oracle_turbo_12prb_tbler": 0.06684027777777778,
+      "perfect_12prb_tbler": 0.0,
+      "pilot_only_12prb_tbler": 0.06640625,
+      "winner_12prb_10db_tbler": 0.0703125,
+      "winner_12prb_14db_tbler": 0.08072916666666667,
+      "winner_12prb_channel_nmse": 0.08593447175290846,
+      "winner_12prb_coverage95": 0.8831702387995191,
+      "winner_12prb_normalized_error": 1.5208539399835799,
+      "winner_12prb_tbler": 0.06987847222222222
+    },
+    "next_action": "REPLACE_GLOBAL_RFF_WITH_LOCALIZED_DELAY_DOPPLER_POSTERIOR",
+    "passed": true,
+    "report": "outputs/reports/gate1_nr_turbo_posterior.json",
+    "winner": "turbo_f05_r0125"
+  },
+  "publication_nr_ready": false,
+  "scientific_checks": {
+    "best_global_basis_within_0p01_of_ls_12prb": false,
+    "corrected_oracle_update_improves_pilot_12prb": true,
+    "covariance_overcontraction_detected_12prb": true,
+    "effective_noise_improves_raw_noise_update_12prb": false,
+    "global_basis_projection_nmse_12prb_le_0p03": false,
+    "global_basis_signal_residual_12prb_le_0p03": false,
+    "observation_equation_consistent": true,
+    "space_filling_selection_improves_current_oracle_12prb": false,
+    "true_channel_repaired_matches_perfect": true
+  },
+  "version": "gate1_nr_turbo_basis_audit_v1"
+}
