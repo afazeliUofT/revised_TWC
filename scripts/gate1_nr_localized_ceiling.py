@@ -29,11 +29,13 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 
 from bayesroute.localized_delay_doppler import (
+    LOCALIZED_DD_PRECISION_PATCH,
     LOCALIZED_DD_VERSION,
     LocalizedDelayDopplerSpec,
     localized_delay_doppler_features,
     mathematical_self_test,
     project_tensor_to_basis,
+    winner_precision_rank_regression,
 )
 from bayesroute.models import PosteriorOutput
 from bayesroute.nr_gate1 import decode_bridge, normalize_device, run_standard_receiver, standard_receiver
@@ -60,7 +62,7 @@ from gate1_nr_turbo_posterior_common import (
     source_hashes,
 )
 
-VERSION = "gate1_nr_localized_ceiling_v1"
+VERSION = "gate1_nr_localized_ceiling_v1_1"
 BATCH_GRAPH_PATCH_VERSION = "gate1_nr_localized_ceiling_batch_graph_v1"
 PRIOR_REPORT = ROOT / "outputs/reports/gate1_nr_turbo_basis_audit.json"
 RAW_SELECTION = ROOT / "outputs/eval/gate1_nr_localized_ceiling_selection.csv"
@@ -603,6 +605,7 @@ def run_selection(
     section = config["selection"]
     payload = {
         "version": VERSION,
+        "basis_precision_patch": LOCALIZED_DD_PRECISION_PATCH,
         "phase": "selection_4prb_8prb",
         "config_sha256": sha256_file(config_path),
         "source_sha256": source_hashes(SOURCE_FILES),
@@ -733,6 +736,7 @@ def run_holdout(
     section = config["holdout"]
     payload = {
         "version": VERSION,
+        "basis_precision_patch": LOCALIZED_DD_PRECISION_PATCH,
         "phase": "fresh_12prb_holdout",
         "config_sha256": sha256_file(config_path),
         "source_sha256": source_hashes(SOURCE_FILES),
@@ -1019,6 +1023,11 @@ def main() -> None:
     math_report = mathematical_self_test("cpu")
     if math_report.get("passed") is not True:
         raise RuntimeError(f"Localized basis self-test failed: {math_report}")
+    precision_report = winner_precision_rank_regression("cpu")
+    if precision_report.get("passed") is not True:
+        raise RuntimeError(
+            f"Localized basis precision/rank regression failed: {precision_report}"
+        )
     graph_report = batch_dependent_posterior_graph_self_test("cpu")
     if graph_report.get("passed") is not True:
         raise RuntimeError(
@@ -1035,13 +1044,29 @@ def main() -> None:
                     spec=spec,
                     device="cpu",
                 )
-                if basis_report["effective_rank"] <= 0 or not basis_report["finite"]:
+                required_basis_checks = (
+                    basis_report["effective_rank"] > 0,
+                    basis_report["finite"],
+                    basis_report.get("precision_patch")
+                    == LOCALIZED_DD_PRECISION_PATCH,
+                    basis_report.get("construction_complex_dtype")
+                    == "complex128",
+                    basis_report.get("rank_partition_exact") is True,
+                )
+                if not all(required_basis_checks):
                     raise RuntimeError(f"Invalid preflight basis: {basis_report}")
                 basis_reports.append({
                     "prb": prb,
                     "basis": spec.name,
                     "nominal_rank": basis_report["nominal_rank"],
                     "effective_rank": basis_report["effective_rank"],
+                    "discarded_rank": basis_report["discarded_rank"],
+                    "minimum_relative_kept": basis_report[
+                        "singular_value_relative_min_kept"
+                    ],
+                    "maximum_relative_discarded": basis_report[
+                        "singular_value_relative_max_discarded"
+                    ],
                 })
         print("GATE1_NR_LOCALIZED_CEILING_PREFLIGHT_PASS")
         print("BATCH_DEPENDENT_POSTERIOR_GRAPH_PASS")
@@ -1049,6 +1074,12 @@ def main() -> None:
         print("BATCH_GRAPH_TEST_SHAPE", graph_report["kappa_shape"])
         print("PRIOR_CLASSIFICATION", pre["classification"])
         print("LOCALIZED_DD_VERSION", LOCALIZED_DD_VERSION)
+        print("BASIS_PRECISION_PATCH", LOCALIZED_DD_PRECISION_PATCH)
+        print("WINNER_PRECISION_RANKS", [
+            item["observed_rank"]
+            for item in precision_report["records"]
+        ])
+        print("COMPLEX64_SPURIOUS_FULL_RANK_REMOVED YES")
         print("CANDIDATES", len(specs))
         print("BASIS_PREFLIGHTS", len(basis_reports))
         print("MAX_NOMINAL_RANK", max(item.nominal_rank for item in specs))
@@ -1093,9 +1124,18 @@ def main() -> None:
         "rank_cap_respected": max(item.nominal_rank for item in specs) <= 128,
         "training_not_required": True,
         "batch_dependent_posterior_graph": graph_report.get("passed") is True,
+        "complex128_basis_before_rank_decision": (
+            precision_report.get("passed") is True
+        ),
+        "spurious_complex64_full_rank_removed": precision_report.get(
+            "checks", {}
+        ).get("spurious_full_rank_removed") is True,
     }
     report = {
         "version": VERSION,
+        "basis_precision_patch": LOCALIZED_DD_PRECISION_PATCH,
+        "basis_precision_self_test": precision_report,
+        "localized_basis_math_self_test": math_report,
         "batch_graph_patch": BATCH_GRAPH_PATCH_VERSION,
         "batch_graph_self_test": graph_report,
         "complete": True,

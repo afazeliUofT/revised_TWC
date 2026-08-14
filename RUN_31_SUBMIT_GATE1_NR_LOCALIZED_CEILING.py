@@ -28,8 +28,12 @@ python - <<'REMOTE_PY'
 import json
 from pathlib import Path
 revision=json.loads(Path("GATE1_NR_LOCALIZED_CEILING_REVISION.json").read_text())
+assert revision.get("revision") == "gate1_nr_localized_ceiling_v1_1", revision
 assert revision.get("batch_dependent_graph_patch") == "gate1_nr_localized_ceiling_batch_graph_v1", revision
+assert revision.get("basis_precision_patch") == "complex128_atoms_before_rank_decision_v1", revision
+assert revision.get("basis_rank_contract", {{}}).get("previous_result_valid_for_architecture_decision") is False, revision
 print("GATE1_NR_LOCALIZED_CEILING_GRAPH_PATCH_PASS", revision["batch_dependent_graph_patch"])
+print("GATE1_NR_LOCALIZED_CEILING_PRECISION_PATCH_PASS", revision["basis_precision_patch"])
 REMOTE_PY
 python scripts/gate1_nr_localized_ceiling.py --config configs/gate1_nr_localized_ceiling.yaml --preflight-only --device cpu
 if squeue -h -u rsadve1 -n brx_local_ceil | grep -q .; then
@@ -42,6 +46,8 @@ sbatch slurm/gate1_nr_localized_ceiling.sbatch
     run(["ssh", args.remote, script])
     print("GATE1_NR_LOCALIZED_CEILING_SUBMITTED_OR_RESUMED")
     print("BATCH_GRAPH_PATCH gate1_nr_localized_ceiling_batch_graph_v1")
+    print("BASIS_PRECISION_PATCH complex128_atoms_before_rank_decision_v1")
+    print("PREVIOUS_ORACLE_DECISION_INVALIDATED YES")
     print("EXPECTED_ROWS 540")
     print("TRAINING_REQUIRED NO")
     print("HARD_ABANDON_GATE YES")

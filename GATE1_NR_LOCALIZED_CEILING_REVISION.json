@@ -1,9 +1,22 @@
 {
   "base_evidence_commit": "8411785e656314beec5b61e4b1030929d0761a06",
+  "invalidated_oracle_evidence_commit": "f5e591d461ecaeb989cedcfaa2732f4262795e83",
+  "revision": "gate1_nr_localized_ceiling_v1_1",
+  "basis_precision_patch": "complex128_atoms_before_rank_decision_v1",
+  "basis_rank_contract": {
+    "atom_construction_dtype": "complex128",
+    "relative_singular_value_threshold": 1e-10,
+    "runtime_basis_dtype": "complex64",
+    "selected_basis_expected_effective_ranks": {
+      "4_prb": 51,
+      "8_prb": 69,
+      "12_prb": 84
+    },
+    "previous_complex64_first_reported_rank": 96,
+    "previous_result_valid_for_architecture_decision": false
+  },
+  "rerun_reason": "The prior atom bank was constructed in complex64 and only then promoted for SVD. Float32 roundoff created spurious singular directions above a 1e-10 threshold, so the apparent rank-96 localized oracle ceiling was optimistic.",
   "batch_dependent_graph_patch": "gate1_nr_localized_ceiling_batch_graph_v1",
-  "candidate_count": 4,
-  "expected_rows": 540,
-  "failed_job_discarded": "19005435",
   "graph_contract": {
     "batch_covariance_averaging": false,
     "batch_covariance_handling": "exact per-sample use of established coupling formula",
@@ -12,17 +25,14 @@
     "regression_test_streams": 4,
     "shared_covariance_shape": "[N,N,R]"
   },
-  "hard_abandon_classification": "GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING",
+  "candidate_count": 4,
+  "selection_prb": [4, 8],
   "holdout_prb": 12,
-  "holdout_rows": 288,
-  "maximum_nominal_rank": 128,
-  "prior_classification": "GATE1_LOCALIZED_DELAY_DOPPLER_POSTERIOR_JUSTIFIED",
-  "purpose": "Final bounded-rank oracle go/no-go for beating LS+LMMSE before any localized-posterior training",
-  "revision": "gate1_nr_localized_ceiling_v1",
-  "selection_prb": [
-    4,
-    8
-  ],
   "selection_rows": 252,
-  "training_required": false
+  "holdout_rows": 288,
+  "expected_rows": 540,
+  "maximum_nominal_rank": 128,
+  "training_required": false,
+  "hard_abandon_classification": "GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING",
+  "purpose": "Precision-corrected final bounded-rank oracle go/no-go before any localized-posterior training"
 }

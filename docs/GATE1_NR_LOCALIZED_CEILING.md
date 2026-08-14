@@ -1,47 +1,45 @@
-# Gate-1 localized delay--Doppler oracle ceiling
+# Gate-1 NR localized delay-Doppler ceiling, precision-corrected revision
 
-This is the final training-free go/no-go gate for the objective of beating
-Sionna NR LS+LMMSE.
+This is the binding no-training oracle ceiling for the goal of beating the
+standard Sionna NR LS+LMMSE receiver.
 
-The gate selects one bounded-rank localized delay--Doppler basis using only new
-4- and 8-PRB cases. It then freezes that basis and evaluates a 12-PRB holdout.
-The localized receiver is given oracle coefficients for the residual between
-the true channel and Sionna's LS estimate. It is therefore a deliberately optimistic engineering ceiling
-for an LS-anchored localized Bayesian posterior. A failure is strong practical
-evidence to stop this architecture search, although it is not a formal
-impossibility theorem for every conceivable nonlinear receiver.
+## Why this rerun is mandatory
 
-Decision contract:
+The earlier localized ceiling constructed nearly dependent delay-Doppler atoms
+in `complex64` and then promoted the matrix to `complex128` for SVD. Its
+relative rank threshold was `1e-10`, far below float32 precision. Float32
+roundoff was therefore retained as extra singular directions, and the selected
+96-atom basis was reported as rank 96 on all grids.
 
-* `GATE1_LOCALIZED_CEILING_BEATS_LS`: train exactly one LS-anchored localized
-  posterior and run one final holdout.
-* `GATE1_LOCALIZED_CEILING_POSSIBLY_BEATS_LS`: allow exactly one final trained
-  model under a hard stop.
-* `GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING`: stop architecture search. A
-  practical learned model is not expected to overcome a failed, true-channel-
-  informed ceiling under the same bounded representation.
+This revision constructs the atom matrix directly in `complex128`, applies the
+same declared `1e-10` relative singular-value threshold, and only then casts the
+orthonormal basis to `complex64` for the receiver. For the selected
+`ldd_w2_d16_v3_r96_tau3us` basis, the deterministic effective ranks are:
 
-The maximum nominal basis rank is 128. The 12-PRB holdout is not used for basis
-selection. No training or hyperparameter optimization is performed.
+- 4 PRBs: 51;
+- 8 PRBs: 69;
+- 12 PRBs: 84.
 
-## Batch-dependent oracle covariance compatibility
+The result synchronized in commit `f5e591d` is retained in Git history but must
+not be used for the architecture decision. This precision-corrected 540-row
+selection/holdout campaign replaces it.
 
-The oracle projection controls produce a valid batch-dependent covariance with
-shape `[B,N,N,R]`. The established coupling routine accepts one `[N,N,R]`
-covariance at a time. Patch `gate1_nr_localized_ceiling_batch_graph_v1`
-evaluates the unchanged coupling formula independently for each batch item and
-concatenates the graphs. It never averages oracle covariance across channel
-realizations. A `B=5, N=4` regression test exercises the exact failure mode and
-checks equality with explicit one-sample calls before a Slurm job can be
-submitted.
+## Unchanged contracts
 
-## Batch-dependent oracle covariance compatibility
+- four bounded nominal-rank candidate bases;
+- selection on new 4- and 8-PRB cases only;
+- fresh 12-PRB holdout not used for selection;
+- Sionna LS+LMMSE and perfect-CSI LMMSE references;
+- repaired spatial-LMMSE detector;
+- exact per-sample coupling graph for batch-dependent posterior covariance;
+- no training;
+- 252 selection rows and 288 holdout rows.
 
-The oracle projection controls produce a valid batch-dependent covariance with
-shape `[B,N,N,R]`. The established coupling routine accepts one `[N,N,R]`
-covariance at a time. Patch `gate1_nr_localized_ceiling_batch_graph_v1`
-evaluates the unchanged coupling formula independently for each batch item and
-concatenates the graphs. It never averages oracle covariance across channel
-realizations. A `B=5, N=4` regression test exercises the exact failure mode and
-checks equality with explicit one-sample calls before a Slurm job can be
-submitted.
+## Binding decision
+
+- `GATE1_LOCALIZED_CEILING_BEATS_LS` or
+  `GATE1_LOCALIZED_CEILING_POSSIBLY_BEATS_LS`: permit exactly one trained,
+  LS-anchored localized posterior with a hard final stop.
+- `GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING`: stop this architecture search.
+- `GATE1_LOCALIZED_CEILING_INTERFACE_REPAIR_REQUIRED`: repair only the failed
+  baseline/control path before making the decision.
