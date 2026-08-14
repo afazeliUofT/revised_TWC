@@ -1,0 +1,15 @@
+{
+  "revision": "gate1_nr_localized_ceiling_v1",
+  "base_evidence_commit": "8411785e656314beec5b61e4b1030929d0761a06",
+  "prior_classification": "GATE1_LOCALIZED_DELAY_DOPPLER_POSTERIOR_JUSTIFIED",
+  "purpose": "Final bounded-rank oracle go/no-go for beating LS+LMMSE before any localized-posterior training",
+  "training_required": false,
+  "selection_prb": [4, 8],
+  "holdout_prb": 12,
+  "candidate_count": 4,
+  "maximum_nominal_rank": 128,
+  "selection_rows": 252,
+  "holdout_rows": 288,
+  "expected_rows": 540,
+  "hard_abandon_classification": "GATE1_ABANDON_BAYESROUTE_FOR_LS_BEATING"
+}

@@ -1,0 +1,94 @@
+revision: gate1_nr_localized_ceiling_v1
+seed: 2026083101
+operator_seed: 58001
+bp_iterations: 20
+projection_ridge: 1.0e-6
+
+candidates:
+  - name: ldd_w2_d16_v3_r96_tau3us
+    frequency_windows: 2
+    delay_bins: 16
+    doppler_bins: 3
+    max_delay_s: 3.0e-6
+    window_overlap: 1.5
+  - name: ldd_w3_d10_v3_r90_tau2us
+    frequency_windows: 3
+    delay_bins: 10
+    doppler_bins: 3
+    max_delay_s: 2.0e-6
+    window_overlap: 1.5
+  - name: ldd_w4_d8_v3_r96_tau1p5us
+    frequency_windows: 4
+    delay_bins: 8
+    doppler_bins: 3
+    max_delay_s: 1.5e-6
+    window_overlap: 1.5
+  - name: ldd_w4_d8_v4_r128_tau3us
+    frequency_windows: 4
+    delay_bins: 8
+    doppler_bins: 4
+    max_delay_s: 3.0e-6
+    window_overlap: 1.5
+
+selection:
+  batch_size: 16
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 6
+  cases:
+    - name: localized_select_umi_4prb
+      group: selection_trained_grid
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 161
+    - name: localized_select_umi_8prb
+      group: selection_trained_grid
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 8
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 162
+
+holdout:
+  batch_size: 16
+  ebno_db: [6.0, 10.0, 14.0]
+  repetitions: 12
+  cases:
+    - name: localized_holdout_umi_12prb
+      group: fresh_untouched_grid_holdout
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 12
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 163
