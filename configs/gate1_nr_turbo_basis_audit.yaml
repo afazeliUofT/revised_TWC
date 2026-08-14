@@ -1,0 +1,66 @@
+revision: gate1_nr_turbo_basis_audit_v1
+seed: 2026083101
+operator_seed: 58001
+bp_iterations: 20
+batch_size: 8
+ebno_db: [6.0, 14.0]
+repetitions: 6
+cases:
+  - name: turbo_basis_audit_umi_4prb
+    group: trained_grid_new_seed
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 151
+  - name: turbo_basis_audit_umi_8prb
+    group: trained_grid_new_seed
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 8
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 152
+  - name: turbo_basis_audit_umi_12prb
+    group: fresh_grid_holdout
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 12
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 153
+audit:
+  data_fraction: 0.10
+  min_observations: 16
+  max_observations: 96
+  full_information_damping: 1.0
+  weak_information_damping: 0.125
+  projection_ridge: 1.0e-5

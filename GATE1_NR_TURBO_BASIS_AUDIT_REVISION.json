@@ -1,0 +1,23 @@
+{
+  "revision": "gate1_nr_turbo_basis_audit_v1",
+  "purpose": "Distinguish global-basis insufficiency from turbo likelihood, observation-noise, covariance-contraction, and tied-selection defects before replacing the posterior architecture.",
+  "required_turbo_classification": "GATE1_POSTERIOR_BASIS_LOCALIZATION_REQUIRED",
+  "expected_rows": 396,
+  "training_required": false,
+  "new_trainable_parameters": 0,
+  "variants": 11,
+  "cases": 3,
+  "snr_points": 2,
+  "repetitions": 6,
+  "audit_controls": [
+    "current oracle update",
+    "space-filling oracle selection",
+    "raw versus learned effective observation noise",
+    "weak versus full information damping",
+    "mean-only versus covariance-only update",
+    "oracle best-in-global-basis projection",
+    "true-channel repaired detector",
+    "LS-LMMSE",
+    "perfect-CSI LMMSE"
+  ]
+}
