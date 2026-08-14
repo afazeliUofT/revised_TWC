@@ -1,0 +1,92 @@
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 0, "rows_committed": 7, "completed_rows": 7, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 1, "rows_committed": 7, "completed_rows": 14, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 2, "rows_committed": 7, "completed_rows": 21, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 3, "rows_committed": 7, "completed_rows": 28, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 4, "rows_committed": 7, "completed_rows": 35, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 6.0, "rep": 5, "rows_committed": 7, "completed_rows": 42, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 0, "rows_committed": 7, "completed_rows": 49, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 1, "rows_committed": 7, "completed_rows": 56, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 2, "rows_committed": 7, "completed_rows": 63, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 3, "rows_committed": 7, "completed_rows": 70, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 4, "rows_committed": 7, "completed_rows": 77, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 10.0, "rep": 5, "rows_committed": 7, "completed_rows": 84, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 0, "rows_committed": 7, "completed_rows": 91, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 1, "rows_committed": 7, "completed_rows": 98, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 2, "rows_committed": 7, "completed_rows": 105, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 3, "rows_committed": 7, "completed_rows": 112, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 4, "rows_committed": 7, "completed_rows": 119, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_4prb", "ebno_db": 14.0, "rep": 5, "rows_committed": 7, "completed_rows": 126, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 0, "rows_committed": 7, "completed_rows": 133, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 1, "rows_committed": 7, "completed_rows": 140, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 2, "rows_committed": 7, "completed_rows": 147, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 3, "rows_committed": 7, "completed_rows": 154, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 4, "rows_committed": 7, "completed_rows": 161, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 6.0, "rep": 5, "rows_committed": 7, "completed_rows": 168, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 0, "rows_committed": 7, "completed_rows": 175, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 1, "rows_committed": 7, "completed_rows": 182, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 2, "rows_committed": 7, "completed_rows": 189, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 3, "rows_committed": 7, "completed_rows": 196, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 4, "rows_committed": 7, "completed_rows": 203, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 10.0, "rep": 5, "rows_committed": 7, "completed_rows": 210, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 0, "rows_committed": 7, "completed_rows": 217, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 1, "rows_committed": 7, "completed_rows": 224, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 2, "rows_committed": 7, "completed_rows": 231, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 3, "rows_committed": 7, "completed_rows": 238, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 4, "rows_committed": 7, "completed_rows": 245, "expected_rows": 252}
+{"phase": "selection", "case": "localized_select_umi_8prb", "ebno_db": 14.0, "rep": 5, "rows_committed": 7, "completed_rows": 252, "expected_rows": 252}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 0, "rows_committed": 8, "completed_rows": 8, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 1, "rows_committed": 8, "completed_rows": 16, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 2, "rows_committed": 8, "completed_rows": 24, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 3, "rows_committed": 8, "completed_rows": 32, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 4, "rows_committed": 8, "completed_rows": 40, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 5, "rows_committed": 8, "completed_rows": 48, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 6, "rows_committed": 8, "completed_rows": 56, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 7, "rows_committed": 8, "completed_rows": 64, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 8, "rows_committed": 8, "completed_rows": 72, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 9, "rows_committed": 8, "completed_rows": 80, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 10, "rows_committed": 8, "completed_rows": 88, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 6.0, "rep": 11, "rows_committed": 8, "completed_rows": 96, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 0, "rows_committed": 8, "completed_rows": 104, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 1, "rows_committed": 8, "completed_rows": 112, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 2, "rows_committed": 8, "completed_rows": 120, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 3, "rows_committed": 8, "completed_rows": 128, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 4, "rows_committed": 8, "completed_rows": 136, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 5, "rows_committed": 8, "completed_rows": 144, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 6, "rows_committed": 8, "completed_rows": 152, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 7, "rows_committed": 8, "completed_rows": 160, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 8, "rows_committed": 8, "completed_rows": 168, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 9, "rows_committed": 8, "completed_rows": 176, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 10, "rows_committed": 8, "completed_rows": 184, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 10.0, "rep": 11, "rows_committed": 8, "completed_rows": 192, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 0, "rows_committed": 8, "completed_rows": 200, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 1, "rows_committed": 8, "completed_rows": 208, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 2, "rows_committed": 8, "completed_rows": 216, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 3, "rows_committed": 8, "completed_rows": 224, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 4, "rows_committed": 8, "completed_rows": 232, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 5, "rows_committed": 8, "completed_rows": 240, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 6, "rows_committed": 8, "completed_rows": 248, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 7, "rows_committed": 8, "completed_rows": 256, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 8, "rows_committed": 8, "completed_rows": 264, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 9, "rows_committed": 8, "completed_rows": 272, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 10, "rows_committed": 8, "completed_rows": 280, "expected_rows": 288}
+{"phase": "holdout", "case": "localized_holdout_umi_12prb", "ebno_db": 14.0, "rep": 11, "rows_committed": 8, "completed_rows": 288, "expected_rows": 288}
+complete_rows: PASS
+unique_rows: PASS
+selection_holdout_disjoint: PASS
+holdout_unused_for_selection: PASS
+all_core_metrics_finite: PASS
+rank_cap_respected: PASS
+training_not_required: PASS
+batch_dependent_posterior_graph: PASS
+ls_factorized_matches_standard: PASS
+true_channel_repaired_matches_perfect: PASS
+localized_oracle_beats_global_basis: PASS
+localized_oracle_mean_beats_ls: PASS
+localized_oracle_statistically_beats_ls: PASS
+localized_final_channel_nmse_le_0p02: PASS
+no_12prb_high_snr_reversal: PASS
+WINNER: ldd_w2_d16_v3_r96_tau3us
+CLASSIFICATION: GATE1_LOCALIZED_CEILING_BEATS_LS
+NEXT_ACTION: TRAIN_ONE_LS_ANCHORED_LOCALIZED_POSTERIOR_THEN_RUN_FINAL_HOLDOUT
+PUBLICATION_NR_READY: NO
+Prepared /lustre10/scratch/rsadve1/revised_TWC/outputs/github_artifacts

@@ -1,0 +1,125 @@
+{
+  "cases": [
+    {
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "group": "selection_trained_grid",
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 161,
+      "name": "localized_select_umi_4prb",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 1,
+      "num_prb": 4,
+      "num_rx_ant": 8,
+      "num_users": 4,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    },
+    {
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "group": "selection_trained_grid",
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 162,
+      "name": "localized_select_umi_8prb",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 1,
+      "num_prb": 8,
+      "num_rx_ant": 8,
+      "num_users": 4,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    }
+  ],
+  "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+  "config_sha256": "90bf825a3bf8c9ace319dd91475cde69fe28985b96bafa1fb285402744612ba1",
+  "ebno_db": [
+    6.0,
+    10.0,
+    14.0
+  ],
+  "holdout_used_for_selection": false,
+  "phase": "selection_4prb_8prb",
+  "repetitions": 6,
+  "signature": "41ae5f08b499cff065dc1fcc71725075e2f7b316c6721c98f0fca3a59cbd0862",
+  "source_sha256": {
+    "configs/gate1_nr_localized_ceiling.yaml": "90bf825a3bf8c9ace319dd91475cde69fe28985b96bafa1fb285402744612ba1",
+    "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+    "scripts/gate1_nr_localized_ceiling.py": "7b9785d60ae13b9e2414be40db2bb8f885218918e4b9c8299f1bf76dc6807f94",
+    "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+    "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/localized_delay_doppler.py": "9f72c30bde8dcbbcaef16aff2a0b1b8ceb147e0271a2cce2af1d67d204ba9671",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "specs": [
+    {
+      "delay_bins": 16,
+      "doppler_bins": 3,
+      "frequency_windows": 2,
+      "max_delay_s": 3e-06,
+      "name": "ldd_w2_d16_v3_r96_tau3us",
+      "nominal_rank": 96,
+      "window_overlap": 1.5
+    },
+    {
+      "delay_bins": 10,
+      "doppler_bins": 3,
+      "frequency_windows": 3,
+      "max_delay_s": 2e-06,
+      "name": "ldd_w3_d10_v3_r90_tau2us",
+      "nominal_rank": 90,
+      "window_overlap": 1.5
+    },
+    {
+      "delay_bins": 8,
+      "doppler_bins": 3,
+      "frequency_windows": 4,
+      "max_delay_s": 1.5e-06,
+      "name": "ldd_w4_d8_v3_r96_tau1p5us",
+      "nominal_rank": 96,
+      "window_overlap": 1.5
+    },
+    {
+      "delay_bins": 8,
+      "doppler_bins": 4,
+      "frequency_windows": 4,
+      "max_delay_s": 3e-06,
+      "name": "ldd_w4_d8_v4_r128_tau3us",
+      "nominal_rank": 128,
+      "window_overlap": 1.5
+    }
+  ],
+  "training_required": false,
+  "variants": [
+    "localized_residual_ldd_w2_d16_v3_r96_tau3us",
+    "localized_residual_ldd_w3_d10_v3_r90_tau2us",
+    "localized_residual_ldd_w4_d8_v3_r96_tau1p5us",
+    "localized_residual_ldd_w4_d8_v4_r128_tau3us",
+    "global_full_oracle",
+    "ls_lmmse",
+    "perfect_csi_lmmse"
+  ],
+  "version": "gate1_nr_localized_ceiling_v1"
+}
