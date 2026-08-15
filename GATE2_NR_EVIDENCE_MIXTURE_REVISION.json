@@ -1,0 +1,19 @@
+{
+  "revision": "gate2_nr_evidence_mixture_lmmse_v1",
+  "model_version": "evidence_mixture_lmmse_ce_v1",
+  "source_commit_required": "126252639ebd06d85542e363f783486773401bdf",
+  "source_result_classification": "GATE1_IMPLEMENTABLE_LOCALIZED_FINAL_PARITY_WITH_LS",
+  "attention_modules_removed": true,
+  "common_detector_estimator_isolation": true,
+  "proposed_components": 4,
+  "single_lmmse_components": 1,
+  "trainable_parameter_limit": 128,
+  "routing_rule": "exact_bayesian_pilot_marginal_likelihood",
+  "component_experts": "exact_structured_lmmse_channel_estimators",
+  "k1_reduction": "ordinary_lmmse_channel_estimation",
+  "training_resume_safe": true,
+  "evaluation_resume_safe": true,
+  "github_complete_small_state_json": true,
+  "inference_uses_true_channel": false,
+  "publication_nr_ready": false
+}

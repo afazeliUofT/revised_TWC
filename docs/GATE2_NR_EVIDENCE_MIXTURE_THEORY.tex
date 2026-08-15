@@ -1,0 +1,113 @@
+\documentclass[10pt]{article}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage[margin=1in]{geometry}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\begin{document}
+\title{Analytical Contract for Evidence-Weighted Mixture LMMSE Channel Estimation}
+\author{}
+\date{}
+\maketitle
+
+\section{Pilot observation model}
+Let $\bm y=\bm A\bm h+\bm n$, where
+$\bm n\sim\mathcal{CN}(\bm 0,\sigma^2\bm I)$.  Conditioned on the known NR
+configuration $\bm c$, assume
+\begin{equation}
+ p(\bm h\mid\bm c)=\sum_{k=1}^{K}\pi_k(\bm c)
+ \mathcal{CN}(\bm 0,\bm C_k),\qquad
+ \pi_k\ge 0,\quad\sum_k\pi_k=1.
+\end{equation}
+Every covariance has the form
+$\bm C_k=\bm U\bm\Lambda_k\bm U^H$, where $\bm U$ is a fixed localized
+physical delay--Doppler basis and $\bm\Lambda_k\succeq 0$ is diagonal.
+
+\begin{proposition}[Component posterior]
+For component $k$, define
+$\bm S_k=\bm A\bm C_k\bm A^H+\sigma_k^2\bm I$.  Then
+\begin{align}
+ \bm\mu_k(\bm y)&=\bm C_k\bm A^H\bm S_k^{-1}\bm y,\\
+ \bm\Sigma_k&=\bm C_k-\bm C_k\bm A^H\bm S_k^{-1}\bm A\bm C_k.
+\end{align}
+Thus each component expert is exactly an LMMSE channel estimator and
+$\bm\Sigma_k\succeq 0$.
+\end{proposition}
+
+\begin{proposition}[Evidence weights]
+The posterior component probability is
+\begin{equation}
+ \gamma_k(\bm y,\bm c)=
+ \frac{\pi_k(\bm c)\mathcal{CN}(\bm y;\bm 0,\bm S_k)}
+ {\sum_j\pi_j(\bm c)\mathcal{CN}(\bm y;\bm 0,\bm S_j)}.
+\end{equation}
+These weights are completely determined by Bayes' rule and are not free
+attention coefficients.
+\end{proposition}
+
+\begin{proposition}[MMSE estimator]
+The posterior mean and covariance are
+\begin{align}
+ \widehat{\bm h}_{\rm mix}
+ &=\mathbb E[\bm h\mid\bm y,\bm c]
+ =\sum_k\gamma_k\bm\mu_k,\\
+ \bm\Sigma_{\rm mix}
+ &=\sum_k\gamma_k\left(\bm\Sigma_k+
+ (\bm\mu_k-\widehat{\bm h}_{\rm mix})
+ (\bm\mu_k-\widehat{\bm h}_{\rm mix})^H\right).
+\end{align}
+Consequently, for any measurable estimator $g(\bm y)$,
+\begin{equation}
+ \mathbb E\|\bm h-\widehat{\bm h}_{\rm mix}\|^2
+ \le \mathbb E\|\bm h-g(\bm y)\|^2.
+\end{equation}
+\end{proposition}
+
+\begin{corollary}[Comparison with LMMSE]
+Under the declared mixture model, the evidence-weighted estimator has Bayes MSE
+no larger than any fixed linear estimator, including the LMMSE estimator formed
+from the moment-matched covariance
+$\overline{\bm C}=\sum_k\pi_k\bm C_k$.  The inequality is strict whenever the
+conditional mean is nonlinear in $\bm y$ on a set of nonzero probability and
+the fixed linear estimator differs from it there.
+\end{corollary}
+
+\begin{corollary}[Classical special case]
+For $K=1$, $\gamma_1=1$ and the proposed posterior mean reduces exactly to the
+classical structured LMMSE channel estimate.
+\end{corollary}
+
+\begin{proposition}[Layer permutation equivariance]
+If the layer ordering, DMRS matrix, and output layer ordering are permuted by
+the same permutation, the estimator output is permuted identically.  This
+follows because the prior is shared across layers and the observation matrix is
+formed by block concatenation of the permuted layer pilots.
+\end{proposition}
+
+\section{Identifiability and parameterization}
+The component total powers are constrained to be strictly ordered.  Smooth
+nonnegative spectral profiles are normalized to unit mean.  This removes the
+usual component-label permutation and separates profile shape from total
+power.  Every covariance is positive semidefinite by construction.
+
+\section{Common-detector experimental contract}
+The evidence-weighted estimator, hard evidence, uniform mixture,
+moment-matched LMMSE, separately trained $K=1$ LMMSE, LS-linear interpolation,
+and perfect CSI all feed the same fixed detector.  Therefore, their primary
+TBLER and channel-NMSE comparisons isolate the estimator.
+
+\section{Failure conditions}
+The analytical risk ordering holds for the declared mixture model.  It does not
+assert dominance under arbitrary mismatch.  The method can fail when the
+localized basis omits material channel energy, when all components collapse to
+one covariance, when training does not recover useful prior statistics, or when
+the pilot geometry cannot distinguish the components.  These conditions are
+measured by basis rank, component diversity, evidence entropy, channel NMSE,
+posterior coverage, and the K=1/moment-matched ablations.
+
+\section{Complexity}
+With $K$ components, the estimator performs $K$ positive-definite solves in the
+pilot domain.  The one-component control has the same form as classical LMMSE.
+The trainable parameter count is below 128; it does not scale with the number of
+resource elements, users, or receive antennas.
+\end{document}
