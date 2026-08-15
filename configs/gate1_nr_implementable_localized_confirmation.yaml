@@ -1,0 +1,68 @@
+revision: gate1_nr_implementable_localized_confirmation_v1
+seed: 2026091501
+model:
+  version: ls_anchored_localized_residual_v1
+  num_knots: 8
+checkpoint:
+  path: outputs/gate1_nr_implementable_localized/checkpoints/best.pt
+  sha256: cfb1afd665d6df89e6590b611badd68a77b9ada43de07daeee7b8d8a27dd70aa
+source_result:
+  report: outputs/reports/gate1_nr_implementable_localized.json
+  required_classification: GATE1_IMPLEMENTABLE_LOCALIZED_POSSIBLY_BEATS_LS
+  required_next_action: RUN_ONE_LARGER_FIXED_CONFIRMATION_WITHOUT_RETUNING
+  required_rows: 2016
+evaluation:
+  batch_size: 64
+  repetitions: 64
+  bp_iterations: 20
+  ebno_db: [6.0, 10.0, 14.0]
+  variants:
+    - trained_localized
+    - trained_uncertainty_off
+    - trained_mean_only
+    - ls_estimate_repaired
+    - ls_lmmse
+    - perfect_csi_lmmse
+  cases:
+    - name: confirmation_umi_12prb_cell211
+      group: fresh_fixed_confirmation
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 12
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 211
+    - name: confirmation_umi_12prb_cell212_permuted_ports
+      group: fresh_fixed_confirmation
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 12
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [2, 0, 3, 1]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 212
+decision:
+  bootstrap_repetitions: 20000
+  bootstrap_seed: 2026091599
+  max_per_snr_harm: 0.001
+  max_14db_reversal: 0.001
+  final_parity_margin: 0.0005
+  crc_disagreement_limit: 0.005
+  ls_factorization_tolerance: 0.001

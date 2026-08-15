@@ -1,0 +1,20 @@
+{
+  "revision": "gate1_nr_implementable_localized_confirmation_v1",
+  "purpose": "One larger fixed, no-retraining confirmation of the implementable LS-anchored localized receiver against LS+LMMSE",
+  "required_base_commit": "86bed55cbb03f7b02f8c2a09acb4428b31e97a78",
+  "required_source_classification": "GATE1_IMPLEMENTABLE_LOCALIZED_POSSIBLY_BEATS_LS",
+  "required_source_next_action": "RUN_ONE_LARGER_FIXED_CONFIRMATION_WITHOUT_RETUNING",
+  "frozen_checkpoint_sha256": "cfb1afd665d6df89e6590b611badd68a77b9ada43de07daeee7b8d8a27dd70aa",
+  "training_required": false,
+  "retuning_allowed": false,
+  "fresh_confirmation_cases": 2,
+  "confirmation_prb": 12,
+  "batch_size": 64,
+  "repetitions_per_case_snr": 64,
+  "transport_blocks_per_snr_per_receiver": 32768,
+  "expected_rows": 2304,
+  "primary_inference": "paired cluster-level TBLER difference with Student-t and stratified bootstrap confidence intervals",
+  "secondary_inference": "one-sided exact McNemar test on paired transport-block errors",
+  "hard_final_decision": true,
+  "inference_uses_true_channel": false
+}
