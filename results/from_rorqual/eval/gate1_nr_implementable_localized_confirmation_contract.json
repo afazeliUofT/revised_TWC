@@ -1,0 +1,107 @@
+{
+  "config_sha256": "e8a9c2b66338944221ee9e20109b643b75286db2822aec84686ea737bb0450a4",
+  "decision": {
+    "bootstrap_repetitions": 20000,
+    "bootstrap_seed": 2026091599,
+    "crc_disagreement_limit": 0.005,
+    "final_parity_margin": 0.0005,
+    "ls_factorization_tolerance": 0.001,
+    "max_14db_reversal": 0.001,
+    "max_per_snr_harm": 0.001
+  },
+  "evaluation": {
+    "batch_size": 64,
+    "bp_iterations": 20,
+    "cases": [
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "group": "fresh_fixed_confirmation",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 211,
+        "name": "confirmation_umi_12prb_cell211",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 12,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      },
+      {
+        "dmrs_additional_position": 1,
+        "dmrs_config_type": 1,
+        "dmrs_length": 1,
+        "dmrs_ports": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "group": "fresh_fixed_confirmation",
+        "mcs_index": 10,
+        "mcs_table": 1,
+        "n_cell_id": 212,
+        "name": "confirmation_umi_12prb_cell212_permuted_ports",
+        "num_cdm_groups_without_data": 2,
+        "num_layers_per_user": 1,
+        "num_prb": 12,
+        "num_rx_ant": 8,
+        "num_users": 4,
+        "scenario": "umi",
+        "speed_mps": 3.0,
+        "subcarrier_spacing_khz": 30
+      }
+    ],
+    "ebno_db": [
+      6.0,
+      10.0,
+      14.0
+    ],
+    "repetitions": 64,
+    "variants": [
+      "trained_localized",
+      "trained_uncertainty_off",
+      "trained_mean_only",
+      "ls_estimate_repaired",
+      "ls_lmmse",
+      "perfect_csi_lmmse"
+    ]
+  },
+  "frozen_checkpoint_sha256": "cfb1afd665d6df89e6590b611badd68a77b9ada43de07daeee7b8d8a27dd70aa",
+  "policy": {
+    "checkpoint_frozen_before_confirmation_cases": true,
+    "inference_uses_true_channel": false,
+    "retuning_allowed": false,
+    "training_required": false
+  },
+  "signature": "77f93a56338507239a2ad3f1fb05b6c96e4c97a61eadaea142384aacb8ea3f00",
+  "source_result": {
+    "classification": "GATE1_IMPLEMENTABLE_LOCALIZED_POSSIBLY_BEATS_LS",
+    "next_action": "RUN_ONE_LARGER_FIXED_CONFIRMATION_WITHOUT_RETUNING",
+    "path": "outputs/reports/gate1_nr_implementable_localized.json"
+  },
+  "source_sha256": {
+    "configs/gate1_nr_implementable_localized_confirmation.yaml": "e8a9c2b66338944221ee9e20109b643b75286db2822aec84686ea737bb0450a4",
+    "scripts/gate1_nr_implementable_localized_common.py": "16dc4d0b6c7fd6d35edb1a2fb12a2debb2da67bf6c2174babc99294ea0812a46",
+    "scripts/gate1_nr_implementable_localized_confirmation.py": "673dceb6eca4291e28674e6866fce310a040528d9c6bc7f66fcd8ec5fe602b97",
+    "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+    "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/localized_delay_doppler.py": "4ac60f701d696fb7096d04ba3be7cbce73232570e05871dc80b78d296b81fd8d",
+    "src/bayesroute/ls_anchored_localized_posterior.py": "6a6ca7d018d57a03b95a7a8bb193e41960d20290f65d0630351826cf7f625ce6",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "version": "gate1_nr_implementable_localized_confirmation_v1"
+}

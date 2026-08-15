@@ -1,0 +1,283 @@
+{
+  "aggregate_csv": "outputs/eval/gate1_nr_implementable_localized_confirmation_aggregate.csv",
+  "classification": "GATE1_IMPLEMENTABLE_LOCALIZED_FINAL_PARITY_WITH_LS",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "torch": "2.13.0"
+  },
+  "evaluation": {
+    "complete": true,
+    "contract": {
+      "config_sha256": "e8a9c2b66338944221ee9e20109b643b75286db2822aec84686ea737bb0450a4",
+      "decision": {
+        "bootstrap_repetitions": 20000,
+        "bootstrap_seed": 2026091599,
+        "crc_disagreement_limit": 0.005,
+        "final_parity_margin": 0.0005,
+        "ls_factorization_tolerance": 0.001,
+        "max_14db_reversal": 0.001,
+        "max_per_snr_harm": 0.001
+      },
+      "evaluation": {
+        "batch_size": 64,
+        "bp_iterations": 20,
+        "cases": [
+          {
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "group": "fresh_fixed_confirmation",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 211,
+            "name": "confirmation_umi_12prb_cell211",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 12,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          },
+          {
+            "dmrs_additional_position": 1,
+            "dmrs_config_type": 1,
+            "dmrs_length": 1,
+            "dmrs_ports": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "group": "fresh_fixed_confirmation",
+            "mcs_index": 10,
+            "mcs_table": 1,
+            "n_cell_id": 212,
+            "name": "confirmation_umi_12prb_cell212_permuted_ports",
+            "num_cdm_groups_without_data": 2,
+            "num_layers_per_user": 1,
+            "num_prb": 12,
+            "num_rx_ant": 8,
+            "num_users": 4,
+            "scenario": "umi",
+            "speed_mps": 3.0,
+            "subcarrier_spacing_khz": 30
+          }
+        ],
+        "ebno_db": [
+          6.0,
+          10.0,
+          14.0
+        ],
+        "repetitions": 64,
+        "variants": [
+          "trained_localized",
+          "trained_uncertainty_off",
+          "trained_mean_only",
+          "ls_estimate_repaired",
+          "ls_lmmse",
+          "perfect_csi_lmmse"
+        ]
+      },
+      "frozen_checkpoint_sha256": "cfb1afd665d6df89e6590b611badd68a77b9ada43de07daeee7b8d8a27dd70aa",
+      "policy": {
+        "checkpoint_frozen_before_confirmation_cases": true,
+        "inference_uses_true_channel": false,
+        "retuning_allowed": false,
+        "training_required": false
+      },
+      "signature": "77f93a56338507239a2ad3f1fb05b6c96e4c97a61eadaea142384aacb8ea3f00",
+      "source_result": {
+        "classification": "GATE1_IMPLEMENTABLE_LOCALIZED_POSSIBLY_BEATS_LS",
+        "next_action": "RUN_ONE_LARGER_FIXED_CONFIRMATION_WITHOUT_RETUNING",
+        "path": "outputs/reports/gate1_nr_implementable_localized.json"
+      },
+      "source_sha256": {
+        "configs/gate1_nr_implementable_localized_confirmation.yaml": "e8a9c2b66338944221ee9e20109b643b75286db2822aec84686ea737bb0450a4",
+        "scripts/gate1_nr_implementable_localized_common.py": "16dc4d0b6c7fd6d35edb1a2fb12a2debb2da67bf6c2174babc99294ea0812a46",
+        "scripts/gate1_nr_implementable_localized_confirmation.py": "673dceb6eca4291e28674e6866fce310a040528d9c6bc7f66fcd8ec5fe602b97",
+        "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+        "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+        "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+        "src/bayesroute/localized_delay_doppler.py": "4ac60f701d696fb7096d04ba3be7cbce73232570e05871dc80b78d296b81fd8d",
+        "src/bayesroute/ls_anchored_localized_posterior.py": "6a6ca7d018d57a03b95a7a8bb193e41960d20290f65d0630351826cf7f625ce6",
+        "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+        "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+        "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+      },
+      "version": "gate1_nr_implementable_localized_confirmation_v1"
+    },
+    "expected_rows": 2304,
+    "rows": 2304,
+    "unique_rows": 2304
+  },
+  "final_confirmation": true,
+  "mcnemar_secondary": {
+    "discordant_blocks": 153,
+    "ls_only_errors": 90,
+    "one_sided_p_trained_better": 0.017605510089904478,
+    "secondary_only": true,
+    "trained_only_errors": 63
+  },
+  "metrics": {
+    "ls_block_errors": 473,
+    "ls_tbler": 0.004811604817708333,
+    "mean_only_tbler": 0.0052490234375,
+    "perfect_tbler": 0.000244140625,
+    "trained_10db_tbler": 0.003662109375,
+    "trained_14db_tbler": 0.00274658203125,
+    "trained_block_errors": 446,
+    "trained_channel_nmse": 0.03817677412492528,
+    "trained_coverage95": 0.9454490807838738,
+    "trained_tbler": 0.004536946614583333,
+    "transport_blocks_per_receiver": 98304,
+    "transport_blocks_per_snr_per_receiver": 32768,
+    "uncertainty_off_tbler": 0.008341471354166666
+  },
+  "model_version": "ls_anchored_localized_residual_v1",
+  "next_action": "STOP_LS_BEATING_CLAIM_AND_RETAIN_ONLY_IF_COMPLEXITY_OR_INTERPRETABILITY_CASE_IS_STRONG",
+  "paired_comparisons": {
+    "ls_repaired_minus_ls_tbler": {
+      "ci95_high": 0.0002802741014049493,
+      "ci95_low": -5.6478528488282633e-05,
+      "mean": 0.00011189778645833333,
+      "pairs": 384,
+      "std": 0.0016781236533370669
+    },
+    "trained_minus_ls_tbler": {
+      "ci95_high": 5.077605230010618e-06,
+      "ci95_low": -0.0005543940114800107,
+      "mean": -0.000274658203125,
+      "pairs": 384,
+      "std": 0.0027879887787943458
+    },
+    "trained_minus_mean_only_tbler": {
+      "ci95_high": -0.0005125688962653468,
+      "ci95_low": -0.0009115847495679865,
+      "mean": -0.0007120768229166666,
+      "pairs": 384,
+      "std": 0.001988397066701246
+    },
+    "trained_minus_uncertainty_off_tbler": {
+      "ci95_high": -0.003360420137436294,
+      "ci95_low": -0.0042486293417303735,
+      "mean": -0.0038045247395833335,
+      "pairs": 384,
+      "std": 0.004426171446115099
+    }
+  },
+  "paired_csv": "outputs/reports/gate1_nr_implementable_localized_confirmation_paired.csv",
+  "per_snr_trained_minus_ls": {
+    "10.0": {
+      "ci95_high": 0.0007688742321590976,
+      "ci95_low": 2.4582799090902324e-05,
+      "mean": 0.000396728515625,
+      "pairs": 128,
+      "std": 0.002127706990038803
+    },
+    "14.0": {
+      "ci95_high": -0.00046217549381085294,
+      "ci95_low": -0.0012468088811891471,
+      "mean": -0.0008544921875,
+      "pairs": 128,
+      "std": 0.0022430325928387467
+    },
+    "6.0": {
+      "ci95_high": 0.0002663807231964389,
+      "ci95_low": -0.000998802598196439,
+      "mean": -0.0003662109375,
+      "pairs": 128,
+      "std": 0.0036167813802600738
+    }
+  },
+  "plots": [
+    "outputs/plots/gate1_implementable_localized_confirmation_tbler.png",
+    "outputs/plots/gate1_implementable_localized_confirmation_paired_delta.png"
+  ],
+  "preconditions": {
+    "checkpoint": "outputs/gate1_nr_implementable_localized/checkpoints/best.pt",
+    "checkpoint_sha256": "cfb1afd665d6df89e6590b611badd68a77b9ada43de07daeee7b8d8a27dd70aa",
+    "checks": {
+      "all_12prb": true,
+      "checkpoint_hash": true,
+      "checkpoint_hash_config": true,
+      "checkpoint_present": true,
+      "expected_rows": true,
+      "fixed_variants": true,
+      "fresh_cell_ids": true,
+      "large_block_count": true,
+      "no_training_section": true,
+      "source_classification": true,
+      "source_complete": true,
+      "source_next_action": true,
+      "source_no_truth": true,
+      "source_rows": true,
+      "source_training_converged": true,
+      "two_fresh_cases": true
+    },
+    "no_retraining": true,
+    "no_retuning": true,
+    "passed": true,
+    "source_classification": "GATE1_IMPLEMENTABLE_LOCALIZED_POSSIBLY_BEATS_LS",
+    "source_metrics": {
+      "estimated_ls_block_errors": 65,
+      "estimated_trained_block_errors": 60,
+      "ls_12prb_tbler": 0.005289713541666667,
+      "old_global_12prb_tbler": 0.05810546875,
+      "perfect_12prb_tbler": 0.0,
+      "trained_12prb_10db_tbler": 0.003662109375,
+      "trained_12prb_14db_tbler": 0.004150390625,
+      "trained_12prb_channel_nmse": 0.03898413279481849,
+      "trained_12prb_coverage95": 0.9432026129215956,
+      "trained_12prb_residual_gate": 0.998648484547933,
+      "trained_12prb_tbler": 0.0048828125,
+      "trained_mean_only_12prb_tbler": 0.005452473958333333,
+      "trained_uncertainty_off_12prb_tbler": 0.00830078125,
+      "transport_blocks_per_snr_per_receiver": 4096
+    },
+    "source_next_action": "RUN_ONE_LARGER_FIXED_CONFIRMATION_WITHOUT_RETUNING",
+    "source_report": "outputs/reports/gate1_nr_implementable_localized.json"
+  },
+  "publication_nr_ready": false,
+  "raw_csv": "outputs/eval/gate1_nr_implementable_localized_confirmation.csv",
+  "scientific_checks": {
+    "localized_mean_improves_ls_variance_only": true,
+    "no_high_snr_reversal": true,
+    "no_material_per_snr_harm": true,
+    "secondary_mcnemar_supports_trained": true,
+    "trained_point_estimate_beats_ls": true,
+    "trained_statistically_beats_ls_bootstrap": false,
+    "trained_statistically_beats_ls_student_t": false,
+    "uncertainty_improves_tbler": true
+  },
+  "software_checks": {
+    "all_core_metrics_finite": true,
+    "all_variants_present": true,
+    "complete_rows": true,
+    "crc_consistency": true,
+    "frozen_checkpoint_unchanged": true,
+    "inference_uses_no_true_channel": true,
+    "ls_factorized_matches_standard": true,
+    "no_retraining_or_retuning": true,
+    "paired_seed_batches": true,
+    "unique_rows": true
+  },
+  "stratified_cluster_bootstrap": {
+    "ci95_high": 0.0,
+    "ci95_low": -0.00054931640625,
+    "mean": -0.00027609659830729166,
+    "repetitions": 20000,
+    "seed": 2026091599
+  },
+  "version": "gate1_nr_implementable_localized_confirmation_v1"
+}
