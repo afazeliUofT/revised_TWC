@@ -1,0 +1,169 @@
+revision: gate1_nr_implementable_localized_v1
+seed: 2026090301
+old_global_operator_seed: 58001
+basis:
+  name: ldd_w3_d10_v3_r90_tau2us
+  frequency_windows: 3
+  delay_bins: 10
+  doppler_bins: 3
+  max_delay_s: 2.0e-6
+  window_overlap: 1.5
+  nominal_rank: 90
+model:
+  version: ls_anchored_localized_residual_v1
+  num_knots: 8
+training:
+  batch_size: 16
+  max_steps: 12000
+  min_steps: 4000
+  validation_batch_size: 32
+  validation_ebno_db: [2.0, 6.0, 10.0, 14.0]
+  validation_every: 250
+  validation_seed: 2026090399
+  early_stopping_patience: 8
+  minimum_improvement: 5.0e-5
+  tail_improvement_tolerance: 1.0e-3
+  save_every: 50
+  learning_rate_start: 3.0e-3
+  learning_rate_end: 2.0e-5
+  weight_decay: 1.0e-4
+  grad_clip: 1.0
+  ebno_db_min: -2.0
+  ebno_db_max: 14.0
+  channel_loss_weight: 0.05
+  calibration_loss_weight: 0.02
+  ls_gain_loss_weight: 0.25
+  ls_gain_target_ratio: 0.98
+training_cases:
+  - name: implementable_train_umi_4prb
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 191
+  - name: implementable_train_umi_8prb
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 8
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 192
+validation_cases:
+  - name: implementable_validation_umi_4prb
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 4
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 193
+  - name: implementable_validation_umi_8prb
+    scenario: umi
+    num_users: 4
+    num_rx_ant: 8
+    num_layers_per_user: 1
+    num_prb: 8
+    subcarrier_spacing_khz: 30
+    dmrs_config_type: 1
+    dmrs_length: 1
+    dmrs_additional_position: 1
+    num_cdm_groups_without_data: 2
+    dmrs_ports: [0, 1, 2, 3]
+    mcs_index: 10
+    mcs_table: 1
+    speed_mps: 3.0
+    n_cell_id: 194
+evaluation:
+  batch_size: 32
+  repetitions: 32
+  bp_iterations: 20
+  ebno_db: [6.0, 10.0, 14.0]
+  variants:
+    - trained_localized
+    - trained_uncertainty_off
+    - trained_mean_only
+    - old_global_repaired
+    - ls_estimate_repaired
+    - ls_lmmse
+    - perfect_csi_lmmse
+  cases:
+    - name: implementable_eval_umi_4prb
+      group: trained_grid_new_seed
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 4
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 195
+    - name: implementable_eval_umi_8prb
+      group: trained_grid_new_seed
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 8
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 196
+    - name: implementable_holdout_umi_12prb
+      group: fresh_untouched_12prb_holdout
+      scenario: umi
+      num_users: 4
+      num_rx_ant: 8
+      num_layers_per_user: 1
+      num_prb: 12
+      subcarrier_spacing_khz: 30
+      dmrs_config_type: 1
+      dmrs_length: 1
+      dmrs_additional_position: 1
+      num_cdm_groups_without_data: 2
+      dmrs_ports: [0, 1, 2, 3]
+      mcs_index: 10
+      mcs_table: 1
+      speed_mps: 3.0
+      n_cell_id: 197
+decision:
+  max_14db_reversal: 0.005
