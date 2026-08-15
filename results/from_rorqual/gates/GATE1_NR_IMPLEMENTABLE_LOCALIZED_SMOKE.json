@@ -1,0 +1,272 @@
+{
+  "checks": {
+    "checkpoint_roundtrip": true,
+    "cuda_compute_node": true,
+    "each_case_positive_variance": true,
+    "each_case_posterior_finite": true,
+    "each_grid_has_valid_rank": true,
+    "gradient_to_all_parameter_tensors": true,
+    "inference_observability_contract": true,
+    "ls_alignment_paths": true,
+    "nr_ldpc_decode_paths": true,
+    "optimizer_updates_parameters": true,
+    "precision_corrected_basis": true,
+    "preconditions": true,
+    "pure_torch_math": true,
+    "shared_parameter_identity": true,
+    "sionna_2_0_1": true,
+    "source_contract": true
+  },
+  "classification": "GATE1_NR_IMPLEMENTABLE_LOCALIZED_SMOKE_PASS",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "sionna": "2.0.1",
+    "torch": "2.13.0"
+  },
+  "gradient_report": {
+    "all_finite": true,
+    "all_present": true,
+    "any_nonzero": true,
+    "entries": [
+      {
+        "finite": true,
+        "index": 0,
+        "norm": 1.0595681487757247e-06,
+        "present": true,
+        "shape": [
+          8
+        ]
+      },
+      {
+        "finite": true,
+        "index": 1,
+        "norm": 1.0403396117908414e-06,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 2,
+        "norm": 0.028960807248950005,
+        "present": true,
+        "shape": [
+          8
+        ]
+      },
+      {
+        "finite": true,
+        "index": 3,
+        "norm": 0.009514524601399899,
+        "present": true,
+        "shape": [
+          8
+        ]
+      },
+      {
+        "finite": true,
+        "index": 4,
+        "norm": 0.0,
+        "present": true,
+        "shape": [
+          2
+        ]
+      },
+      {
+        "finite": true,
+        "index": 5,
+        "norm": 8.171831723302603e-06,
+        "present": true,
+        "shape": [
+          2
+        ]
+      },
+      {
+        "finite": true,
+        "index": 6,
+        "norm": 5.217132184043294e-07,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 7,
+        "norm": 2.506124474166427e-06,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 8,
+        "norm": 1.376302770950133e-05,
+        "present": true,
+        "shape": [
+          2
+        ]
+      },
+      {
+        "finite": true,
+        "index": 9,
+        "norm": 3.6692781577585265e-06,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 10,
+        "norm": 0.00013746926560997963,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 11,
+        "norm": 1.1945490719030692e-21,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 12,
+        "norm": 0.00021903705783188343,
+        "present": true,
+        "shape": []
+      }
+    ],
+    "total_norm": 0.030484777977777263
+  },
+  "inference_contract": {
+    "all_runtime_outputs_mark_no_truth": true,
+    "forward_has_no_truth_argument": true,
+    "residual_forward_has_no_truth_argument": true
+  },
+  "model_version": "ls_anchored_localized_residual_v1",
+  "overall_pass": true,
+  "parameter_report": {
+    "context_dim": 2,
+    "effective_rank": 45,
+    "inference_inputs": [
+      "received_dmrs",
+      "dmrs_matrix",
+      "noise_variance",
+      "sionna_ls_mean",
+      "sionna_ls_error_variance",
+      "known_nr_context"
+    ],
+    "inference_uses_true_channel": false,
+    "nominal_rank": 90,
+    "num_knots": 8,
+    "trainable_parameters": 37,
+    "version": "ls_anchored_localized_residual_v1"
+  },
+  "per_case": [
+    {
+      "bit_logits_finite": true,
+      "bit_nll": 0.12996084988117218,
+      "case": "implementable_localized_smoke_umi_4prb",
+      "crc_failure_rate": 0.0,
+      "effective_rank": 45,
+      "inference_uses_true_channel": false,
+      "loss": 0.03582886978983879,
+      "ls_alignment_pass": true,
+      "nominal_rank": 90,
+      "num_prb": 4,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "residual_gate": 0.19781611859798431,
+      "tbler": 0.0
+    },
+    {
+      "bit_logits_finite": true,
+      "bit_nll": 0.14961445331573486,
+      "case": "implementable_localized_smoke_umi_8prb",
+      "crc_failure_rate": 0.0,
+      "effective_rank": 60,
+      "inference_uses_true_channel": false,
+      "loss": 0.05918550491333008,
+      "ls_alignment_pass": true,
+      "nominal_rank": 90,
+      "num_prb": 8,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "residual_gate": 0.19781611859798431,
+      "tbler": 0.0
+    }
+  ],
+  "preconditions": {
+    "ceiling_metrics": {
+      "global_oracle_12prb_tbler": 0.018663194444444444,
+      "localized_10db_tbler": 0.0013020833333333333,
+      "localized_14db_tbler": 0.0,
+      "localized_final_channel_nmse": 0.018481859057727743,
+      "localized_oracle_12prb_tbler": 0.00043402777777777775,
+      "localized_residual_projection_nmse": 0.4786476468046506,
+      "ls_12prb_tbler": 0.003472222222222222,
+      "perfect_12prb_tbler": 0.0,
+      "pilot_current_12prb_tbler": 0.0646701388888889
+    },
+    "checks": {
+      "classification": true,
+      "complete": true,
+      "holdout_unused": true,
+      "oracle_beats_ls": true,
+      "precision_patch": true,
+      "rows": true,
+      "true_channel_control": true,
+      "unique_rows": true,
+      "version": true,
+      "winner": true
+    },
+    "classification": "GATE1_LOCALIZED_CEILING_BEATS_LS",
+    "passed": true,
+    "report": "outputs/reports/gate1_nr_localized_ceiling.json",
+    "winner": {
+      "delay_bins": 10,
+      "doppler_bins": 3,
+      "frequency_windows": 3,
+      "max_delay_s": 2e-06,
+      "name": "ldd_w3_d10_v3_r90_tau2us",
+      "nominal_rank": 90,
+      "window_overlap": 1.5
+    }
+  },
+  "publication_nr_ready": false,
+  "pure_torch_self_test": {
+    "checks": {
+      "all_parameter_gradients_present_and_finite": true,
+      "checkpoint_roundtrip": true,
+      "inference_contract_excludes_truth": true,
+      "ls_is_nested_special_case": true,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "residual_covariance_psd": true,
+      "residual_gate_valid": true
+    },
+    "ls_nested_max_abs_error": 0.0,
+    "minimum_residual_covariance_eigenvalue": 0.03859685134653018,
+    "parameter_report": {
+      "context_dim": 2,
+      "effective_rank": 8,
+      "inference_inputs": [
+        "received_dmrs",
+        "dmrs_matrix",
+        "noise_variance",
+        "sionna_ls_mean",
+        "sionna_ls_error_variance",
+        "known_nr_context"
+      ],
+      "inference_uses_true_channel": false,
+      "nominal_rank": 10,
+      "num_knots": 8,
+      "trainable_parameters": 37,
+      "version": "ls_anchored_localized_residual_v1"
+    },
+    "passed": true,
+    "residual_gate": 0.19781610369682312,
+    "version": "ls_anchored_localized_residual_v1"
+  },
+  "screen_ready": true,
+  "version": "gate1_nr_implementable_localized_v1"
+}
