@@ -18,6 +18,7 @@ def main() -> None:
         python - <<'REMOTE_PY'
         import json
         from pathlib import Path
+        import yaml
         smoke_path=Path('outputs/gates/GATE1_NR_IMPLEMENTABLE_LOCALIZED_SMOKE.json')
         if not smoke_path.is_file():
             raise SystemExit('BLOCKED: missing implementable-localized smoke report')
@@ -33,7 +34,26 @@ def main() -> None:
         ]
         if not all(required):
             raise SystemExit('BLOCKED: implementable-localized smoke contract has not passed')
+        revision=json.loads(
+            Path('GATE1_NR_IMPLEMENTABLE_LOCALIZED_REVISION.json').read_text()
+        )
+        config=yaml.safe_load(
+            Path('configs/gate1_nr_implementable_localized.yaml').read_text()
+        )
+        training=config['training']
+        rng_required=[
+            revision.get('training_rng_patch') == 'deterministic_per_step_seed_v1',
+            revision.get('validation_rng_isolated_from_training') is True,
+            revision.get('resume_training_seed_is_step_derived') is True,
+            training.get('rng_patch_version') == 'deterministic_per_step_seed_v1',
+            training.get('deterministic_step_seeding') is True,
+            int(training.get('step_seed_offset', 0)) == 20000000,
+        ]
+        if not all(rng_required):
+            raise SystemExit('BLOCKED: deterministic training RNG patch has not passed')
         print('GATE1_NR_IMPLEMENTABLE_LOCALIZED_SMOKE_PASS')
+        print('GATE1_NR_IMPLEMENTABLE_LOCALIZED_TRAINING_RNG_PASS', revision['training_rng_patch'])
+        print('TRAINING_STEP_SEED_OFFSET', training['step_seed_offset'])
         print('INFERENCE_USES_TRUE_CHANNEL NO')
         REMOTE_PY
         python scripts/gate1_nr_implementable_localized.py \\

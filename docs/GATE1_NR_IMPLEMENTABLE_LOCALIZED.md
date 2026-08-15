@@ -29,3 +29,10 @@ string and the complete selected-basis specification under
 from that contract and remains compatible with older reports that stored the
 full mapping at top level.
 
+## Deterministic training-stream contract
+
+The final training gate uses `deterministic_per_step_seed_v1`. Every training step receives
+a unique seed `experiment_seed + 20000000 + step`. Fixed validation
+seeds therefore cannot restart or repeat the training random stream. The seed
+is recorded in every training-log row and is reproducible across wall-time
+resumption.

@@ -14,6 +14,9 @@ model:
   num_knots: 8
 training:
   batch_size: 16
+  rng_patch_version: deterministic_per_step_seed_v1
+  deterministic_step_seeding: true
+  step_seed_offset: 20000000
   max_steps: 12000
   min_steps: 4000
   validation_batch_size: 32

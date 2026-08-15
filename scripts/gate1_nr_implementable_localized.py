@@ -122,6 +122,13 @@ def preconditions(config: dict[str, Any]) -> dict[str, Any]:
             int(item["num_prb"]) != 12
             for item in config["training_cases"] + config["validation_cases"]
         ),
+        "deterministic_training_rng": (
+            config["training"].get("rng_patch_version")
+            == "deterministic_per_step_seed_v1"
+            and config["training"].get("deterministic_step_seeding") is True
+            and int(config["training"].get("step_seed_offset", 0))
+            == 20000000
+        ),
         "expected_variants": config["evaluation"]["variants"] == [
             "trained_localized",
             "trained_uncertainty_off",
@@ -241,6 +248,29 @@ def cosine_lr(step: int, total: int, start: float, end: float) -> float:
     )
 
 
+TRAINING_RNG_PATCH_VERSION = "deterministic_per_step_seed_v1"
+
+
+def deterministic_training_seed(config: dict[str, object], step: int) -> int:
+    """Return the unique seed assigned to one training step.
+
+    Validation deliberately uses fixed seeds. Reseeding every training step
+    prevents validation from restarting the training random stream and makes
+    resume exact for Python, NumPy, PyTorch, CUDA, and Sionna.
+    """
+    training = config["training"]
+    if training.get("rng_patch_version") != TRAINING_RNG_PATCH_VERSION:
+        raise RuntimeError("Training RNG patch version mismatch")
+    if training.get("deterministic_step_seeding") is not True:
+        raise RuntimeError("Deterministic per-step training seeding is required")
+    offset = int(training.get("step_seed_offset", 0))
+    if offset < 1_000_000:
+        raise RuntimeError("Training-step seed offset is too small")
+    if int(step) < 0:
+        raise ValueError("Training step must be nonnegative")
+    return int(config["seed"]) + offset + int(step)
+
+
 def train(
     config: dict[str, Any],
     config_path: Path,
@@ -340,6 +370,7 @@ def train(
         "case",
         "num_prb",
         "ebno_db",
+        "training_seed",
         "learning_rate",
         "loss",
         "coded_bit_nll",
@@ -370,6 +401,8 @@ def train(
         )
         for group in optimizer.param_groups:
             group["lr"] = learning_rate
+        training_seed = deterministic_training_seed(config, step)
+        set_all_seeds(training_seed)
         snr = float(training["ebno_db_min"]) + (
             float(training["ebno_db_max"]) - float(training["ebno_db_min"])
         ) * float(torch.rand(1).item())
@@ -445,6 +478,7 @@ def train(
                 "case": item.case.name,
                 "num_prb": int(item.case.num_prb),
                 "ebno_db": snr,
+                "training_seed": training_seed,
                 "learning_rate": learning_rate,
                 "loss": float(loss.detach().item()),
                 "coded_bit_nll": float(parts["bit_nll"].detach().item()),
@@ -536,6 +570,10 @@ def train(
         "best_checkpoint_sha256": sha256_file(best_path),
         "last_checkpoint": str(last_path.relative_to(ROOT)),
         "trainable_parameters": int(sum(parameter.numel() for parameter in parameters)),
+        "training_rng_patch": "deterministic_per_step_seed_v1",
+        "deterministic_step_seeding": True,
+        "step_seed_offset": 20000000,
+        "unique_training_step_seeds": last_executed_step + 1,
         "parameter_report": train_items[0].operator.parameter_report(),
         "basis_reports": [item.basis_report for item in train_items],
         "contract": contract,

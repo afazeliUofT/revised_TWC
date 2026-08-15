@@ -1,26 +1,31 @@
 {
-  "revision": "gate1_nr_implementable_localized_v1",
-  "purpose": "One final implementable LS-anchored localized Bayesian residual posterior and binding beat-LS-or-stop holdout",
   "base_evidence_commit": "aae914c91662d30d661a5b9d8954bf804fd3189b",
+  "basis_precision_patch": "complex128_atoms_before_rank_decision_v1",
+  "ceiling_winner_schema_patch": "top_level_string_holdout_contract_mapping_v1",
+  "deterministic_step_seeding": true,
+  "evaluation_rows": 2016,
+  "fresh_holdout_prb": 12,
+  "hard_final_stop": true,
+  "inference_uses_true_channel": false,
+  "maximum_training_steps": 12000,
+  "minimum_training_steps": 4000,
+  "model_version": "ls_anchored_localized_residual_v1",
+  "pgca_agmp_baseline_included": false,
+  "purpose": "One final implementable LS-anchored localized Bayesian residual posterior and binding beat-LS-or-stop holdout",
   "required_ceiling_classification": "GATE1_LOCALIZED_CEILING_BEATS_LS",
   "required_ceiling_version": "gate1_nr_localized_ceiling_v1_1",
-  "basis_precision_patch": "complex128_atoms_before_rank_decision_v1",
+  "resume_training_seed_is_step_derived": true,
+  "revision": "gate1_nr_implementable_localized_v1",
   "selected_basis": "ldd_w3_d10_v3_r90_tau2us",
-  "model_version": "ls_anchored_localized_residual_v1",
-  "inference_uses_true_channel": false,
   "training_prb": [
     4,
     8
   ],
+  "training_rng_patch": "deterministic_per_step_seed_v1",
+  "training_step_seed_offset": 20000000,
   "validation_prb": [
     4,
     8
   ],
-  "fresh_holdout_prb": 12,
-  "maximum_training_steps": 12000,
-  "minimum_training_steps": 4000,
-  "evaluation_rows": 2016,
-  "hard_final_stop": true,
-  "pgca_agmp_baseline_included": false,
-  "ceiling_winner_schema_patch": "top_level_string_holdout_contract_mapping_v1"
+  "validation_rng_isolated_from_training": true
 }
