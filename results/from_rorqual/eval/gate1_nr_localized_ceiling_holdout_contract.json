@@ -1,0 +1,76 @@
+{
+  "basis_precision_patch": "complex128_atoms_before_rank_decision_v1",
+  "cases": [
+    {
+      "dmrs_additional_position": 1,
+      "dmrs_config_type": 1,
+      "dmrs_length": 1,
+      "dmrs_ports": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "group": "fresh_untouched_grid_holdout",
+      "mcs_index": 10,
+      "mcs_table": 1,
+      "n_cell_id": 163,
+      "name": "localized_holdout_umi_12prb",
+      "num_cdm_groups_without_data": 2,
+      "num_layers_per_user": 1,
+      "num_prb": 12,
+      "num_rx_ant": 8,
+      "num_users": 4,
+      "scenario": "umi",
+      "speed_mps": 3.0,
+      "subcarrier_spacing_khz": 30
+    }
+  ],
+  "checkpoint_sha256": "45b8439c9aa3be7d9ee2d04c77352522129eee75ab2dfd47ad0bbf988da89e2a",
+  "config_sha256": "8b3cdaa1b9fb408e955f973beb8752bc6985c229757b5ac8d9d25c58a0f1793a",
+  "ebno_db": [
+    6.0,
+    10.0,
+    14.0
+  ],
+  "holdout_used_for_selection": false,
+  "phase": "fresh_12prb_holdout",
+  "repetitions": 12,
+  "selection_contract_signature": "3ea7ca54bf4acaf8430606a0eed2cb68691b331adf6b516277eebfaed93e967e",
+  "selection_csv_sha256": "20a45012b2782710daa84ad2c3ca1bc09e44220ddfeb078e3f53b9f64ec1ac9f",
+  "signature": "dc9d582d57dac935680fcefe9cc0f065eabe69b6089861794d931af850efcc60",
+  "source_sha256": {
+    "configs/gate1_nr_localized_ceiling.yaml": "8b3cdaa1b9fb408e955f973beb8752bc6985c229757b5ac8d9d25c58a0f1793a",
+    "scripts/gate1_nr_joint_operator_common.py": "2c6fc5617fb12fa46981cfd3e837c8563616f647c18a7d1153663f47eb09539e",
+    "scripts/gate1_nr_localized_ceiling.py": "79b5635259f2d2eea80038446da3948bd83c3a0cdd9efcf0a8335a794de58f8f",
+    "scripts/gate1_nr_posterior_factorial_common.py": "1d8d834498e25a4710dcc8958d3bab7848bddeb10e41765ad21c6d555ee9b504",
+    "scripts/gate1_nr_turbo_posterior_common.py": "5f190a5c6a79799c21507069655fa0bf2665753419f5a854a460813ad476707a",
+    "src/bayesroute/lmmse_ep.py": "749dd4525186ad5a2901d628400c8e3861480dfd627250c285f0a1fb99e84ac4",
+    "src/bayesroute/localized_delay_doppler.py": "4ac60f701d696fb7096d04ba3be7cbce73232570e05871dc80b78d296b81fd8d",
+    "src/bayesroute/models.py": "ee5ca46b20d85ae37f1e1699afdb98f2f54102443841bc2ff4eb935ef1ff447d",
+    "src/bayesroute/multiscale_posterior.py": "042382c7270d8467c1fa82bc8a7b4ee33c3c8bff76518ee30224e8b23ce20859",
+    "src/bayesroute/nr_gate1.py": "30d1944604de189191879d13f6dad40e1a1235ed9a252db8582a62c8c932304a",
+    "src/bayesroute/qam.py": "75aef9f3419bb222824348a7dc18f9eb078142c2b0b580be0622d1a3345a27aa"
+  },
+  "training_required": false,
+  "variants": [
+    "localized_residual_oracle",
+    "localized_full_oracle",
+    "global_full_oracle",
+    "pilot_only_current",
+    "ls_estimate_repaired",
+    "true_channel_repaired",
+    "ls_lmmse",
+    "perfect_csi_lmmse"
+  ],
+  "version": "gate1_nr_localized_ceiling_v1_1",
+  "winner": {
+    "delay_bins": 10,
+    "doppler_bins": 3,
+    "frequency_windows": 3,
+    "max_delay_s": 2e-06,
+    "name": "ldd_w3_d10_v3_r90_tau2us",
+    "nominal_rank": 90,
+    "window_overlap": 1.5
+  }
+}
