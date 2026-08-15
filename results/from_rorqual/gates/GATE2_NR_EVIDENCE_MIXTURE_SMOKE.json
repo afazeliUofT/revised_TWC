@@ -1,0 +1,277 @@
+{
+  "checks": {
+    "actual_lmmse_ce_k1_path": true,
+    "checkpoint_roundtrip": true,
+    "common_detector_shapes_exact": true,
+    "cuda_compute_node": true,
+    "each_case_covariance_psd": true,
+    "each_case_positive_variance": true,
+    "each_case_posterior_finite": true,
+    "evidence_weights_are_probabilities": true,
+    "gradient_to_all_parameter_tensors": true,
+    "inference_observability_contract": true,
+    "ls_linear_common_detector_path": true,
+    "moment_matched_lmmse_ce_path": true,
+    "nr_ldpc_decode_paths": true,
+    "optimizer_updates_parameters": true,
+    "precision_corrected_localized_basis": true,
+    "pure_torch_mathematical_contract": true,
+    "shared_parameter_identity": true,
+    "sionna_2_0_1": true,
+    "small_parameter_count": true,
+    "source_contract": true,
+    "source_result_preconditions": true
+  },
+  "classification": "GATE2_NR_EVIDENCE_MIXTURE_SMOKE_PASS",
+  "complete": true,
+  "environment": {
+    "device": "cuda:0",
+    "gpu_name": "NVIDIA H100 80GB HBM3",
+    "python": "3.11.4",
+    "sionna": "2.0.1",
+    "torch": "2.13.0"
+  },
+  "gradient_report": {
+    "all_finite": true,
+    "all_present": true,
+    "any_nonzero": true,
+    "entries": [
+      {
+        "finite": true,
+        "index": 0,
+        "norm": 0.027259020134806633,
+        "present": true,
+        "shape": [
+          4,
+          8
+        ]
+      },
+      {
+        "finite": true,
+        "index": 1,
+        "norm": 0.11695453524589539,
+        "present": true,
+        "shape": []
+      },
+      {
+        "finite": true,
+        "index": 2,
+        "norm": 0.09681975841522217,
+        "present": true,
+        "shape": [
+          3
+        ]
+      },
+      {
+        "finite": true,
+        "index": 3,
+        "norm": 4.134670234634541e-05,
+        "present": true,
+        "shape": [
+          4
+        ]
+      },
+      {
+        "finite": true,
+        "index": 4,
+        "norm": 0.00015305580745916814,
+        "present": true,
+        "shape": [
+          4,
+          8
+        ]
+      },
+      {
+        "finite": true,
+        "index": 5,
+        "norm": 5.857507494511083e-05,
+        "present": true,
+        "shape": [
+          4
+        ]
+      },
+      {
+        "finite": true,
+        "index": 6,
+        "norm": 6.130256224423647e-05,
+        "present": true,
+        "shape": [
+          4
+        ]
+      },
+      {
+        "finite": true,
+        "index": 7,
+        "norm": 0.0020404045935720205,
+        "present": true,
+        "shape": []
+      }
+    ],
+    "total_norm": 0.15427144482519817
+  },
+  "inference_contract": {
+    "all_runtime_outputs_mark_no_truth": true,
+    "context_excludes_scenario_and_speed": true,
+    "forward_has_no_truth_argument": true
+  },
+  "model_version": "evidence_mixture_lmmse_ce_v1",
+  "overall_pass": true,
+  "parameter_report": {
+    "component_experts": "exact_structured_lmmse_posteriors",
+    "context_dim": 8,
+    "effective_rank": 45,
+    "inference_uses_true_channel": false,
+    "label_ordering": "strictly_ordered_total_component_power",
+    "nominal_rank": 90,
+    "num_components": 4,
+    "num_knots": 8,
+    "routing_rule": "exact_bayesian_pilot_marginal_likelihood",
+    "single_component_reduction": "ordinary_lmmse_channel_estimation",
+    "trainable_parameters": 81,
+    "unmodeled_channel_term": "independent_white_residual_in_pilot_noise_and_output_covariance",
+    "version": "evidence_mixture_lmmse_ce_v1"
+  },
+  "per_case": [
+    {
+      "bit_logits_shapes_equal": true,
+      "bit_nll": 0.3775411546230316,
+      "case": "gate2_smoke_umi_t1_4prb",
+      "channel_nmse": 0.3724730312824249,
+      "effective_component_count": 1.0,
+      "effective_rank": 45,
+      "inference_uses_true_channel": false,
+      "latent_covariance_min_eigenvalue": 0.2716053765512213,
+      "loss": 0.5909101366996765,
+      "ls_alignment_pass": true,
+      "mean_component_weights": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "nominal_rank": 90,
+      "num_prb": 4,
+      "num_streams": 4,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "tbler": {
+        "hard": 0.25,
+        "ls": 0.0,
+        "moment": 0.25,
+        "proposed": 0.25,
+        "single": 1.0
+      },
+      "weights_sum_to_one": true
+    },
+    {
+      "bit_logits_shapes_equal": true,
+      "bit_nll": 0.3898639678955078,
+      "case": "gate2_smoke_umi_t2_12prb",
+      "channel_nmse": 0.3700700104236603,
+      "effective_component_count": 1.0,
+      "effective_rank": 72,
+      "inference_uses_true_channel": false,
+      "latent_covariance_min_eigenvalue": 0.18457255005695336,
+      "loss": 0.6380468010902405,
+      "ls_alignment_pass": true,
+      "mean_component_weights": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "nominal_rank": 90,
+      "num_prb": 12,
+      "num_streams": 4,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "tbler": {
+        "hard": 0.25,
+        "ls": 0.0,
+        "moment": 0.25,
+        "proposed": 0.25,
+        "single": 0.75
+      },
+      "weights_sum_to_one": true
+    }
+  ],
+  "publication_nr_ready": false,
+  "pure_torch_self_test": {
+    "checks": {
+      "checkpoint_roundtrip": true,
+      "gradients_present_and_finite": true,
+      "inference_contract_excludes_truth": true,
+      "k1_reduces_to_lmmse_covariance": true,
+      "k1_reduces_to_lmmse_mean": true,
+      "latent_covariance_psd": true,
+      "layer_permutation_equivariance": true,
+      "optimizer_updates_parameters": true,
+      "ordered_component_power": true,
+      "posterior_mean_finite": true,
+      "posterior_variance_positive": true,
+      "sample_specific_posterior_covariance": true,
+      "small_parameter_count": true,
+      "weights_sum_to_one": true
+    },
+    "k1_covariance_max_abs_error": 0.0,
+    "k1_mean_max_abs_error": 0.0,
+    "mean_component_weights": [
+      0.05491335690021515,
+      0.5340914130210876,
+      0.3934215009212494,
+      0.017573682591319084
+    ],
+    "minimum_latent_eigenvalue": 0.26817129523884436,
+    "parameter_report": {
+      "component_experts": "exact_structured_lmmse_posteriors",
+      "context_dim": 8,
+      "effective_rank": 8,
+      "inference_uses_true_channel": false,
+      "label_ordering": "strictly_ordered_total_component_power",
+      "nominal_rank": 8,
+      "num_components": 4,
+      "num_knots": 6,
+      "routing_rule": "exact_bayesian_pilot_marginal_likelihood",
+      "single_component_reduction": "ordinary_lmmse_channel_estimation",
+      "trainable_parameters": 73,
+      "unmodeled_channel_term": "independent_white_residual_in_pilot_noise_and_output_covariance",
+      "version": "evidence_mixture_lmmse_ce_v1"
+    },
+    "passed": true,
+    "permutation_max_abs_error": 0.0,
+    "version": "evidence_mixture_lmmse_ce_v1"
+  },
+  "screen_ready": true,
+  "source_result": {
+    "checks": {
+      "classification": true,
+      "complete": true,
+      "frozen_checkpoint": true,
+      "inference_no_truth": true,
+      "no_retuning": true,
+      "no_training": true,
+      "rows": true,
+      "unique_rows": true
+    },
+    "classification": "GATE1_IMPLEMENTABLE_LOCALIZED_FINAL_PARITY_WITH_LS",
+    "metrics": {
+      "ls_block_errors": 473,
+      "ls_tbler": 0.004811604817708333,
+      "mean_only_tbler": 0.0052490234375,
+      "perfect_tbler": 0.000244140625,
+      "trained_10db_tbler": 0.003662109375,
+      "trained_14db_tbler": 0.00274658203125,
+      "trained_block_errors": 446,
+      "trained_channel_nmse": 0.03817677412492528,
+      "trained_coverage95": 0.9454490807838738,
+      "trained_tbler": 0.004536946614583333,
+      "transport_blocks_per_receiver": 98304,
+      "transport_blocks_per_snr_per_receiver": 32768,
+      "uncertainty_off_tbler": 0.008341471354166666
+    },
+    "next_action": "STOP_LS_BEATING_CLAIM_AND_RETAIN_ONLY_IF_COMPLEXITY_OR_INTERPRETABILITY_CASE_IS_STRONG",
+    "passed": true,
+    "report": "outputs/reports/gate1_nr_implementable_localized_confirmation.json"
+  },
+  "version": "gate2_nr_evidence_mixture_lmmse_v1"
+}
