@@ -1,0 +1,154 @@
+{
+  "component_variance_profiles": [
+    [
+      15.018204689025879,
+      15.206568717956543,
+      15.396291732788086,
+      15.587363243103027,
+      15.779779434204102,
+      15.973526000976562,
+      16.16860008239746,
+      17.15281867980957,
+      18.4986572265625,
+      19.896089553833008,
+      21.342254638671875,
+      22.834148406982422,
+      24.36869239807129,
+      23.892122268676758,
+      20.817546844482422,
+      17.939882278442383,
+      15.283780097961426,
+      12.869771003723145,
+      10.711945533752441,
+      8.651802062988281,
+      6.11467981338501,
+      4.216647148132324,
+      2.85137939453125,
+      1.8999674320220947,
+      1.2526870965957642,
+      0.8198848366737366,
+      0.8343491554260254,
+      0.9141672253608704,
+      1.0013707876205444,
+      1.0965948104858398,
+      1.200518012046814,
+      1.3138678073883057,
+      1.4604414701461792,
+      1.6418386697769165,
+      1.844417929649353,
+      2.0703160762786865,
+      2.3218090534210205,
+      2.6012964248657227,
+      2.906947135925293,
+      3.232835054397583,
+      3.5910885334014893,
+      3.984043836593628,
+      4.414032936096191,
+      4.883347988128662,
+      5.39420747756958
+    ]
+  ],
+  "ordered_log_scales": [
+    -0.5008247494697571
+  ],
+  "parameter_report": {
+    "component_experts": "exact_structured_lmmse_posteriors",
+    "context_dim": 8,
+    "effective_rank": 45,
+    "inference_uses_true_channel": false,
+    "label_ordering": "strictly_ordered_total_component_power",
+    "nominal_rank": 90,
+    "num_components": 1,
+    "num_knots": 8,
+    "routing_rule": "exact_bayesian_pilot_marginal_likelihood",
+    "single_component_reduction": "ordinary_lmmse_channel_estimation",
+    "trainable_parameters": 21,
+    "unmodeled_channel_term": "independent_white_residual_in_pilot_noise_and_output_covariance",
+    "version": "evidence_mixture_lmmse_ce_v1"
+  },
+  "state": {
+    "context_to_prior": {
+      "dtype": "torch.float32",
+      "shape": [
+        1,
+        8
+      ],
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "log_noise_scales": {
+      "dtype": "torch.float32",
+      "shape": [
+        1
+      ],
+      "values": [
+        0.08808483928442001
+      ]
+    },
+    "log_residual_floor": {
+      "dtype": "torch.float32",
+      "shape": [],
+      "values": [
+        -3.8371059894561768
+      ]
+    },
+    "log_scale_base": {
+      "dtype": "torch.float32",
+      "shape": [],
+      "values": [
+        -0.5008247494697571
+      ]
+    },
+    "noise_to_prior": {
+      "dtype": "torch.float32",
+      "shape": [
+        1
+      ],
+      "values": [
+        0.0
+      ]
+    },
+    "prior_logits": {
+      "dtype": "torch.float32",
+      "shape": [
+        1
+      ],
+      "values": [
+        0.0
+      ]
+    },
+    "raw_profile_knots": {
+      "dtype": "torch.float32",
+      "shape": [
+        1,
+        8
+      ],
+      "values": [
+        0.5427603721618652,
+        0.66707843542099,
+        1.4783248901367188,
+        -0.18582983314990997,
+        -2.9423270225524902,
+        -2.3510749340057373,
+        -1.5764349699020386,
+        -0.8379199504852295
+      ]
+    },
+    "raw_scale_gaps": {
+      "dtype": "torch.float32",
+      "shape": [
+        0
+      ],
+      "values": []
+    }
+  },
+  "version": "evidence_mixture_lmmse_ce_v1"
+}
